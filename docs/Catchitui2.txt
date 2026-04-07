@@ -1,0 +1,3191 @@
+﻿Klar — hier sind die vier Dateien direkt ausformuliert. 😊
+Ich halte sie bewusst so, dass du sie fast 1:1 übernehmen kannst.
+
+
+---
+
+
+## `NON_NEGOTIABLES.md`
+
+
+```md
+# NON_NEGOTIABLES
+
+
+## Purpose
+This document defines the hard non-negotiables for any design-system or UX-system work on CatchIt.
+These are not suggestions. They are constraints.
+
+
+---
+
+
+## 1. Product identity
+CatchIt is **not** a classic transit app, timetable viewer, or routing shell.
+
+
+CatchIt is a **decision-relief and reassurance system for public mobility**.
+
+
+Its purpose is to compress mobility truth so that people:
+- plan less
+- doubt less
+- check less
+- and understand more clearly when they must act and when they do not need to act
+
+
+---
+
+
+## 2. Core philosophy
+The system must follow this north star:
+
+
+> A good system does not force people to function better.
+> It functions better for people.
+
+
+This means:
+- planning horror is a service problem
+- cognitive load reduction is more important than raw data display
+- truth matters more than smoothness
+- reassurance must never come from concealment or false calm
+
+
+---
+
+
+## 3. CatchIt is state-based, not data-first
+The design system must not be built as a generic UI kit for transit data.
+
+
+It must reflect that:
+- state logic is more important than process logic
+- the same travel truth can be compressed differently across UX layers
+- design is not a skin on top of data
+- semantic meaning comes before visual styling
+
+
+---
+
+
+## 4. Zen terminology
+Do not refer to the main calm screen as “the blue screen”.
+
+
+The correct term is:
+
+
+**Zen**
+
+
+Zen is the calm, state-adaptive main expression of the CatchIt core.
+
+
+Blue is only one state expression within Zen, not the identity of the screen itself.
+
+
+---
+
+
+## 5. Cathy is already structurally defined
+Do not behave as if Cathy still needs a completely new state system.
+
+
+The Cathy system states are already defined.
+
+
+These states can be fully mapped onto Zen.
+
+
+This means:
+- Cathy and Zen are not competing directions
+- Cathy and Zen are two expression layers of the same state truth
+- Cathy must not be treated as optional decoration
+- Cathy must not replace business logic or travel truth
+
+
+---
+
+
+## 6. Cathy constraints
+Cathy is:
+- main UI
+- a central USP
+- the most important humane translation layer
+
+
+Cathy is not:
+- the travel truth itself
+- the business logic
+- a free-floating mascot
+- a branding toy
+
+
+Cathy must follow these rules:
+- peripheral in stability
+- closer in uncertainty
+- large only in transition
+- never dominant next to critical action content
+- should not speak if visual state already communicates enough
+- should not emotionalize where precision matters more
+
+
+---
+
+
+## 7. Mode separation is mandatory
+The product must stay structurally separated into:
+
+
+- Plan Mode
+- Go Mode
+- Recovery Mode
+
+
+These are not stylistic modes.
+They are different forms of load reduction.
+
+
+Do not collapse them into one generic all-purpose screen.
+
+
+---
+
+
+## 8. UX layers are part of the product truth
+The design system must support multiple compression layers of the same truth, including:
+
+
+- Orientation
+- Comparison
+- Transition
+- Execution
+- Reassurance / Recovery
+
+
+These are not optional presentation variants.
+They are core to the product logic.
+
+
+---
+
+
+## 9. Wizard instead of parameter cemetery
+The product must not begin with technical preferences, settings complexity, or route-construction UI.
+
+
+Users should express:
+- intentions
+- daily context
+- movement style
+- micro-needs
+
+
+The system should derive:
+- start time
+- stop choice
+- route
+- buffer
+- transfers
+- return logic
+- fallback
+
+
+The wizard must not feel like profile configuration.
+
+
+---
+
+
+## 10. Users express intentions, not routes
+The design system must support a product where users express what is happening and what they need, not how they want to manually route themselves.
+
+
+This includes the chain logic question:
+
+
+**“Do you need to go anywhere afterwards?”**
+
+
+This question is a core product differentiator and must be treated seriously.
+
+
+---
+
+
+## 11. Active-Move principle is mandatory
+Waiting is not neutral.
+
+
+The system must support the principle that:
+- meaningful walking can be better than meaningless waiting
+- stability can be better than theoretical speed
+- simplicity can be better than aggressive optimization
+- real-life movement quality matters, not just ETA
+
+
+Do not design around ETA alone.
+
+
+---
+
+
+## 12. Alternatives must have roles
+Alternatives are not “more options”.
+
+
+They must be semantically differentiated, for example as:
+- best choice
+- calm reserve
+- fallback when disruption happens
+
+
+Do not present alternatives as flat equivalent cards.
+
+
+---
+
+
+## 13. Safety must not become surveillance
+CatchIt must not drift into:
+- tracking-first logic
+- surveillance UX
+- safety theater
+- alarm inflation
+- hidden control patterns
+
+
+Safety must stay:
+- state-based
+- trust-based
+- escalation-aware
+- fallback-ready
+- low-stigma
+- minimally invasive
+
+
+---
+
+
+## 14. No generic design-system clone
+Do not output:
+- a generic Material clone
+- a generic iOS/HIG clone
+- a generic SaaS dashboard system
+- a generic mobility UI kit
+
+
+The system must emerge from CatchIt’s semantic structure, not from a premade UI template.
+
+
+---
+
+
+## 15. CatchIt2gather is not the active focus
+CatchIt2gather is currently only an architectural boundary.
+
+
+It is:
+- defined
+- partially prepared
+- not the active product focus
+
+
+The design system must not drift into group UX, social flows, shared live maps, invite/join mechanics, or multi-person coordination as a primary design problem.
+
+
+Only one active boundary matters:
+
+
+**The core must remain able to support future multi-person logic later.**
+
+
+---
+
+
+## 16. Accessibility is not a late QA layer
+Accessibility must be integrated from the beginning.
+
+
+This includes:
+- low interpretation cost
+- strong hierarchy
+- clear states
+- touch target sanity
+- color is never the only meaning carrier
+- low overload behavior
+- support for bad days, stress, ND overload, and low-energy situations
+
+
+---
+
+
+## 17. Design system scope for V0.1
+The first useful version must stay small and strict.
+
+
+Do not attempt to generate:
+- a complete mature enterprise system
+- dozens of polished components
+- a final brand language
+
+
+The first goal is:
+- semantic clarity
+- strong foundations
+- reusable structure
+- consistency for non-designers
+
+
+---
+
+
+## 18. Final quality check
+Any output that violates one of these questions is likely wrong:
+
+
+- Does this reduce cognitive load, or just look cleaner?
+- Does this preserve truth, or just soften it?
+- Does this clarify action, or add interpretation?
+- Does this fit Plan / Go / Recovery separation?
+- Does this keep Zen and Cathy aligned?
+- Does this feel like CatchIt, or like a generic transit redesign?
+```
+
+
+---
+
+
+## `EXPECTED_OUTPUTS.md`
+
+
+```md
+# EXPECTED_OUTPUTS
+
+
+## Purpose
+This document defines the exact outputs expected from any design-system generation task for CatchIt.
+
+
+The goal is not “nice UI”.
+The goal is a reusable, semantic, state-based design-system architecture.
+
+
+---
+
+
+## Output 1 — Design system north star
+Provide a short, sharp north star for the design system.
+
+
+It should explain:
+- what the system exists to do
+- how it relates to CatchIt’s product philosophy
+- what kind of UX quality it optimizes for
+
+
+The north star must be product-logical, not visual.
+
+
+---
+
+
+## Output 2 — 10 to 15 hard design principles
+Provide a compact but rigorous set of design-system principles.
+
+
+These must not be generic design slogans.
+They must emerge from CatchIt’s reality.
+
+
+They should cover themes like:
+- load reduction over data exposure
+- one dominant action layer per moment
+- truth before comfort
+- semantic compression
+- mode separation
+- role-based alternatives
+- bad-day resilience
+- low interpretation cost
+- state visibility
+- non-surveillance safety
+
+
+Each principle should include:
+- a short title
+- one clear explanation
+- practical implications
+
+
+---
+
+
+## Output 3 — State taxonomy
+Provide a state model for the system.
+
+
+This must include:
+- key user-facing product states
+- how states differ semantically
+- what states mean for the UX
+
+
+Examples may include:
+- stable
+- attentive
+- fragile
+- recheck needed
+- fallback ready
+- act now
+- wait
+- observe
+- completed
+
+
+The taxonomy should distinguish:
+- product states
+- interaction states
+- visual intensity or urgency implications
+
+
+---
+
+
+## Output 4 — Compression-mode / UX-layer model
+Provide a reusable model for how the same truth can be compressed differently.
+
+
+This should include layers such as:
+- Orientation
+- Comparison
+- Transition
+- Execution
+- Reassurance / Recovery
+
+
+For each layer explain:
+- purpose
+- user need
+- typical information density
+- action model
+- what should remain hidden
+- what should be dominant
+
+
+This should be reusable beyond CatchIt as a system pattern.
+
+
+---
+
+
+## Output 5 — Semantic token architecture
+Provide a semantic token model before any visual token system.
+
+
+This should not start with colors only.
+
+
+It should define token families such as:
+- state
+- urgency
+- confidence
+- actionability
+- fallback availability
+- attention weight
+- motion tone
+- emphasis level
+- completion level
+
+
+For each family:
+- define purpose
+- define possible values
+- explain what UI decisions it influences
+
+
+---
+
+
+## Output 6 — Foundation proposal
+Provide a V0.1 foundation layer for:
+- color
+- typography
+- spacing
+- shape
+- motion
+- iconography
+
+
+Important:
+- do not start with final brand polish
+- do not assume final font choice is already known
+- use a practical working setup
+- make it buildable by a non-designer
+
+
+For each foundation area, include:
+- purpose
+- why it matters for CatchIt
+- recommended V0.1 structure
+- what to avoid
+
+
+---
+
+
+## Output 7 — Initial component inventory
+Provide a first inventory of components.
+
+
+This must be a strict V0.1 list, not an explosion of UI parts.
+
+
+Expected component families may include:
+- Zen shell
+- primary time block
+- primary connection card
+- alternative card
+- transition object / step accordion
+- recovery card
+- reassurance element
+- wizard prompt unit
+- mode header / state header
+- Cathy container or Cathy-expression surfaces
+- low-noise action controls
+
+
+For each component:
+- define purpose
+- define when it appears
+- define what semantic tokens it depends on
+
+
+---
+
+
+## Output 8 — Reusable pattern set
+Provide repeatable patterns for key CatchIt interactions.
+
+
+At minimum:
+- planning
+- comparison
+- execution
+- recovery
+- reassurance
+- wizard flows
+
+
+Each pattern should explain:
+- what problem it solves
+- what it should show
+- what it should hide
+- where it often goes wrong
+- how it protects CatchIt’s semantic core
+
+
+---
+
+
+## Output 9 — Zen and Cathy coupling rules
+Provide explicit rules for how Zen and Cathy work together.
+
+
+This must assume:
+- Cathy states already exist
+- Zen can express the same state structure
+
+
+The output should define:
+- what Zen expresses
+- what Cathy expresses
+- where they overlap
+- where one must yield to the other
+- what must never be communicated by Cathy alone
+- how to avoid semantic conflict or overstimulation
+
+
+---
+
+
+## Output 10 — Documentation structure for Figma and/or code
+Provide a recommended documentation layout.
+
+
+This should include suggested sections such as:
+- principles
+- semantic tokens
+- foundations
+- components
+- patterns
+- mode rules
+- state mapping
+- Cathy mapping
+- accessibility rules
+- open questions / future expansion
+
+
+The result should be usable as:
+- Figma documentation structure
+- Markdown docs
+- future code token structure
+
+
+---
+
+
+## Output quality requirements
+All outputs must be:
+- semantic first
+- reusable
+- strict enough for non-designers
+- explainable
+- small enough to start with
+- extensible later
+
+
+---
+
+
+## Outputs that are explicitly not wanted
+Do not provide as primary output:
+- final polished mockups
+- branding-first moodboards
+- generic UI kits
+- platform-specific skinning
+- group-product expansion
+- random inspirational references without structure
+
+
+---
+
+
+## Success criteria
+A successful output should:
+- feel like a real design-system architecture
+- preserve CatchIt’s product truth
+- reduce the chance of design-by-feeling chaos
+- make consistent design possible even for a non-designer
+- be adaptable to other apps with similar compression logic
+```
+
+
+---
+
+
+## `CONSTRAINTS.md`
+
+
+```md
+# CONSTRAINTS
+
+
+## Purpose
+This document defines the practical and conceptual constraints for the CatchIt design-system work.
+
+
+The point is not to limit quality.
+The point is to prevent drift, bloat, and false starts.
+
+
+---
+
+
+## 1. The creator is not a trained visual designer
+This system must be buildable and usable by someone with strong product intuition but limited formal design training.
+
+
+Therefore the system must be:
+- explicit
+- low-ambiguity
+- systematic
+- forgiving
+- easy to apply consistently
+
+
+Avoid outputs that assume elite visual craft from day one.
+
+
+---
+
+
+## 2. The first version must be small
+This is a V0.1 design system.
+
+
+It should begin with:
+- semantic structure
+- a practical foundation layer
+- a small component inventory
+- reusable patterns
+- clear rules
+
+
+It must not begin with:
+- massive libraries
+- dozens of component variants
+- final brand language
+- extreme visual sophistication
+
+
+---
+
+
+## 3. Start semantic, not visual
+The system must be built in this order:
+
+
+1. product philosophy
+2. principles
+3. states
+4. compression logic
+5. semantic tokens
+6. foundations
+7. components
+8. patterns
+
+
+Do not start with:
+- font shopping
+- color styling
+- UI polish
+- moodboards
+
+
+---
+
+
+## 4. Zen and Cathy are already grounded in product logic
+Do not treat Zen and Cathy as a blank-slate stylistic playground.
+
+
+Assume:
+- Zen is a state-adaptive main expression of the core
+- Cathy is a defined humane UI layer
+- Cathy states already exist
+- Zen can inherit and express the same system states
+
+
+The task is to structure and operationalize this, not invent a disconnected aesthetic concept.
+
+
+---
+
+
+## 5. CatchIt2gather is out of scope
+CatchIt2gather is not the active product focus.
+
+
+The design system should only account for it as a future architectural boundary.
+
+
+Do not spend design energy on:
+- group screens
+- social mechanics
+- shared maps
+- invites
+- join flows
+- participant roles
+- group orchestration
+
+
+---
+
+
+## 6. Accessibility must be assumed from the beginning
+The system should assume:
+- bad days
+- low energy
+- stress
+- time pressure
+- ND overload
+- low interpretation bandwidth
+
+
+Accessibility must not be reduced to:
+- contrast only
+- compliance checklists only
+- “we’ll fix that later”
+
+
+The system must minimize interpretation cost.
+
+
+---
+
+
+## 7. No dependence on final brand assets
+Assume:
+- no final font chosen yet
+- no polished brand palette yet
+- no final icon set yet
+- no refined motion language yet
+
+
+The system must propose workable interim foundations for V0.1.
+
+
+---
+
+
+## 8. Consistency matters more than beauty in V0.1
+The system should optimize for:
+- consistency
+- clarity
+- state readability
+- cognitive calm
+- reusability
+
+
+Do not optimize primarily for:
+- expressiveness
+- novelty for its own sake
+- ornamental richness
+- impressive visual polish
+
+
+---
+
+
+## 9. Avoid generic design-system defaults
+Do not assume the right answer is:
+- Material Design
+- Human Interface Guidelines
+- enterprise dashboard patterns
+- default transit UI patterns
+
+
+Generic systems may be useful references, but CatchIt’s system must come from its product truth.
+
+
+---
+
+
+## 10. No data-first output
+This system must not encourage:
+- timetable UI as the default
+- data dumps
+- route-first thinking
+- provider logic in the surface
+- raw technical status exposure
+
+
+All outputs must prefer:
+- next meaningful action
+- time threshold clarity
+- state clarity
+- trust and fallback legibility
+- role-based alternatives
+
+
+---
+
+
+## 11. Motion must stay calm and meaningful
+Motion should support:
+- transition
+- state shift
+- focus
+- reassurance
+- escalation clarity
+
+
+Motion should not become:
+- decorative animation
+- attention bait
+- personality theater
+- unnecessary movement load
+
+
+---
+
+
+## 12. The result must help real building
+The output should be usable for:
+- Figma setup
+- token naming
+- documentation
+- implementation planning
+- future code structure
+
+
+It should not remain abstract philosophy only.
+
+
+---
+
+
+## 13. Every recommendation must justify itself
+Any proposed rule, token, component, or pattern should explain:
+
+
+- why it exists
+- what CatchIt problem it solves
+- what load it removes
+- what bad design tendency it prevents
+
+
+If it cannot justify itself, it probably does not belong in V0.1.
+
+
+---
+
+
+## 14. Use practical defaults where needed
+If a final choice is unknown, recommend pragmatic temporary defaults.
+
+
+Examples:
+- a working type setup instead of final brand typography
+- a semantic color system instead of final brand palette
+- a strict spacing scale instead of “designer intuition”
+- a small radius scale instead of ad hoc corner rounding
+
+
+---
+
+
+## 15. Help a non-designer stay consistent
+This is one of the most important constraints.
+
+
+The system must be strong enough that someone with:
+- clear product thinking
+- good intuition
+- limited design craft
+
+
+can still create work that feels coherent.
+
+
+That is one of the main success conditions.
+```
+
+
+---
+
+
+# REFERENCES
+
+
+## Purpose
+This document collects structural and directional references for the CatchIt design-system work.
+
+
+These references are not here to be copied.
+They are here to clarify what kind of system-thinking, documentation, and design discipline feels useful.
+
+
+---
+
+
+## 1. Marvel Styleguide
+Reference:
+https://marvelapp.com/styleguide/
+
+
+Why it is relevant:
+- It suggests a useful way of thinking in systems instead of isolated screens
+- It appears to separate foundations, components, and patterns in a clear way
+- It feels like a helpful structural reference for how a design system can be documented
+- It is relevant more as a documentation and organization inspiration than as a visual target
+
+
+Important note:
+Do not copy Marvel’s visual language.
+Use it only as an example of structured system presentation.
+
+
+---
+
+
+## 2. W3C / WCAG accessibility principles
+Reference:
+https://www.w3.org/WAI/standards-guidelines/wcag/
+
+
+Why it is relevant:
+- Accessibility must be part of the system from the beginning
+- CatchIt needs clarity under stress, low energy, overload, and low interpretation capacity
+- The principles of perceivable, operable, understandable, and robust are highly relevant
+- This is especially important because CatchIt must work for bad days, not just ideal usage
+
+
+Important note:
+Accessibility is not only a compliance layer.
+For CatchIt, accessibility is part of the product philosophy.
+
+
+---
+
+
+## 3. CatchIt’s own semantic core
+Primary internal reference:
+- CATCHIT SSOT
+- CATCHIT2GATHER SSOT
+
+
+Why it is relevant:
+- These are the primary truth sources
+- External references must not override the product’s own semantic structure
+- The design system must emerge from CatchIt’s own states, layers, and mode logic
+
+
+Important note:
+If an external reference contradicts CatchIt’s product truth, CatchIt wins.
+
+
+---
+
+
+## 4. What to look for in references generally
+Useful references should help with:
+- structural rigor
+- documentation clarity
+- foundation logic
+- reusable patterns
+- semantic consistency
+- accessibility
+- low-ambiguity design rules
+
+
+Less useful references are those that mostly contribute:
+- aesthetic trends
+- dribbblified polish
+- transit clichés
+- visual novelty without semantic depth
+
+
+---
+
+
+## 5. What not to imitate
+Do not imitate:
+- generic transit apps whose main surface is raw route data
+- SaaS admin systems with dashboard logic
+- design systems that prioritize brand flair over semantic rigor
+- systems that treat characters or mascots as branding instead of regulated UX layers
+- systems that hide weak logic behind smooth visuals
+
+
+---
+
+
+## 6. What to extract from references
+Whenever a reference is used, extract only:
+- structural patterns
+- documentation ideas
+- semantic clarity methods
+- accessibility discipline
+- good hierarchy behavior
+- reusable token logic
+
+
+Do not extract:
+- surface style blindly
+- fashionable color choices
+- arbitrary typography character
+- decorative motion language
+- generic card spam
+
+
+---
+
+
+## 7. Preferred attitude toward references
+References should be treated as:
+- scaffolding
+- comparison material
+- organizational inspiration
+- prompts for system discipline
+
+
+They should not be treated as:
+- final answers
+- identity substitutes
+- ready-made aesthetics
+- shortcuts around product thinking
+
+
+---
+
+
+## 8. Reference discipline rule
+For every external reference, ask:
+- What is useful here structurally?
+- What is dangerous here semantically?
+- Does this support CatchIt’s core, or dilute it?
+- Is this helping with consistency, or just making things look “more designed”?
+
+
+If the answer is mostly “it looks polished”, it is probably not a good reference for this phase.
+
+
+—
+
+
+Hier ist `DESIGNSYSTEM_BRIEF.md` direkt ausformuliert:
+
+
+```md id="8s3kfa"
+# DESIGNSYSTEM_BRIEF
+
+
+## Purpose
+This brief defines the task for creating the first real design-system architecture for CatchIt.
+
+
+This is **not** a request for polished mockups, brand exploration, or generic UI kit generation.
+
+
+It is a request to build a **semantic, state-based, reusable design-system foundation** for CatchIt and potentially for other apps with similar “compression logic”.
+
+
+The output must help turn CatchIt’s already-defined product logic into a coherent, buildable, extensible design system.
+
+
+---
+
+
+## 1. Product summary
+
+
+CatchIt is **not** a classic transit app, timetable viewer, or routing shell.
+
+
+CatchIt is a **decision-relief and reassurance system for public mobility**.
+
+
+Its purpose is to compress mobility truth so that people:
+- plan less
+- doubt less
+- check less
+- understand more clearly when they must act
+- understand more clearly when they do **not** need to act
+
+
+CatchIt does not only calculate routes.
+It aims to support **viable movement under real-life conditions**.
+
+
+That means the system must support decisions shaped by:
+- energy
+- stress
+- uncertainty
+- walking speed
+- child context
+- waiting aversion
+- need for calm
+- need for fallback
+- bad-day conditions
+- low interpretation capacity
+
+
+---
+
+
+## 2. North star
+
+
+> A good system does not force people to function better.  
+> It functions better for people.
+
+
+This must directly shape the design system.
+
+
+The design system should therefore optimize for:
+- cognitive load reduction
+- action clarity
+- trustworthiness
+- semantic consistency
+- low interpretation cost
+- calm under stress
+- viable fallback communication
+
+
+---
+
+
+## 3. Core product truths
+
+
+The design system must reflect these truths:
+
+
+- Planning horror is a service problem
+- Load reduction matters more than raw data display
+- Truth matters more than smoothness
+- Reassurance must not come from concealment
+- State logic matters more than process logic
+- The same travel truth can be compressed differently across UX layers
+- CatchIt is structurally separated into:
+  - Plan Mode
+  - Go Mode
+  - Recovery Mode
+- UX layers include:
+  - Orientation
+  - Comparison
+  - Transition
+  - Execution
+  - Reassurance / Recovery
+
+
+These are not cosmetic ideas.
+They are part of the product’s semantic core.
+
+
+---
+
+
+## 4. Zen and Cathy
+
+
+### Zen
+Zen is the calm, state-adaptive main expression of the CatchIt core.
+
+
+Important:
+- Zen is **not** “the blue screen”
+- blue is only one state expression within Zen
+- Zen is a mode of semantic compression, not just a visual surface
+
+
+### Cathy
+Cathy is:
+- main UI
+- central USP
+- primary humane translation layer
+
+
+Cathy is not:
+- the travel truth itself
+- business logic
+- a mascot detached from system meaning
+
+
+Important:
+- Cathy states are already defined
+- Cathy states can be fully mapped onto Zen
+- Cathy and Zen are two expression layers of the same state truth
+- Cathy must not be reinvented as a generic assistant
+
+
+Cathy must follow these rules:
+- peripheral in stability
+- closer in uncertainty
+- large only in transition
+- never dominant next to critical action content
+- does not speak if visual state is enough
+- does not emotionalize where precision matters more
+
+
+---
+
+
+## 5. Scope of this task
+
+
+The task is to create a **V0.1 design-system architecture**.
+
+
+This means:
+- semantic first
+- reusable first
+- small and strict first
+- practical first
+
+
+The goal is not to produce:
+- polished final UI
+- final branding
+- a moodboard
+- a generic component library
+- a giant enterprise design system
+- a fully mature visual language
+
+
+The goal is to produce:
+- a strong system base
+- consistency rules
+- semantic foundations
+- reusable structure
+- low-chaos guidance for a non-designer
+
+
+---
+
+
+## 6. Explicit non-goals
+
+
+Do **not** produce the following as primary output:
+- polished mockups
+- Dribbble-style concepts
+- branding exploration
+- visual trend boards
+- generic Material-style systems
+- generic iOS-style systems
+- generic SaaS dashboard kits
+- group-product expansion
+- CatchIt2gather-first design work
+
+
+CatchIt2gather is currently only an architectural boundary.
+It must not dominate the design-system work.
+
+
+---
+
+
+## 7. Accessibility expectations
+
+
+Accessibility is not a late QA layer.
+
+
+The system must assume that users may be:
+- stressed
+- tired
+- overloaded
+- time-pressured
+- uncertain
+- in low-energy states
+- in ND overload
+- with children
+- in fragile transition moments
+
+
+Therefore the design system must optimize for:
+- low interpretation cost
+- clear hierarchy
+- strong state legibility
+- meaningful contrast
+- sane touch target assumptions
+- semantic redundancy
+- reduced ambiguity
+- calm motion
+- limited overload per moment
+
+
+Color must never be the sole carrier of critical meaning.
+
+
+---
+
+
+## 8. V0.1 design-system objective
+
+
+The first version of the design system should make it possible for someone with:
+- strong product intuition
+- limited formal design training
+
+
+to still build UI that feels:
+- coherent
+- semantically aligned
+- consistent
+- calm
+- trustworthy
+- reusable
+
+
+This is one of the core success conditions.
+
+
+---
+
+
+## 9. Requested outputs
+
+
+Produce exactly these outputs:
+
+
+### 1. Design system north star
+A short, sharp design-system north star aligned with CatchIt’s product philosophy.
+
+
+### 2. 10–15 hard design-system principles
+Principles must be product-specific, not generic.
+
+
+### 3. State taxonomy
+A clear model of relevant states and what they mean for UX.
+
+
+### 4. Compression-mode / UX-layer model
+A reusable model for Orientation, Comparison, Transition, Execution, and Reassurance / Recovery.
+
+
+### 5. Semantic token architecture
+Token families should go beyond color and include concepts like:
+- state
+- urgency
+- confidence
+- actionability
+- fallback availability
+- attention weight
+- emphasis
+- completion
+- motion tone
+
+
+### 6. Foundation proposal
+A practical V0.1 proposal for:
+- color
+- typography
+- spacing
+- shape
+- motion
+- iconography
+
+
+Important:
+- use workable defaults if final brand choices are unknown
+- do not assume final font choice exists yet
+
+
+### 7. Initial component inventory
+A strict V0.1 list of core components and what they depend on semantically.
+
+
+### 8. Reusable patterns
+Patterns for:
+- planning
+- comparison
+- transition
+- execution
+- reassurance
+- recovery
+- wizard flows
+
+
+### 9. Zen / Cathy coupling rules
+Explicit rules for how Zen and Cathy express the same state model together without semantic conflict.
+
+
+### 10. Documentation structure
+A suggested structure for:
+- Figma docs
+- Markdown docs
+- token naming
+- future code organization
+
+
+---
+
+
+## 10. Constraints for generation
+
+
+The design-system work must obey these constraints:
+
+
+- start semantic, not visual
+- prioritize consistency over beauty in V0.1
+- keep scope strict and small
+- do not introduce unnecessary complexity
+- avoid generic transit UI assumptions
+- do not let Cathy become branding theater
+- do not let Zen become only an aesthetic surface
+- do not optimize only for ideal users on good days
+- explain why each recommendation fits CatchIt specifically
+- ensure the system could be adapted to other apps with similar compression logic
+
+
+---
+
+
+## 11. Required mindset
+
+
+Treat this as:
+- a real product system
+- a long-term foundation
+- a semantic architecture problem
+- a design-governance problem
+- a consistency framework for future UI work
+
+
+Do not treat this as:
+- a styling exercise
+- an inspiration board
+- a one-off UI exploration
+- a generic library generation task
+
+
+---
+
+
+## 12. Success criteria
+
+
+The output is successful if it:
+- feels like a true design-system architecture
+- preserves CatchIt’s semantic core
+- reduces future design chaos
+- helps a non-designer work consistently
+- remains reusable beyond one screen
+- keeps Zen and Cathy aligned
+- supports Plan / Go / Recovery separation
+- makes state-driven design operational, not just philosophical
+
+
+The output fails if it:
+- drifts into generic transit UI
+- becomes branding-first
+- ignores semantic states
+- collapses modes into one surface
+- treats Cathy like a mascot
+- treats Zen like a color theme
+- produces lots of pretty UI without structural rigor
+
+
+---
+
+
+## 13. Source documents to read first
+
+
+Before generating anything, read and use these source documents:
+
+
+- `CATCHIT SSOT`
+- `CATCHIT2GATHER SSOT`
+- `NON_NEGOTIABLES.md`
+- `EXPECTED_OUTPUTS.md`
+- `CONSTRAINTS.md`
+- `REFERENCES.md`
+
+
+If any external reference conflicts with CatchIt’s own semantic/product truth, CatchIt wins.
+
+
+---
+
+
+## 14. Final instruction
+Build a design-system architecture that helps CatchIt become:
+- calm without hiding truth
+- expressive without becoming decorative
+- flexible without becoming inconsistent
+- humane without becoming vague
+- reusable without becoming generic
+```
+
+
+Wenn du willst, packe ich dir als Nächstes noch eine **kompakte Ordnerstruktur** dazu, damit du alles sofort sauber an Gastown übergeben kannst.
+
+
+—
+
+
+Klar — dann direkt. 😊
+Der Grund, warum ich es **nicht automatisch sofort** angehängt hatte, ist nur praktischer Natur:
+
+
+* damit du erst prüfen kannst, ob die inhaltlichen Dateien für dich passen
+* weil zu viel Struktur auf einmal schnell unnötig kompliziert wirkt
+* und weil Gastown eher von **klaren, kleinen Paketen** profitiert als von einem sofort aufgeblähten Setup
+
+
+Aber in deinem Fall ist eine saubere Ordnerstruktur sinnvoll. So würde ich sie anlegen:
+
+
+```text
+design-system-seed/
+├─ README.md
+├─ docs/
+│  ├─ CATCHIT_SSOT.pdf
+│  ├─ CATCHIT2GATHER_SSOT.pdf
+│  ├─ DESIGNSYSTEM_BRIEF.md
+│  ├─ NON_NEGOTIABLES.md
+│  ├─ EXPECTED_OUTPUTS.md
+│  ├─ CONSTRAINTS.md
+│  └─ REFERENCES.md
+├─ working/
+│  ├─ extracted_notes.md
+│  ├─ open_questions.md
+│  └─ glossary.md
+├─ output/
+│  ├─ DESIGN_SYSTEM_V0_1.md
+│  ├─ TOKENS_V0_1.md
+│  ├─ COMPONENTS_V0_1.md
+│  ├─ PATTERNS_V0_1.md
+│  └─ NEXT_STEPS.md
+└─ archive/
+   └─ old_prompts.md
+```
+
+
+## Wofür die Ordner da sind
+
+
+**`README.md`**
+Ganz kurzer Einstieg:
+was das Paket ist, was zuerst gelesen werden soll, was rauskommen soll.
+
+
+**`docs/`**
+Alles, was als Wahrheit und Auftrag gilt.
+Das ist der wichtigste Ordner.
+
+
+**`working/`**
+Für Zwischendinge:
+
+
+* extrahierte Begriffe
+* offene Fragen
+* Notizen aus Agent-Läufen
+* Glossar
+
+
+**`output/`**
+Nur die Ergebnisse.
+Nicht vermischen mit Input.
+
+
+**`archive/`**
+Alte Prompts, verworfene Sachen, historische Reste.
+Nur damit der Hauptordner sauber bleibt.
+
+
+## Zusätzlich würde ich `README.md` so simpel halten:
+
+
+```md
+# CatchIt Design System Seed
+
+
+## Read first
+1. docs/DESIGNSYSTEM_BRIEF.md
+2. docs/NON_NEGOTIABLES.md
+3. docs/EXPECTED_OUTPUTS.md
+4. docs/CONSTRAINTS.md
+5. docs/CATCHIT_SSOT.pdf
+6. docs/CATCHIT2GATHER_SSOT.pdf
+7. docs/REFERENCES.md
+
+
+## Goal
+Build a semantic, state-based, reusable design-system architecture for CatchIt V0.1.
+
+
+## Important
+- Do not start with polished mockups
+- Do not invent a new product
+- Do not drift into generic transit UI
+- Do not focus on CatchIt2gather
+```
+
+
+## Mein Rat für Gastown
+
+
+Beim ersten Lauf nur den `docs/`-Ordner geben und als Ziel **ein einziges Dokument** verlangen:
+
+
+`output/DESIGN_SYSTEM_V0_1.md`
+
+
+Nicht sofort Tokens, Components und Patterns einzeln erzwingen.
+Erst schauen, ob die Grundarchitektur brauchbar ist.
+
+
+—
+
+
+Perfekt — dann bekommst du **beides direkt**:
+ein sauberes `README.md` und einen **ersten kleinen Gastown-Startprompt**. 😊
+
+
+---
+
+
+## `README.md`
+
+
+```md id="zrw6fh"
+# CatchIt Design System Seed
+
+
+## Purpose
+This repository/package is the seed for building a semantic, state-based, reusable design-system architecture for CatchIt.
+
+
+This is **not** a polished UI project.
+It is a structured input package for generating a **V0.1 design-system architecture**.
+
+
+The goal is to make CatchIt’s product logic operational as a design system:
+- calm without hiding truth
+- state-based instead of data-first
+- reusable beyond single screens
+- consistent enough for a non-designer to apply
+
+
+---
+
+
+## What CatchIt is
+CatchIt is **not** a classic transit app or timetable viewer.
+
+
+CatchIt is a **decision-relief and reassurance system for public mobility**.
+
+
+Its purpose is to compress mobility truth so that people:
+- plan less
+- doubt less
+- check less
+- understand more clearly when they must act
+- and when they do not need to act
+
+
+It does not only calculate routes.
+It supports **viable movement under real-life conditions**.
+
+
+---
+
+
+## What this package is for
+This package should help generate:
+
+
+- a design-system north star
+- hard design-system principles
+- a state taxonomy
+- a compression-mode / UX-layer model
+- a semantic token architecture
+- a V0.1 foundation proposal
+- a first component inventory
+- reusable patterns
+- Zen/Cathy coupling rules
+- a documentation structure for Figma and/or code
+
+
+---
+
+
+## Read order
+Read these files in this order:
+
+
+1. `docs/DESIGNSYSTEM_BRIEF.md`
+2. `docs/NON_NEGOTIABLES.md`
+3. `docs/EXPECTED_OUTPUTS.md`
+4. `docs/CONSTRAINTS.md`
+5. `docs/CATCHIT_SSOT.pdf`
+6. `docs/CATCHIT2GATHER_SSOT.pdf`
+7. `docs/REFERENCES.md`
+
+
+If there is any conflict between external references and CatchIt’s own product truth, **CatchIt wins**.
+
+
+---
+
+
+## Important constraints
+- Do not start with polished mockups
+- Do not invent a new product concept
+- Do not drift into generic transit UI
+- Do not focus on CatchIt2gather
+- Do not treat Zen as just “the blue screen”
+- Do not treat Cathy as a mascot detached from semantics
+- Start semantic, not visual
+- Keep V0.1 small and strict
+
+
+---
+
+
+## Directory structure
+- `docs/` = source truth and task framing
+- `working/` = notes, extracted terms, open questions
+- `output/` = generated results
+- `archive/` = older prompts or discarded material
+
+
+---
+
+
+## Expected first useful output
+For the first run, the best target is one single file:
+
+
+`output/DESIGN_SYSTEM_V0_1.md`
+
+
+This first document should contain the overall architecture before splitting into:
+- tokens
+- components
+- patterns
+- implementation structure
+
+
+---
+
+
+## Success criteria
+A successful output should:
+- feel like a real design-system architecture
+- preserve CatchIt’s semantic core
+- help a non-designer build consistently
+- be reusable across multiple UX surfaces
+- keep Zen and Cathy aligned as expression layers of the same state truth
+
+
+The output fails if it:
+- becomes branding-first
+- becomes generic transit UI
+- ignores state logic
+- ignores mode separation
+- collapses into a random UI kit
+```
+
+
+---
+
+
+## Gastown-Startprompt für Lauf 1
+
+
+```text id="l5jkl9"
+You are generating the first architecture draft for the CatchIt design system.
+
+
+Read these files first and treat them as the source of truth:
+
+
+1. docs/DESIGNSYSTEM_BRIEF.md
+2. docs/NON_NEGOTIABLES.md
+3. docs/EXPECTED_OUTPUTS.md
+4. docs/CONSTRAINTS.md
+5. docs/CATCHIT_SSOT.pdf
+6. docs/CATCHIT2GATHER_SSOT.pdf
+7. docs/REFERENCES.md
+
+
+Important:
+- Do not create polished mockups
+- Do not invent a new product direction
+- Do not default to generic transit, Material, iOS, or dashboard patterns
+- Do not focus on CatchIt2gather
+- Do not treat Zen as just a blue screen
+- Do not treat Cathy as a mascot or branding device
+- Start semantic, not visual
+- Keep scope small, strict, and V0.1-friendly
+
+
+Your task for this first run:
+Create exactly one output file:
+
+
+output/DESIGN_SYSTEM_V0_1.md
+
+
+This file should contain:
+
+
+1. A design system north star
+2. 10–15 hard design principles
+3. A state taxonomy
+4. A compression-mode / UX-layer model
+5. A semantic token skeleton
+6. A first-pass foundation structure for:
+   - color
+   - typography
+   - spacing
+   - shape
+   - motion
+   - iconography
+7. A small initial component inventory
+8. Reusable pattern families for:
+   - Plan
+   - Go
+   - Recovery
+   - Wizard
+   - Reassurance
+9. Rules for how Zen and Cathy act as coupled expression layers of the same state model
+10. A suggested documentation structure for Figma and/or code
+
+
+Output requirements:
+- Explain why each recommendation fits CatchIt specifically
+- Prefer semantic rigor over visual polish
+- Optimize for low interpretation cost, accessibility, consistency, and bad-day usability
+- Make the result usable by a non-designer
+- Keep the output structured, readable, and implementation-friendly
+
+
+Do not split the result into multiple files yet.
+Do not produce filler.
+Do not produce moodboard language.
+Produce a real, usable architecture draft.
+```
+
+
+---
+
+
+## Meine Empfehlung für den allerersten Test
+
+
+Mach wirklich **nur diesen einen Lauf** und prüfe danach:
+
+
+* Hat es CatchIt verstanden?
+* Ist es semantisch statt dekorativ?
+* Bleibt Zen richtig eingeordnet?
+* Bleibt Cathy funktional statt markig?
+* Ist es V0.1-tauglich oder schon wieder zu groß?
+
+
+Wenn du magst, schreibe ich dir als Nächstes noch `glossary.md` und `open_questions.md`, damit Gastown weniger Halluzinationsspielraum hat.
+
+
+—
+
+
+# GLOSSARY
+
+
+## Purpose
+This glossary defines the key product, UX, and design-system terms used in CatchIt.
+
+
+Its purpose is to reduce ambiguity during design-system generation and prevent generic reinterpretation.
+
+
+If a generated output uses these terms differently, it should be corrected.
+
+
+---
+
+
+## CatchIt
+A decision-relief and reassurance system for public mobility.
+
+
+CatchIt is not a classic transit app, route shell, or timetable viewer.
+Its purpose is to compress mobility truth so that people plan less, doubt less, check less, and know more clearly when they must act and when they do not need to act.
+
+
+---
+
+
+## CatchIt2gather
+A future multi-person extension on top of the same CatchIt core.
+
+
+Not an active product focus.
+Not a current design-system focus.
+Only relevant as an architectural boundary:
+the core must remain able to support future multi-person logic later.
+
+
+---
+
+
+## Travel Truth
+The underlying mobility reality of the system.
+
+
+This includes:
+- route facts
+- timing
+- changes
+- uncertainty
+- confidence
+- fallback possibilities
+- relevant action implications
+
+
+Travel Truth is not equal to one screen or one layout.
+It can be compressed differently across multiple UX layers.
+
+
+---
+
+
+## Decision Relief
+A core CatchIt purpose.
+
+
+Decision Relief means reducing unnecessary cognitive work around mobility:
+- fewer unnecessary decisions
+- less interpretation burden
+- less manual route simulation
+- less “just to be safe” checking
+
+
+CatchIt must reduce decision load, not merely present cleaner data.
+
+
+---
+
+
+## Reassurance
+A core CatchIt purpose.
+
+
+Reassurance does not mean aesthetic comfort or false calm.
+It means making mobility feel more viable, more understandable, and more trustworthy through:
+- state clarity
+- action clarity
+- confidence legibility
+- fallback legibility
+- truthful reduction of ambiguity
+
+
+---
+
+
+## Planning Horror
+The condition CatchIt is built against.
+
+
+Planning horror is the experience of mobility as:
+- mentally heavy
+- fragile
+- over-interpreted
+- uncertainty-dense
+- route-simulation-heavy
+- constantly re-check dependent
+
+
+CatchIt treats planning horror as a **service problem**, not a user failure.
+
+
+---
+
+
+## Compression
+One of the most important terms in CatchIt.
+
+
+Compression means transforming the same mobility truth into a form that is:
+- more usable
+- less mentally expensive
+- more state-appropriate
+- more action-relevant
+
+
+Compression is not hiding truth.
+Compression is shaping truth into a form that supports viable use.
+
+
+---
+
+
+## Compression Logic
+The product logic that determines how the same truth is expressed differently depending on:
+- user state
+- urgency
+- mode
+- context
+- level of needed action
+- cognitive capacity
+
+
+This is what makes CatchIt transferable beyond one screen.
+
+
+---
+
+
+## State Logic
+A way of thinking about the product where meaningful user-facing states matter more than technical process stages.
+
+
+Examples of meaningful product states:
+- stable
+- attentive
+- fragile
+- recheck needed
+- fallback ready
+- act now
+- wait
+- observe
+- completed
+
+
+State logic must shape the design system.
+
+
+---
+
+
+## Process Logic
+A lower-level way of thinking that focuses on technical progression:
+- loading
+- success
+- failure
+- route calculated
+- provider selected
+- update pending
+
+
+Process logic may exist internally, but must be translated into meaningful product states before reaching UX.
+
+
+---
+
+
+## Zen
+The calm, state-adaptive main expression of the CatchIt core.
+
+
+Zen is not “the blue screen”.
+Blue is only one state expression within Zen.
+
+
+Zen is a compression surface that carries the same state truth as other layers, but in a calm, highly reduced, state-adaptive form.
+
+
+Zen should be understood as:
+- a primary state-oriented home expression
+- a quiet but semantically strong interface layer
+- one of the central UX expressions of CatchIt
+
+
+---
+
+
+## Cathy
+The main UI and central humane translation layer in CatchIt.
+
+
+Cathy is:
+- a core interface expression
+- a central USP
+- a humane state-regulation layer
+
+
+Cathy is not:
+- the travel truth itself
+- the business logic
+- a detached mascot
+- mere branding
+
+
+Cathy system states are already defined and can be fully mapped onto Zen.
+
+
+---
+
+
+## Zen / Cathy coupling
+The relationship in which Zen and Cathy express the same state truth in different but aligned ways.
+
+
+Zen expresses:
+- system-level state climate
+- visual calm or escalation
+- semantic atmosphere
+- state-adaptive screen behavior
+
+
+Cathy expresses:
+- humane closeness
+- regulation
+- state intimacy
+- transition support
+
+
+They must not conflict semantically.
+
+
+---
+
+
+## Plan Mode
+The mode in which CatchIt captures intentions, context, and daily reality.
+
+
+Plan Mode is not classic route-building.
+It is the stage where CatchIt learns:
+- what is happening
+- when it happens
+- whether something follows afterwards
+- what movement style is viable
+- what micro-needs matter
+
+
+Plan Mode exists to derive a viable movement style, not to burden the user with manual routing.
+
+
+---
+
+
+## Go Mode
+The mode in which CatchIt accompanies the live trip.
+
+
+Go Mode should:
+- foreground the next relevant action
+- reduce future planning burden
+- preserve confidence and fallback legibility
+- calm the user by reducing unnecessary trip-wide information
+
+
+Go Mode is execution-oriented, not planning-oriented.
+
+
+---
+
+
+## Recovery Mode
+The mode used when something important becomes unstable or breaks.
+
+
+Recovery Mode must:
+- re-establish action clarity
+- show the simplest viable rescue path
+- avoid panic aesthetics
+- avoid full re-planning if possible
+- preserve trust even when things change
+
+
+Recovery is not just an error state.
+It is a rescue-of-viability state.
+
+
+---
+
+
+## Orientation
+A UX layer focused on immediate understanding.
+
+
+Typical questions:
+- What is the current situation?
+- Do I need to act now?
+- Is the plan stable?
+- When do I need to leave?
+
+
+Orientation is usually very low-noise and high-clarity.
+
+
+---
+
+
+## Comparison
+A UX layer focused on choosing between a few viable alternatives.
+
+
+Comparison is not about completeness.
+It is about meaningful limited alternatives.
+
+
+Alternatives must have roles, not just different numbers.
+
+
+---
+
+
+## Transition
+A UX layer that translates from one mental model into another.
+
+
+Most importantly:
+- from planning to execution
+- from stability to increased attention
+- from passive confidence to active next-step logic
+
+
+The step-like structure used during this phase is a **Transition Object**, not a permanent full-screen UI model.
+
+
+---
+
+
+## Execution
+A UX layer focused on carrying the user through the ongoing trip.
+
+
+Execution is:
+- vertical
+- sequential
+- reduced
+- next-step-focused
+
+
+Past steps should calm down.
+Future steps should remain lightly prepared.
+
+
+---
+
+
+## Reassurance Layer
+A UX layer focused on stabilizing understanding and reducing anxiety or uncertainty.
+
+
+It should:
+- make trust possible
+- reduce unnecessary checking
+- preserve truth
+- avoid decorative comfort
+
+
+This layer may overlap with Zen and Cathy behavior.
+
+
+---
+
+
+## Recovery / Reassurance distinction
+Reassurance can happen without disruption.
+Recovery happens when something needs to be actively re-stabilized.
+
+
+Recovery is sharper.
+Reassurance can be gentler.
+
+
+---
+
+
+## Wizard
+The human-facing input logic for CatchIt.
+
+
+The wizard must not feel like a settings interface or route-builder.
+
+
+It should help users express:
+- intentions
+- daily context
+- movement style
+- micro-needs
+
+
+The system should derive mobility structure from that.
+
+
+---
+
+
+## Parameter Cemetery
+A negative term in CatchIt.
+
+
+This means any UX that feels like:
+- too many settings
+- too many toggles
+- technical preference management
+- configuration burden
+- profile management as the primary input experience
+
+
+The wizard must explicitly avoid becoming this.
+
+
+---
+
+
+## Chain Logic
+The logic by which CatchIt understands that one plan may continue into another.
+
+
+A core chain question is:
+
+
+**“Do you need to go anywhere afterwards?”**
+
+
+This allows CatchIt to derive:
+- linked trips
+- timing buffers
+- sequential movement realities
+- better overall mobility support
+
+
+This is a distinctive part of CatchIt’s input philosophy.
+
+
+---
+
+
+## Active-Move Principle
+A core CatchIt principle.
+
+
+Waiting is not treated as neutral.
+Meaningful movement can be better than passive waiting.
+
+
+This means:
+- walking may be preferred over pointless waiting
+- route quality is not only ETA
+- movement flow matters
+- real-life comfort matters
+- dead time matters
+
+
+---
+
+
+## Viable Movement
+A key phrase for CatchIt.
+
+
+Viable movement means movement that is:
+- realistic
+- sustainable
+- understandable
+- stress-aware
+- context-aware
+- robust enough for actual life
+
+
+It is not necessarily the mathematically fastest path.
+
+
+---
+
+
+## Alternative Roles
+Alternatives in CatchIt must carry semantic roles.
+
+
+Typical roles may include:
+- best choice
+- calm reserve
+- fallback if disruption happens
+
+
+Alternatives are not flat equivalent route cards.
+
+
+---
+
+
+## Action Threshold
+The point at which the user must meaningfully act.
+
+
+The central time expression in Zen should not be a vague countdown.
+It should convey a clear action threshold.
+
+
+Example meaning:
+“You must leave within X minutes for the robust plan to hold.”
+
+
+---
+
+
+## Confidence
+A core product concept.
+
+
+Confidence refers to how trustworthy, stable, and supported a plan currently is.
+
+
+Confidence is not decorative.
+It is part of truthfulness and reassurance.
+
+
+---
+
+
+## Fallback
+A viable alternative path or response prepared for when a plan becomes fragile or fails.
+
+
+Fallback is essential to CatchIt’s trust model.
+
+
+---
+
+
+## Recheck
+A meaningful product condition where confidence is not yet high enough and the system needs to validate or re-evaluate before claiming too much certainty.
+
+
+---
+
+
+## Safety as State Architecture
+Safety in CatchIt does not mean:
+- surveillance
+- tracking-first logic
+- alarm inflation
+- hidden control mechanisms
+
+
+Safety means:
+- better situational clarity
+- clearer escalation boundaries
+- earlier fragility detection
+- viable fallback preparation
+- support without loss of dignity
+
+
+---
+
+
+## State Expression
+How a product state becomes legible in UX.
+
+
+State expression may include:
+- color
+- density
+- emphasis
+- copy tone
+- interaction affordance
+- Cathy presence
+- Zen intensity
+- motion behavior
+
+
+A state only really exists in UX if it changes expression in a meaningful way.
+
+
+---
+
+
+## Semantic Token
+A token that represents meaning, not raw visual style.
+
+
+Examples:
+- state.stable
+- urgency.high
+- confidence.low
+- attention.primary
+- fallback.available
+
+
+Semantic tokens should drive visual tokens, not the other way around.
+
+
+---
+
+
+## Foundation
+The base layer of the design system:
+- color
+- typography
+- spacing
+- shape
+- motion
+- iconography
+
+
+In CatchIt, foundations must follow semantics, not lead them.
+
+
+---
+
+
+## Component
+A reusable UI building block.
+
+
+Examples:
+- Zen shell
+- primary time block
+- alternative card
+- transition object
+- reassurance banner
+- recovery card
+- wizard prompt unit
+
+
+Components must depend on semantic logic, not arbitrary styling alone.
+
+
+---
+
+
+## Pattern
+A reusable interaction or layout strategy composed of multiple components and rules.
+
+
+Examples:
+- best option + two alternatives
+- execution with calming completed steps
+- details-on-reveal
+- recovery with one rescue direction
+- wizard-based movement-style derivation
+
+
+Patterns are often more important than isolated components in CatchIt.
+
+
+---
+
+
+## Bad-Day Resilience
+A core success condition.
+
+
+The system must work not only on ideal, calm, attentive days, but also under:
+- stress
+- low energy
+- overload
+- child context
+- ND overload
+- time pressure
+- uncertainty
+
+
+This is not a niche concern.
+It is a core design target.
+
+
+—
+
+
+# OPEN QUESTIONS
+
+
+## Purpose
+This file collects meaningful open questions for the CatchIt design-system work.
+
+
+These are not failures of the product idea.
+They are important decision points that should either be answered explicitly or consciously deferred.
+
+
+The goal is to reduce hidden ambiguity during design-system generation.
+
+
+---
+
+
+# 1. State semantics
+
+
+## 1.1 Which user-facing states are final enough for V0.1?
+The product direction strongly suggests states such as:
+- stable
+- attentive
+- fragile
+- recheck needed
+- fallback ready
+- act now
+- wait
+- observe
+- completed
+
+
+Question:
+Which of these are already final enough to treat as design-system primitives?
+
+
+Need:
+A final or near-final list of core user-facing states for V0.1.
+
+
+---
+
+
+## 1.2 Are all Cathy states one-to-one transferable to Zen at the semantic level?
+It is established that Cathy states are defined and fully mappable to Zen.
+
+
+Question:
+Is this mapping:
+- fully direct
+- or semantically direct but visually asymmetric?
+
+
+Need:
+Clarity on whether Zen and Cathy share:
+- identical state set
+- identical state intensity levels
+- identical transition triggers
+or only the same semantic backbone.
+
+
+---
+
+
+## 1.3 What is the cleanest top-level state grouping?
+Possible groupings might be:
+- calm / stable
+- active / viable
+- attentive / fragile
+- urgent / recovery-near
+- completed
+
+
+Question:
+Should the design system work with:
+- flat states
+- grouped state families
+- or state + urgency overlays?
+
+
+Need:
+A practical state architecture for tokens and documentation.
+
+
+---
+
+
+# 2. Zen
+
+
+## 2.1 What is always true on Zen, regardless of state?
+Zen is the calm, state-adaptive main expression of the core.
+
+
+Question:
+Which structural elements are always present in Zen, even when state changes?
+
+
+Possible constants:
+- action threshold
+- best next option
+- limited alternatives
+- state climate
+- Cathy layer
+
+
+Need:
+A stable Zen skeleton.
+
+
+---
+
+
+## 2.2 What is the minimum viable content for Zen?
+Possible content:
+- leave-by threshold
+- best option
+- two alternatives
+- confidence/stability signal
+- recovery entrance if needed
+
+
+Question:
+What is the absolute smallest Zen still considered complete?
+
+
+Need:
+A design-system baseline for low-noise orientation.
+
+
+---
+
+
+## 2.3 When does Zen stop being enough and need escalation into another layer?
+Question:
+Which conditions require transition away from Zen into:
+- stronger comparison
+- explicit execution
+- sharper recovery
+
+
+Need:
+Clear boundaries between Zen and other UX layers.
+
+
+---
+
+
+# 3. Cathy
+
+
+## 3.1 Which Cathy expressions are semantic and which are aesthetic?
+Cathy can express:
+- closeness
+- regulation
+- state intimacy
+- transition support
+
+
+Question:
+Which of Cathy’s variations carry semantic meaning,
+and which are purely visual or atmospheric?
+
+
+Need:
+Protection against Cathy becoming an accidental meaning-only channel.
+
+
+---
+
+
+## 3.2 What is the exact rule for Cathy silence?
+Known rule:
+Cathy should not speak if visual state already communicates enough.
+
+
+Question:
+What counts as “enough” for V0.1?
+
+
+Need:
+A clearer trigger model for when Cathy uses:
+- no text
+- small textual support
+- stronger verbal framing
+
+
+---
+
+
+## 3.3 How should Cathy behave under overload?
+Question:
+In low-energy, ND-overload, or time-pressure scenarios, what should Cathy reduce first?
+- movement
+- size
+- expressiveness
+- text
+- frequency
+
+
+Need:
+A bad-day-safe Cathy behavior model.
+
+
+---
+
+
+# 4. Wizard / input logic
+
+
+## 4.1 What is the smallest useful wizard?
+The wizard is core and must not become a parameter cemetery.
+
+
+Question:
+What is the minimum number of wizard steps/questions needed to still derive a viable movement style?
+
+
+Need:
+A strict V0.1 wizard scope.
+
+
+---
+
+
+## 4.2 Which inputs are always worth asking explicitly?
+Possible candidates:
+- what is happening
+- when it happens
+- whether something follows afterwards
+- child context
+- walking preference
+- need for calm
+- snack / micro-needs
+
+
+Question:
+Which of these must always be explicit, and which can be optional or inferred?
+
+
+Need:
+A clear line between core inputs and optional enrichment.
+
+
+---
+
+
+## 4.3 Which micro-needs deserve first-class support in V0.1?
+Examples discussed:
+- snack
+- pause
+- calm
+- avoid useless waiting
+- child context
+
+
+Question:
+Which of these belong in the first design-system patterns?
+
+
+Need:
+Prevent pattern sprawl.
+
+
+---
+
+
+# 5. Modes
+
+
+## 5.1 What is the exact threshold between Plan and Go?
+Question:
+At what moment does the user stop planning and start following?
+
+
+Need:
+This affects transition patterns, screen families, and hierarchy rules.
+
+
+---
+
+
+## 5.2 What is the exact threshold between Go and Recovery?
+Question:
+When does a plan become:
+- merely attentive
+- fragile
+- recovery-worthy
+- action-critical
+
+
+Need:
+This is crucial for state expression and escalation behavior.
+
+
+---
+
+
+## 5.3 Are Plan / Go / Recovery enough as top-level modes for the design system?
+Question:
+Should the design system formalize only these three modes,
+or also explicitly represent internal sublayers such as:
+- Orientation
+- Comparison
+- Transition
+- Execution
+- Reassurance
+
+
+Need:
+A clean architecture that is not too shallow and not too bloated.
+
+
+---
+
+
+# 6. Alternatives and comparison
+
+
+## 6.1 Which alternative roles are final enough for V0.1?
+Likely roles:
+- best choice
+- calm reserve
+- fallback
+
+
+Question:
+Is this enough, or are more role types already necessary?
+
+
+Need:
+Avoid unnecessary route-card complexity.
+
+
+---
+
+
+## 6.2 What makes an alternative “calm” versus “fallback” in design terms?
+Question:
+How should these differ in:
+- hierarchy
+- weight
+- copy style
+- explanation
+- motion
+- state intensity
+
+
+Need:
+A role-aware component strategy.
+
+
+---
+
+
+# 7. Foundations
+
+
+## 7.1 What working type direction feels most right for V0.1?
+No final font is chosen yet.
+
+
+Question:
+Should V0.1 begin with:
+- system font only
+- one neutral sans-serif working font
+- platform-dependent defaults
+
+
+Need:
+A practical working typography choice.
+
+
+---
+
+
+## 7.2 What spacing scale is easiest for a non-designer to apply consistently?
+Question:
+Should the system begin with:
+- 4pt scale
+- 8pt scale
+- hybrid spacing scale
+
+
+Need:
+A low-chaos base for layout decisions.
+
+
+---
+
+
+## 7.3 How many visual intensities should shape the system?
+Question:
+Should shape, motion, and emphasis work with:
+- 3 intensity levels
+- 4 intensity levels
+- state-specific mappings only
+
+
+Need:
+A manageable V0.1 system.
+
+
+---
+
+
+# 8. Motion
+
+
+## 8.1 How many motion families are enough for V0.1?
+Possible families:
+- calm transition
+- state shift
+- urgent intervention
+
+
+Question:
+Is this enough, or do Zen and Cathy need separate motion taxonomies?
+
+
+Need:
+A motion system that stays small and meaningful.
+
+
+---
+
+
+## 8.2 What should motion do in Recovery?
+Question:
+Should recovery motion:
+- sharpen focus
+- slow things down
+- reduce clutter
+- foreground next action
+- visually narrow possibility space
+
+
+Need:
+A motion philosophy for rescue moments.
+
+
+---
+
+
+# 9. Documentation and implementation
+
+
+## 9.1 What documentation format should be primary in V0.1?
+Question:
+Should the system be authored primarily as:
+- Markdown docs
+- Figma pages
+- token JSON
+- all of the above in a minimal combination
+
+
+Need:
+A realistic documentation workflow.
+
+
+---
+
+
+## 9.2 How much tokenization is useful before it becomes abstraction theater?
+Question:
+What level of token depth is realistic for V0.1?
+
+
+Need:
+Avoid creating a “design token essay” no one can use.
+
+
+---
+
+
+## 9.3 What is the smallest component set worth documenting first?
+Question:
+Which components are enough to test the system in reality before expanding?
+
+
+Need:
+A strict MVP component inventory.
+
+
+---
+
+
+# 10. Evaluation
+
+
+## 10.1 What is the primary quality test for this design system?
+Possible quality tests:
+- does it reduce interpretation cost?
+- does it preserve truth?
+- does it keep Zen and Cathy aligned?
+- does it stay usable on bad days?
+- can a non-designer apply it consistently?
+
+
+Question:
+Which 3–5 tests should become the formal review checklist?
+
+
+Need:
+A lightweight governance mechanism.
+
+
+---
+
+
+## 10.2 What would count as design-system failure even if the output looks polished?
+Question:
+Which failure modes should be explicitly named in the documentation?
+
+
+Likely examples:
+- generic transit UI drift
+- Cathy as branding theater
+- Zen reduced to a color theme
+- state logic hidden behind pretty surfaces
+- wizard becoming parameter cemetery
+- recovery becoming panic UI
+
+
+Need:
+Clear anti-pattern section.
+
+
+---
+
+
+# Suggested handling
+For each open question, choose one of:
+- answer now
+- defer intentionally
+- mark as V0.2 topic
+- exclude from scope
+
+
+Unresolved questions should not silently bleed into the system as vague assumptions.

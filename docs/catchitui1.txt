@@ -1,0 +1,329 @@
+﻿Ja — dafür ist Gastown sogar ein ziemlich passender Kandidat, **wenn du ihm saubere Unterlagen gibst**. Kilo beschreibt Kilo Code als agentisches Engineering-Tool mit mehreren Modi, und Gas Town wird von Kilo selbst als Orchestrator/Workspace für viele Agenten mit Rollen, Workflows und Merge-Queues positioniert. In Kilos eigener Beschreibung arbeitet Gas Town mit vielen Agenten parallel; im Blog wird es als System beschrieben, das 20–30 Agenten gleichzeitig mit definierten Rollen und Workflow-Management koordinieren kann. ([Kilo][1])
+
+
+Der wichtige Punkt ist: Solche Multi-Agent-Tools werden **nicht** magisch gut, nur weil man „mach mal Designsystem“ hineinschreibt. Gerade bei solchen Setups ist gute Doku und klarer Prozess entscheidend; das wird auch in einem aktuellen Einordnungsartikel ausdrücklich betont. Und es gibt bereits Berichte von Nutzern, bei denen Gastown ohne saubere Übergabe oder bei Repo-/Lesefehlern hängen blieb. Das ist kein Beweis gegen das Tool, aber ein guter Warnhinweis für deinen Versuch. ([Medium][2])
+
+
+## Was du bereitstellen solltest
+
+
+Für deinen Use Case würde ich Gastown **nicht** einfach auf das ganze Repo loslassen. Gib ihm stattdessen ein kleines, hart fokussiertes Paket.
+
+
+### 1. Ein einziges Master-Briefing
+
+
+Eine Datei, zum Beispiel `DESIGNSYSTEM_BRIEF.md`, mit:
+
+
+* Was CatchIt ist
+* Was das Designsystem leisten soll
+* Was ausdrücklich **nicht** passieren soll
+* Welche Outputs du erwartest
+
+
+Kurz, klar, ohne Ausschweifungen.
+
+
+### 2. Deine SSOTs
+
+
+Mindestens:
+
+
+* `CATCHIT SSOT.pdf`
+* `CATCHIT2GATHER SSOT.pdf`
+
+
+Aber idealerweise zusätzlich als **Markdown oder TXT**, weil Agenten mit gut strukturiertem Text meist robuster arbeiten als nur mit PDFs.
+
+
+### 3. Ein kleines Regelpapier
+
+
+Eine Datei wie `NON_NEGOTIABLES.md`:
+
+
+* Zen statt „blauer Screen“
+* Cathy-States sind definiert und auf Zen übertragbar
+* CatchIt2gather ist Boundary, nicht Fokus
+* kein generisches Material-/iOS-Kit
+* keine Daten-UI
+* kein Parameterfriedhof
+* keine reine Brand-Spielerei
+
+
+### 4. Ein Deliverables-Dokument
+
+
+Eine Datei wie `EXPECTED_OUTPUTS.md`:
+
+
+* Designsystem-Nordstern
+* Prinzipien
+* State Taxonomy
+* Verdichtungsmodi
+* semantische Tokens
+* Foundations
+* Komponenten-Inventar
+* Patterns
+* Zen/Cathy-Kopplungsregeln
+* Figma-/Code-Dokustruktur
+
+
+### 5. Ein Constraints-Dokument
+
+
+Zum Beispiel `CONSTRAINTS.md`:
+
+
+* du bist kein geübter Visual Designer
+* System soll semantisch beginnen, nicht visuell
+* Accessibility früh mitdenken
+* erst Arbeitsfont, nicht Brandfont
+* kleine, strenge V0.1
+* Ziel ist Übertragbarkeit auf andere Apps mit ähnlicher Verdichtungslogik
+
+
+### 6. Optional: Inspirationsdatei
+
+
+Eine kleine Datei `REFERENCES.md`:
+
+
+* Marvel Styleguide als Strukturreferenz
+* vielleicht 3–5 weitere Links/Screens
+* dazu jeweils **warum** sie dich ansprechen
+
+
+Nicht zu viele Referenzen, sonst baut das Tool einen Moodboard-Brei.
+
+
+---
+
+
+## Was Gastown als Ausgabe realistischerweise liefern sollte
+
+
+Setz die Messlatte so:
+
+
+* **keine finalen schönen Mockups erwarten**
+* **keine perfekte Markenästhetik erwarten**
+* **kein „fertiges“ Designsystem erwarten**
+
+
+Realistisch brauchbar wären:
+
+
+* eine saubere Dokumentenstruktur
+* erste Token-Vorschläge
+* Typo-/Spacing-/Color-/Radius-/Motion-V0.1
+* Komponentenliste
+* erste Semantik-Architektur
+* Pattern-Definitionen
+* offene Fragen / Risiken
+
+
+Dafür ist so ein Orchestrator deutlich sinnvoller als für „mach’s mal hübsch“.
+
+
+---
+
+
+## Wie du den Job aufteilen solltest
+
+
+Ich würde Gastown **nicht einen großen offenen Prompt** geben, sondern klar begrenzte Arbeitspakete.
+
+
+### Gute Aufteilung
+
+
+1. **Analyse-Agent**
+   liest SSOTs und extrahiert Produktlogik
+
+
+2. **Semantik-Agent**
+   baut State Taxonomy, UX-Layer, semantische Tokens
+
+
+3. **Foundation-Agent**
+   schlägt Typo, Spacing, Color, Radius, Motion V0.1 vor
+
+
+4. **Patterns-Agent**
+   definiert Muster für Plan / Go / Recovery / Wizard / Zen / Cathy
+
+
+5. **Editor-Agent**
+   konsolidiert alles in ein einziges `DESIGN_SYSTEM_V0_1.md`
+
+
+Das passt gut zur Gas-Town-Idee mit Rollen und Workflow-Orchestrierung. ([blog.kilo.ai][3])
+
+
+---
+
+
+## Was im Prompt stehen sollte
+
+
+Du willst zwei Dinge gleichzeitig:
+
+
+* **engen Scope**
+* **saubere Deliverables**
+
+
+Hier ist ein Prompt, den du dafür ziemlich direkt verwenden kannst:
+
+
+```text
+You are working on a design-system architecture for CatchIt.
+
+
+Context:
+CatchIt is not a classic transit app or timetable viewer. It is a decision-relief and reassurance system for public mobility. Its goal is to compress mobility truth so that people need to plan less, doubt less, check less, and understand more clearly when they must act and when they do not need to act.
+
+
+Important product truths:
+- Planning horror is a service problem
+- Load reduction over data display
+- Truth before smoothness
+- State logic over process logic
+- The same travel truth can be compressed differently across UX layers
+- CatchIt works in Plan Mode, Go Mode, and Recovery Mode
+- UX layers include Orientation, Comparison, Transition, Execution, and Reassurance
+- Zen is the calm, state-adaptive main expression of the system
+- Cathy is the main UI and central USP, but not the travel truth itself
+- Cathy system states are already defined and can be fully mapped onto Zen
+- CatchIt2gather is only an architectural boundary, not the active product focus
+
+
+Your job:
+Do NOT create polished mockups.
+Do NOT start with branding.
+Do NOT produce a generic Material/iOS/web design system.
+Do NOT focus on CatchIt2gather.
+Do NOT invent a new product concept.
+
+
+Instead, build a reusable, semantic, state-based design system architecture for CatchIt that can later be adapted to similar apps with comparable “compression logic”.
+
+
+Deliver exactly these outputs:
+1. Design system north star
+2. 10–15 hard design principles
+3. State taxonomy
+4. Compression-mode / UX-layer model
+5. Semantic token architecture
+6. Foundation proposal for color, typography, spacing, shape, motion, iconography
+7. Initial component inventory
+8. Reusable patterns for Plan / Go / Recovery / Wizard / Reassurance
+9. Rules for how Zen and Cathy act as coupled expression layers of the same state model
+10. Documentation structure for Figma and/or code
+
+
+Constraints:
+- Start semantic, not visual
+- Use a small and strict V0.1 scope
+- Optimize for consistency, accessibility, clarity, and low interpretation cost
+- Assume the product must work on bad days, under stress, low energy, ND overload, and time pressure
+- Explain every decision in terms of why it fits CatchIt
+
+
+Repository/docs to read first:
+- CATCHIT SSOT
+- CATCHIT2GATHER SSOT
+- NON_NEGOTIABLES.md
+- EXPECTED_OUTPUTS.md
+- CONSTRAINTS.md
+- REFERENCES.md
+
+
+Success criteria:
+- The result should feel like a real design-system architecture, not a moodboard
+- It should help a non-designer build consistently
+- It should preserve CatchIt’s semantic core
+- It should be reusable beyond a single screen
+```
+
+
+---
+
+
+## Meine praktische Empfehlung für den ersten Versuch
+
+
+Mach es klein.
+
+
+Gib Gastown **nicht** die Aufgabe „Bau das ganze Designsystem“.
+Gib ihm erst diese Teilaufgabe:
+
+
+### Versuch 1
+
+
+„Lies die SSOTs und liefere nur:
+
+
+* Nordstern
+* 12 Prinzipien
+* State Taxonomy
+* UX-Layer-Modell
+* Semantic Token Skeleton“
+
+
+Wenn das brauchbar ist, kommt in Runde 2:
+
+
+* Foundations
+* Komponenten
+* Patterns
+
+
+Das senkt die Chance, dass es sich verrennt.
+
+
+---
+
+
+## Was du vor dem Start lokal vorbereiten solltest
+
+
+Lege einen Ordner an, zum Beispiel:
+
+
+```text
+/design-system-seed
+  /docs
+    CATCHIT_SSOT.md
+    CATCHIT2GATHER_SSOT.md
+    NON_NEGOTIABLES.md
+    EXPECTED_OUTPUTS.md
+    CONSTRAINTS.md
+    REFERENCES.md
+  /output
+```
+
+
+Und schreibe in `NON_NEGOTIABLES.md` wirklich die harten Punkte rein.
+Gerade bei Multi-Agent-Setups ist das extrem wichtig, weil sie sonst gern Dinge „auffüllen“, die du absichtlich offen oder ausgeschlossen halten willst. Kilos eigene Darstellung von Gas Town als komplexes Multi-Agent-System plus der Hinweis aus dem Prozess-Artikel sprechen genau dafür: gute Vorgaben zuerst. ([blog.kilo.ai][3])
+
+
+## Mein knappes Fazit
+
+
+Ja, probier’s.
+Aber gib Gastown **nicht Kreativfreiheit**, sondern **saubere Unterlagen, enge Deliverables und kleine Stufen**. Dann ist die Chance am höchsten, dass etwas Brauchbares herausfällt. ([Kilo][4])
+
+
+Wenn du willst, schreibe ich dir jetzt noch die vier Begleitdateien `NON_NEGOTIABLES.md`, `EXPECTED_OUTPUTS.md`, `CONSTRAINTS.md` und `REFERENCES.md` direkt ausformuliert.
+
+
+[1]: https://kilo.ai/?utm_source=chatgpt.com "Kilo - Kilo: The Open Source AI Coding Agent for VS Code ..."
+[2]: https://medium.com/%40addozhang/harness-engineering-is-disrupting-again-no-docs-no-process-no-problem-792af1aaf486?utm_source=chatgpt.com "No Docs, No Process, No Problem? | by Addo Zhang"
+[3]: https://blog.kilo.ai/p/gas-town-by-kilo?utm_source=chatgpt.com "Gas Town by Kilo - by Brian Turcotte"
+[4]: https://kilo.ai/gastown?utm_source=chatgpt.com "Gas Town by Kilo"
