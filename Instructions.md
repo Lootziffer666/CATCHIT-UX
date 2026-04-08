@@ -1,5 +1,3 @@
-You are running an autonomous overnight design-system generation pass for the CatchIt repository.
-
 Your job is to go as far as possible without asking for clarification unless you are truly blocked by missing source material.
 Work iteratively, make progress step by step, and keep refining the output based on the repo docs.
 
