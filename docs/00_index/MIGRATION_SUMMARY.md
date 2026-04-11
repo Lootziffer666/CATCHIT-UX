@@ -1,24 +1,23 @@
 # Migration Summary
 
-## What changed
-A documentation normalization pass consolidated the previous mixed `new/` content into a stable `docs/` structure.
+## What was moved/renamed
+- Former mixed-maturity files from `new/` were reorganized into `docs/01_philosophy` through `docs/08_working_notes`.
+- Filenames were normalized for readability and stable lookup (for example screen specs and token specs).
 
-## Canonical source-of-truth now
-- `docs/01_philosophy/`
-- `docs/02_system/`
-- `docs/03_gold_set/`
+## What was archived
+- Prototype HTML exports moved to `docs/07_prototypes_archive/html/`.
+- Prototype/design bundles (`.zip`, `.rar`) moved to `docs/07_prototypes_archive/packages/`.
 
-## Main moves
-- Numbered philosophy/system/gold files moved from `new/` into `docs/01_*`, `docs/02_*`, `docs/03_*`.
-- Screen-spec files moved into `docs/04_screens/` with normalized names.
-- Layer, token, compose translation, and implementation bridge files moved into `docs/05_layers/`.
-- Splash/signet and logo assets moved into `docs/06_motion_brand/`.
-- Prototype HTML/ZIP/RAR exports moved into `docs/07_prototypes_archive/`.
-- Intermediate and working design docs moved into `docs/08_working_notes/`.
+## What is now canonical
+- Primary source-of-truth: `docs/01_philosophy/` and `docs/02_system/`.
+- Gold-level architectural reference: `docs/03_gold_set/`.
 
-## Legacy retained
-- `maybe_deprecated/` was left intact as historical/deprecated context.
-- Archived prototypes remain accessible in `docs/07_prototypes_archive/` and are explicitly non-canonical.
+## What remains supporting/non-canonical
+- Supporting specs: `docs/04_screens/`, `docs/05_layers/`.
+- Motion/brand domain: `docs/06_motion_brand/` (important but separate from operational precedence).
+- Working notes: `docs/08_working_notes/`.
+- Archive inspiration: `docs/07_prototypes_archive/`.
+- Historical deprecated area retained: `maybe_deprecated/`.
 
-## Supersession note
-If archive/prototype files conflict with canonical rules, treat archive artifacts as inspiration only and follow canonical folders.
+## Unresolved items
+- Some documents exist in parallel tracks (split/unsplit and multiple package versions). They are preserved until a dedicated de-duplication pass with explicit supersession decisions.

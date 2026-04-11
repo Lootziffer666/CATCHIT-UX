@@ -1,15 +1,13 @@
-# Prototypes Archive (Non-Canonical)
+# Prototypes Archive (Archival)
 
-This folder preserves historical prototype artifacts for inspiration and traceability.
+## What belongs here
+Historical HTML prototypes and packaged exports retained for traceability and inspiration.
 
 ## Authority
-Artifacts here are **not** source-of-truth specs. They may contain valuable interaction ideas, but canonical decisions live in:
-- `docs/01_philosophy/`
-- `docs/02_system/`
-- `docs/03_gold_set/`
+Archival only (non-canonical).
 
-## Subfolders
-- `html/` — single-file prototype pages and mock screens.
-- `packages/` — zip/rar bundles and exported prototype packs.
+## Use
+Use to mine ideas, compare interaction clarity, and understand historical exploration.
 
-Use archive artifacts to understand past exploration, not to override current Main/Side Swipe/Backstage and planning/execution distinctions.
+## Do not
+Do not copy prototype behavior into canonical work without explicit validation and promotion.

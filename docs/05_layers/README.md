@@ -1,8 +1,17 @@
-# Layers and Implementation Bridge
+# Layers and Implementation Bridge (Supporting)
 
-This folder contains layer-oriented and implementation-oriented material.
+## What belongs here
+Layer-specific specs, property/token mappings, compose translation, and implementation-near docs.
 
-## Distinctions to preserve
-- **Main vs Side Swipe vs Backstage** remain separate interaction classes.
-- **Planning (horizontal)** vs **Execution (vertical)** logic must remain explicit.
-- Compose/property-token/implementation files here support realization of the canonical system defined in `docs/02_system/`.
+## Authority
+Supporting implementation authority.
+
+## Must preserve
+- Main = current truth
+- Side Swipe = today-relevant quick modulation
+- Backstage = durable structure / rare changes
+- Planning = horizontal logic
+- Execution = vertical logic
+
+## Do not
+Do not move canonical product truth into implementation-only files.

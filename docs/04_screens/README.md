@@ -1,11 +1,13 @@
-# Screen Specs
+# Screen Specs (Supporting)
 
-This folder holds current screen-spec documentation tied to CatchIt's state-based and trust-centered logic.
+## What belongs here
+Current screen-spec documents for implementing canonical CatchIt behavior.
 
-## Scope
-- Figma screen specification parts (01-05)
-- Screen reference documentation used for implementation alignment
+## Authority
+Supporting. Screens operationalize canonical logic; they do not define it.
 
-## Not in this folder
-- Prototype exports (`docs/07_prototypes_archive/`)
-- Motion/branding specs (`docs/06_motion_brand/`)
+## Use
+Create/update files here for screen-level changes after validating against philosophy/system/gold.
+
+## Do not
+Do not merge Side Swipe and Backstage behavior or overwrite planning/execution distinctions.
