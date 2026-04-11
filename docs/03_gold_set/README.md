@@ -9,6 +9,7 @@ Gold reference authority, immediately below canonical rule folders.
 ## Core vs Extended
 - **Core Gold** (`12A_*`): product-architecturally central.
 - **Extended Gold** (`12B_*`): supporting gold-level reference.
+- **Layer 2 Gold** (`layer_2_gold_set/`): later gold-status material nested inside this folder at `docs/03_gold_set/layer_2_gold_set/`.
 
 ## Use
 Validate proposed changes against gold references before implementation.

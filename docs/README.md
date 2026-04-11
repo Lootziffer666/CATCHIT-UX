@@ -6,7 +6,7 @@ This docs tree is authority-ordered to prevent semantic drift.
 - `01_philosophy/` — product framing and CatchIt posture (canonical).
 - `02_system/` — state, anchor, transition, density, language, and system rules (canonical).
 - `03_gold_set/` — Core Gold and Extended Gold references (gold-level authority baseline).
-- `layer_2_gold_set/` — later-stage gold-status material (gold-level authority, parallel to `03_gold_set`).
+- `03_gold_set/layer_2_gold_set/` — later-stage gold-status material (gold-level authority nested under `03_gold_set`).
 - `04_screens/` — screen specifications aligned to canonical rules (supporting).
 - `05_layers/` — layer-specific and implementation-bridge specs (supporting).
 - `06_motion_brand/` — splash/signet and motion-brand artifacts (parallel spec domain).
