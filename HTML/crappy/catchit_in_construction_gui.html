@@ -3,342 +3,264 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CatchIt In-Construction GUI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#020617;
-      --panel:#0f172a;
-      --panel2:#111827;
-      --text:#e5e7eb;
-      --muted:#94a3b8;
-      --border:rgba(255,255,255,.08);
-      --soft:rgba(255,255,255,.05);
-      --good-bg:rgba(16,185,129,.18);
-      --good-text:#d1fae5;
-      --warn-bg:rgba(245,158,11,.18);
-      --warn-text:#fef3c7;
-      --neutral-bg:rgba(148,163,184,.18);
-      --neutral-text:#e2e8f0;
-      --shadow:0 24px 60px rgba(0,0,0,.28);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:var(--bg);
-      color:var(--text);
-      font-family:Inter,system-ui,sans-serif;
-    }
-    .container{
-      max-width:1400px;
-      margin:0 auto;
-      padding:24px;
-    }
-    .grid-top{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:16px;
-      margin-bottom:16px;
-    }
-    .grid-main{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:16px;
-    }
-    .panel{
-      background:rgba(15,23,42,.92);
-      border:1px solid var(--border);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      padding:20px;
-    }
-    .hero{
-      background:
-        linear-gradient(135deg, rgba(14,165,233,.28), rgba(59,130,246,.18) 42%, rgba(15,23,42,.92) 88%);
-    }
-    .eyebrow{
-      font-size:12px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      color:var(--muted);
-      display:flex;
-      gap:8px;
-      align-items:center;
-      margin-bottom:12px;
-    }
-    h1{
-      font-size:40px;
-      line-height:1.05;
-      margin:0;
-      font-weight:900;
-      max-width:900px;
-    }
-    p{
-      color:var(--muted);
-      line-height:1.45;
-      margin:12px 0 0;
-      max-width:900px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      border-radius:999px;
-      border:1px solid transparent;
-      padding:6px 10px;
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .badge.good{background:var(--good-bg); color:var(--good-text); border-color:rgba(16,185,129,.2);}
-    .badge.warn{background:var(--warn-bg); color:var(--warn-text); border-color:rgba(245,158,11,.2);}
-    .badge.neutral{background:var(--neutral-bg); color:var(--neutral-text); border-color:rgba(148,163,184,.2);}
-    .badge.default{background:var(--soft); color:var(--text); border-color:var(--border);}
-    .badge-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
-    .mini-card{
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:16px;
-      margin-top:12px;
-    }
-    .mini-card-title{
-      color:#fff;
-      font-weight:700;
-      margin-bottom:8px;
-    }
-    .section-title{
-      font-size:12px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-    .section-head{
-      font-size:20px;
-      font-weight:800;
-      color:#fff;
-      margin-bottom:16px;
-    }
-    .table{
-      border:1px solid var(--border);
-      border-radius:18px;
-      overflow:hidden;
-    }
-    .thead,.trow{
-      display:grid;
-      grid-template-columns:1.6fr .6fr .8fr .9fr .9fr .7fr;
-      gap:8px;
-      padding:12px;
-      align-items:start;
-    }
-    .thead{
-      background:var(--soft);
-      font-size:11px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:var(--muted);
-    }
-    .trow{
-      font-size:14px;
-      border-top:1px solid var(--border);
-    }
-    .screen-name{font-weight:700; color:#fff;}
-    .muted{color:var(--muted);}
-    .cards-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    .setting-card{
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-    }
-    .setting-name{font-size:15px; font-weight:700; color:#fff; margin-bottom:4px;}
-    .setting-value{
-      color:var(--muted);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-weight:800;
-      margin-bottom:8px;
-    }
-    .stack{display:flex; flex-direction:column; gap:16px;}
-    .param-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:12px 14px;
-    }
-    .param-name{font-size:14px; font-weight:600; color:#fff;}
-    @media (max-width: 1100px){
-      .grid-top,.grid-main{grid-template-columns:1fr;}
-    }
-    @media (max-width: 800px){
-      .thead,.trow{
-        grid-template-columns:1.4fr .8fr .9fr;
-      }
-      .thead div:nth-child(n+4), .trow div:nth-child(n+4){display:none;}
-      .cards-grid{grid-template-columns:1fr;}
-      h1{font-size:32px;}
-    }
-  </style>
+  <title>CatchIt In Construction GUI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="container">
-    <div class="grid-top">
-      <section class="panel hero">
-        <div class="eyebrow">
-          <span class="badge warn">In Construction</span>
-          <span>CatchIt Behilfs-Layer-2 GUI</span>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto max-w-7xl p-4 md:p-6">
+    <div class="mb-4 grid gap-4 lg:grid-cols-[1fr_auto]">
+      <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-sky-500/30 via-blue-500/20 to-slate-900 p-6 shadow-2xl">
+        <div class="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-300">
+          <span class="inline-flex items-center rounded-full border border-amber-300/20 bg-amber-300/20 px-2.5 py-1 text-xs font-semibold text-amber-50">In Construction</span>
+          <span>CatchIt UX Einstellungswerkzeug (temporäres Menü)</span>
         </div>
-        <h1>Nicht schön. Aber endlich ein Steuerpult statt Dateisuppe.</h1>
-        <p>Diese Oberfläche ist eine provisorische Arbeits-GUI für Screen-Matrix, Parameter-Hölle und Settings, die noch keinen sauberen Platz im späteren Menüsystem haben.</p>
-        <div class="badge-row">
-          <span class="badge good">good = Funktion + Optik vererbbar</span>
-          <span class="badge warn">crappy = nur Funktion vererbbar</span>
-          <span class="badge neutral">old = nur Referenz</span>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="section-title">Aktueller Arbeitsmodus</div>
-        <div class="mini-card">
-          <div class="mini-card-title">Ziel</div>
-          <div class="muted">Layer 2 provisorisch steuerbar machen, ohne die hässlichen Zwischenstände zu kanonisieren.</div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-card-title">Wichtig</div>
-          <div class="muted">Settings hier sammeln, bis klar ist, was später in Wizard, Quick Change, Search oder Side Menu wohnen soll.</div>
-        </div>
-      </section>
+        <h1 class="max-w-3xl text-2xl font-black tracking-tight md:text-3xl">On-the-fly Editor für Position, Größe, Typografie + Kollisionen</h1>
+        <p class="mt-2 text-sm text-slate-300">Screen wählen → Element im Preview anklicken → X/Y/Breite/Höhe/Font/Skalierung anpassen → Exportieren.</p>
+      </div>
+      <a href="../prototype.html" class="self-start rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Zum Prototyp-Hub</a>
     </div>
 
-    <div class="grid-main">
-      <div class="stack">
-        <section class="panel">
-          <div class="section-title">Screen Matrix</div>
-          <div class="section-head">Aktive Screen-Landschaft</div>
+    <div class="grid gap-4 xl:grid-cols-[360px_1fr]">
+      <section class="rounded-3xl border border-white/10 bg-slate-900/80 p-4 shadow-xl space-y-4">
+        <div>
+          <label class="text-xs uppercase tracking-[0.2em] text-slate-400">Screen</label>
+          <select id="screenSelect" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-950 p-2 text-sm">
+            <option value="MapFocus_lean_v3_side_by_side_toprow.html">Map Focus</option>
+            <option value="GoMode_walk_to_stop_v1.html">Go Mode</option>
+            <option value="Recovery_simple_switch_v1.html">Recovery Simple Switch</option>
+            <option value="Recovery_recheck_noetig_v1.html">Recovery Recheck</option>
+            <option value="Recovery_kette_angepasst_v2.html">Recovery Kette angepasst</option>
+            <option value="Wizard_einstieg_v1.html">Wizard Einstieg</option>
+            <option value="Wizard_bewegungsstil_tageslage_v1.html">Wizard Bewegungsstil</option>
+            <option value="Chain_summary_v1.html">Chain Summary</option>
+            <option value="Quick_change_v1.html">Quick Change</option>
+            <option value="Haltestellensuche_v2_freitext_live_poi_ready.html">Haltestellensuche</option>
+            <option value="../good/MainScreen_ready_green_v2.html">Main Ready (good)</option>
+            <option value="../good/MainScreen_adapting_yellow_v2.html">Main Adapting (good)</option>
+          </select>
+        </div>
 
-          <div class="table">
-            <div class="thead">
-              <div>Screen</div>
-              <div>Ordner</div>
-              <div>Visual</div>
-              <div>Anchor</div>
-              <div>Route</div>
-              <div>Map</div>
-            </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="loadBtn" class="rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm hover:bg-white/20">Screen laden</button>
+          <button id="pickBtn" class="rounded-xl border border-cyan-300/30 bg-cyan-400/20 px-3 py-2 text-sm hover:bg-cyan-400/30">Element wählen</button>
+        </div>
 
-            <div class="trow"><div class="screen-name">Main / Idle / Blue</div><div><span class="badge good">good</span></div><div class="muted">canonical</div><div class="muted">countdown</div><div class="muted">triplet</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Main / Ready / Green</div><div><span class="badge good">good</span></div><div class="muted">canonical</div><div class="muted">countdown</div><div class="muted">triplet</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Main / Adapting / Yellow</div><div><span class="badge good">good</span></div><div class="muted">canonical</div><div class="muted">countdown</div><div class="muted">triplet</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Main / Act Now / Orange</div><div><span class="badge good">good</span></div><div class="muted">canonical</div><div class="muted">instruction</div><div class="muted">triplet_or_single</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Main / Failed / Red</div><div><span class="badge good">good</span></div><div class="muted">canonical</div><div class="muted">failure</div><div class="muted">suppressed</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Main → Map Reveal</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">countdown</div><div class="muted">triplet</div><div class="muted">reveal</div></div>
-            <div class="trow"><div class="screen-name">Map Focus</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">split_top</div><div class="muted">switchers</div><div class="muted">focus</div></div>
-            <div class="trow"><div class="screen-name">Go Mode / Walk to Stop</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">step_execution</div><div class="muted">single_active</div><div class="muted">go_support</div></div>
-            <div class="trow"><div class="screen-name">Recovery / Simple Switch</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">recovery_decision</div><div class="muted">alt_to_new</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Recovery / Recheck nötig</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">recovery_recheck</div><div class="muted">likely_vs_unclear</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Recovery / Kette angepasst</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">recovery_chain_change</div><div class="muted">stacked_segments</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Wizard / Einstieg</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">single_question</div><div class="muted">none</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Wizard / Kettenfrage</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">single_question</div><div class="muted">none</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Wizard / Bewegungsstil</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">single_question</div><div class="muted">none</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Chain Summary</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">summary_segment</div><div class="muted">stacked_segments</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Quick Change</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">quick_adjust</div><div class="muted">option_stack</div><div class="muted">none</div></div>
-            <div class="trow"><div class="screen-name">Haltestellensuche</div><div><span class="badge warn">crappy</span></div><div class="muted">provisional</div><div class="muted">search_input</div><div class="muted">suggestions</div><div class="muted">none</div></div>
-          </div>
-        </section>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">
+          <div class="mb-1 uppercase tracking-[0.15em] text-slate-400">Auswahl</div>
+          <div id="selectedInfo" class="break-all text-slate-200">Kein Element ausgewählt.</div>
+        </div>
 
-        <section class="panel">
-          <div class="section-title">Offene Settings ohne finalen Platz</div>
-          <div class="cards-grid">
-            <div class="setting-card"><div class="setting-name">Walk tolerance</div><div class="setting-value">medium</div><div class="muted">Wizard/Profile später</div></div>
-            <div class="setting-card"><div class="setting-name">Transfer tolerance</div><div class="setting-value">allow_one</div><div class="muted">noch kein sauberer UI-Ort</div></div>
-            <div class="setting-card"><div class="setting-name">Buffer priority</div><div class="setting-value">medium</div><div class="muted">Wizard / Tageslage</div></div>
-            <div class="setting-card"><div class="setting-name">Two-home mode</div><div class="setting-value">false</div><div class="muted">Family Setup später</div></div>
-            <div class="setting-card"><div class="setting-name">Search scope</div><div class="setting-value">stops_first_poi_later</div><div class="muted">Search Settings später</div></div>
-            <div class="setting-card"><div class="setting-name">Dot validation</div><div class="setting-value">true</div><div class="muted">Trust-Logik intern</div></div>
-            <div class="setting-card"><div class="setting-name">Go guidance depth</div><div class="setting-value">normal</div><div class="muted">Go Settings später</div></div>
-            <div class="setting-card"><div class="setting-name">Visual mode</div><div class="setting-value">soft_gradient</div><div class="muted">Appearance später</div></div>
-          </div>
-        </section>
-      </div>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="text-xs">X <input id="xInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Y <input id="yInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Breite <input id="wInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Höhe <input id="hInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Font-Größe <input id="fontSizeInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Skalierung % <input id="scaleInput" type="number" value="100" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+        </div>
 
-      <div class="stack">
-        <section class="panel">
-          <div class="section-title">Surface & State</div>
-          <div class="param-row"><div class="param-name">surface_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">state_color_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">surface_density</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">layout_axis</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">dominance_region</div><span class="badge neutral">provisional</span></div>
-        </section>
+        <label class="text-xs block">Font-Family
+          <input id="fontFamilyInput" type="text" placeholder="z.B. Arial, sans-serif" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5">
+        </label>
 
-        <section class="panel">
-          <div class="section-title">Anchor & Bubble</div>
-          <div class="param-row"><div class="param-name">anchor_type</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">anchor_position</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">anchor_persistence</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">bubble_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">bubble_scale</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">bubble_position_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">dot_state</div><span class="badge neutral">provisional</span></div>
-        </section>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="applyBtn" class="rounded-xl border border-emerald-300/30 bg-emerald-500/20 px-3 py-2 text-sm hover:bg-emerald-500/30">Änderung anwenden</button>
+          <button id="collisionBtn" class="rounded-xl border border-amber-300/30 bg-amber-500/20 px-3 py-2 text-sm hover:bg-amber-500/30">Kollision prüfen</button>
+        </div>
 
-        <section class="panel">
-          <div class="section-title">Route / Chain / Map</div>
-          <div class="param-row"><div class="param-name">route_presentation_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">route_selection_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">chain_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">map_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">map_style_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">map_frame_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">map_info_level</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">path_mode</div><span class="badge neutral">provisional</span></div>
-        </section>
+        <button id="exportBtn" class="w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm hover:bg-white/20">Änderungen exportieren</button>
 
-        <section class="panel">
-          <div class="section-title">Wizard / Search / Input</div>
-          <div class="param-row"><div class="param-name">input_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">advance_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">wizard_question_type</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">search_scope</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">location_button</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">suggestion_behavior</div><span class="badge neutral">provisional</span></div>
-        </section>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">
+          <div class="mb-1 uppercase tracking-[0.15em] text-slate-400">Kollisionen</div>
+          <div id="collisionOutput" class="text-slate-200">Noch nicht geprüft.</div>
+        </div>
 
-        <section class="panel">
-          <div class="section-title">Mobility Preferences</div>
-          <div class="param-row"><div class="param-name">pref_walk_tolerance</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">pref_transfer_tolerance</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">pref_buffer_priority</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">pref_speed_vs_calm</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">pref_nearer_stop_vs_fewer_changes</div><span class="badge neutral">provisional</span></div>
-        </section>
+        <textarea id="exportOutput" class="h-40 w-full rounded-xl border border-white/20 bg-slate-950 p-2 text-xs" placeholder="Export erscheint hier als JSON..."></textarea>
+      </section>
 
-        <section class="panel">
-          <div class="section-title">Family / Trust / Comfort</div>
-          <div class="param-row"><div class="param-name">family_mode_enabled</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">two_home_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">saved_tour_dot_mode</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">favorite_validation_required</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">animation_strength</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">haptics_enabled</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">sound_cues_enabled</div><span class="badge neutral">provisional</span></div>
-          <div class="param-row"><div class="param-name">visual_mode</div><span class="badge neutral">provisional</span></div>
-        </section>
-      </div>
+      <section class="rounded-3xl border border-white/10 bg-slate-900/80 p-2 shadow-xl">
+        <iframe id="preview" src="MapFocus_lean_v3_side_by_side_toprow.html" class="h-[78vh] w-full rounded-2xl bg-white"></iframe>
+      </section>
     </div>
   </div>
+
+  <script>
+    const preview = document.getElementById('preview');
+    const screenSelect = document.getElementById('screenSelect');
+    const selectedInfo = document.getElementById('selectedInfo');
+    const collisionOutput = document.getElementById('collisionOutput');
+    const exportOutput = document.getElementById('exportOutput');
+
+    const fields = {
+      x: document.getElementById('xInput'),
+      y: document.getElementById('yInput'),
+      w: document.getElementById('wInput'),
+      h: document.getElementById('hInput'),
+      fontSize: document.getElementById('fontSizeInput'),
+      scale: document.getElementById('scaleInput'),
+      fontFamily: document.getElementById('fontFamilyInput')
+    };
+
+    let selectedEl = null;
+    let selectedSelector = '';
+    let pickMode = false;
+
+    const editedElements = new Map();
+
+    function cssPath(el) {
+      if (!el || el === el.ownerDocument.body) return 'body';
+      const parts = [];
+      while (el && el.nodeType === 1 && el !== el.ownerDocument.body) {
+        let part = el.tagName.toLowerCase();
+        if (el.id) {
+          part += `#${el.id}`;
+          parts.unshift(part);
+          break;
+        }
+        const parent = el.parentElement;
+        if (parent) {
+          const index = [...parent.children].indexOf(el) + 1;
+          part += `:nth-child(${index})`;
+        }
+        parts.unshift(part);
+        el = parent;
+      }
+      return parts.join(' > ');
+    }
+
+    function readBox(el) {
+      const doc = preview.contentDocument;
+      const rect = el.getBoundingClientRect();
+      const bodyRect = doc.body.getBoundingClientRect();
+      const style = preview.contentWindow.getComputedStyle(el);
+
+      fields.x.value = Math.round(rect.left - bodyRect.left);
+      fields.y.value = Math.round(rect.top - bodyRect.top);
+      fields.w.value = Math.round(rect.width);
+      fields.h.value = Math.round(rect.height);
+      fields.fontSize.value = parseFloat(style.fontSize) || '';
+      fields.fontFamily.value = style.fontFamily || '';
+      fields.scale.value = el.dataset.scalePercent || 100;
+    }
+
+    function selectElement(el) {
+      if (!el || el.tagName === 'HTML' || el.tagName === 'BODY') return;
+      const doc = preview.contentDocument;
+      doc.querySelectorAll('[data-catchit-selected="1"]').forEach(n => n.removeAttribute('data-catchit-selected'));
+      el.dataset.catchitSelected = '1';
+      selectedEl = el;
+      selectedSelector = cssPath(el);
+      selectedInfo.textContent = selectedSelector;
+      readBox(el);
+    }
+
+    function attachPicker() {
+      const doc = preview.contentDocument;
+      if (!doc) return;
+      doc.addEventListener('click', (e) => {
+        if (!pickMode) return;
+        e.preventDefault();
+        e.stopPropagation();
+        selectElement(e.target);
+        pickMode = false;
+        document.getElementById('pickBtn').textContent = 'Element wählen';
+      }, true);
+
+      const style = doc.createElement('style');
+      style.textContent = `
+        [data-catchit-selected="1"] { outline: 2px solid #22d3ee !important; }
+        [data-catchit-edited="1"] { box-shadow: 0 0 0 2px rgba(16,185,129,.9) inset !important; }
+      `;
+      doc.head.appendChild(style);
+    }
+
+    function applyChanges() {
+      if (!selectedEl) return;
+      const el = selectedEl;
+      const x = Number(fields.x.value);
+      const y = Number(fields.y.value);
+      const w = Number(fields.w.value);
+      const h = Number(fields.h.value);
+      const fontSize = Number(fields.fontSize.value);
+      const scale = Number(fields.scale.value || 100);
+
+      el.style.position = 'absolute';
+      if (!Number.isNaN(x)) el.style.left = `${x}px`;
+      if (!Number.isNaN(y)) el.style.top = `${y}px`;
+      if (!Number.isNaN(w) && w > 0) el.style.width = `${w}px`;
+      if (!Number.isNaN(h) && h > 0) el.style.height = `${h}px`;
+      if (!Number.isNaN(fontSize) && fontSize > 0) el.style.fontSize = `${fontSize}px`;
+      if (fields.fontFamily.value.trim()) el.style.fontFamily = fields.fontFamily.value.trim();
+
+      el.style.transformOrigin = 'top left';
+      el.style.transform = `scale(${scale / 100})`;
+      el.dataset.scalePercent = String(scale);
+      el.dataset.catchitEdited = '1';
+
+      editedElements.set(selectedSelector, {
+        selector: selectedSelector,
+        x, y, width: w, height: h,
+        fontSize: fontSize || null,
+        fontFamily: fields.fontFamily.value.trim() || null,
+        scalePercent: scale
+      });
+    }
+
+    function intersects(a, b) {
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    }
+
+    function checkCollisions() {
+      const doc = preview.contentDocument;
+      const nodes = [...doc.querySelectorAll('[data-catchit-edited="1"]')];
+      if (nodes.length < 2) {
+        collisionOutput.textContent = 'Keine Kollisionen (mindestens zwei bearbeitete Elemente nötig).';
+        return;
+      }
+
+      const collisions = [];
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          if (intersects(a.getBoundingClientRect(), b.getBoundingClientRect())) {
+            collisions.push(`${cssPath(a)}  ↔  ${cssPath(b)}`);
+          }
+        }
+      }
+
+      collisionOutput.innerHTML = collisions.length
+        ? collisions.map(c => `• ${c}`).join('<br>')
+        : 'Keine Kollisionen erkannt.';
+    }
+
+    document.getElementById('loadBtn').addEventListener('click', () => {
+      preview.src = screenSelect.value;
+    });
+
+    document.getElementById('pickBtn').addEventListener('click', () => {
+      pickMode = !pickMode;
+      document.getElementById('pickBtn').textContent = pickMode ? 'Klick im Screen...' : 'Element wählen';
+    });
+
+    document.getElementById('applyBtn').addEventListener('click', applyChanges);
+    document.getElementById('collisionBtn').addEventListener('click', checkCollisions);
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      exportOutput.value = JSON.stringify({
+        screen: screenSelect.value,
+        changes: [...editedElements.values()]
+      }, null, 2);
+    });
+
+    preview.addEventListener('load', () => {
+      selectedEl = null;
+      selectedSelector = '';
+      editedElements.clear();
+      selectedInfo.textContent = 'Kein Element ausgewählt.';
+      collisionOutput.textContent = 'Noch nicht geprüft.';
+      exportOutput.value = '';
+      attachPicker();
+    });
+  </script>
 </body>
 </html>

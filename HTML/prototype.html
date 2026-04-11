@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt klickbarer Prototyp</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background:#111; color:#eee; }
+    header { padding: 12px 16px; background:#1c1c1c; border-bottom:1px solid #333; }
+    main { display:grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 54px); }
+    nav { border-right:1px solid #333; padding: 12px; overflow:auto; }
+    .group { margin-bottom: 14px; padding:10px; background:#1a1a1a; border:1px solid #2c2c2c; }
+    .group h2 { font-size: 15px; margin:0 0 8px 0; }
+    .group a { display:block; color:#9ad; text-decoration:none; margin:4px 0; }
+    .group a:hover { text-decoration:underline; }
+    iframe { width:100%; height: calc(100vh - 54px); border:0; background:#fff; }
+    .note { font-size:12px; color:#bbb; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>CatchIt Prototyp (good + crappy direkt verlinkt)</strong>
+  </header>
+  <main>
+    <nav>
+      <div class="group">
+        <h2>Sprint 1 – Main States</h2>
+        <a href="good/MainScreen_parent_v3_luckiest_archivo.html" target="screen">Main Parent</a>
+        <a href="good/MainScreen_ready_green_v2.html" target="screen">Main Ready (Green)</a>
+        <a href="good/MainScreen_adapting_yellow_v2.html" target="screen">Main Adapting (Yellow)</a>
+        <a href="good/Orange_execute_now_v1.html" target="screen">Main Act Now (Orange)</a>
+        <a href="good/Orange_confirm_change_v1.html" target="screen">Orange Confirm Change</a>
+        <a href="good/Orange_recommit_chain_v1.html" target="screen">Orange Recommit Chain</a>
+        <a href="good/MainScreen_failed_red_v1.html" target="screen">Main Failed (Red)</a>
+      </div>
+
+      <div class="group">
+        <h2>Sprint 2 – Map Reveal / Focus / Go</h2>
+        <a href="crappy/catchit_in_construction_gui.html" target="screen">Map Reveal / Construction GUI</a>
+        <a href="crappy/MapFocus_lean_v3_side_by_side_toprow.html" target="screen">Map Focus</a>
+        <a href="crappy/GoMode_walk_to_stop_v1.html" target="screen">Go Mode (Walk to Stop)</a>
+      </div>
+
+      <div class="group">
+        <h2>Sprint 3 – Recovery States</h2>
+        <a href="crappy/Recovery_simple_switch_v1.html" target="screen">Recovery Simple Switch</a>
+        <a href="crappy/Recovery_recheck_noetig_v1.html" target="screen">Recovery Recheck nötig</a>
+        <a href="crappy/Recovery_kette_angepasst_v2.html" target="screen">Recovery Kette angepasst</a>
+      </div>
+
+      <div class="group">
+        <h2>Sprint 4 – Wizard / Summary / Quick Change / Search</h2>
+        <a href="crappy/Wizard_einstieg_v1.html" target="screen">Wizard Einstieg</a>
+        <a href="crappy/Wizard_bewegungsstil_tageslage_v1.html" target="screen">Wizard Bewegungsstil/Tageslage</a>
+        <a href="crappy/Chain_summary_v1.html" target="screen">Chain Summary</a>
+        <a href="crappy/Quick_change_v1.html" target="screen">Quick Change</a>
+        <a href="crappy/Haltestellensuche_v2_freitext_live_poi_ready.html" target="screen">Suche (Freitext + Vorschläge + Standort)</a>
+      </div>
+
+      <div class="note">Navigation ist absichtlich minimal/provisorisch für Testbarkeit.</div>
+    </nav>
+
+    <iframe name="screen" src="good/MainScreen_parent_v3_luckiest_archivo.html" title="CatchIt Screen"></iframe>
+  </main>
+</body>
+</html>
