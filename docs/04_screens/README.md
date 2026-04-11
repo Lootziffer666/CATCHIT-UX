@@ -17,13 +17,13 @@ Use this folder to implement and review screen behavior that is already grounded
 
 ## What does *not* belong here
 - New product principles, state logic, or system rules (belongs in `01_philosophy` + `02_system`).
-- Gold-set authority files (belongs in `03_gold_set` and any future `layer_2_gold_set` area).
+- Gold-set authority files (belongs in `03_gold_set` and the nested `03_gold_set/layer_2_gold_set` area).
 - Raw prototype exports or historical HTML/ZIP artifacts (belongs in `07_prototypes_archive`).
 - Brainstorming scratch notes or unresolved thought dumps (belongs in `08_working_notes`).
 
 ## How this differs from nearby folders
 - **vs `03_gold_set/`**: `03_gold_set` is gold-level reference authority (Core + Extended); `04_screens` is implementation-oriented grouped screen guidance.
-- **vs `layer_2_gold_set`**: layer-2 gold is gold authority for later-stage gold material; `04_screens` is never gold authority by default.
+- **vs `03_gold_set/layer_2_gold_set`**: layer-2 gold is gold authority for later-stage gold material; `04_screens` is never gold authority by default.
 - **vs `07_prototypes_archive/`**: archive preserves historical prototypes for lessons and traceability; `04_screens` is active supporting documentation.
 - **vs `08_working_notes/`**: working notes are exploratory and non-normative; `04_screens` should be structured and execution-useful.
 
@@ -39,6 +39,6 @@ Use this folder to implement and review screen behavior that is already grounded
 Before changing any file here, verify alignment with:
 1. `docs/01_philosophy/`
 2. `docs/02_system/`
-3. `docs/03_gold_set/` + `docs/layer_2_gold_set/` (Core before Extended inside `03_gold_set`)
+3. `docs/03_gold_set/` + `docs/03_gold_set/layer_2_gold_set/` (Core before Extended inside `03_gold_set`)
 
 Do not use `04_screens` to silently redefine planning vs execution, Main vs Side Swipe vs Backstage, or Core Gold vs Extended Gold.

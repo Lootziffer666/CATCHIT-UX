@@ -44,4 +44,4 @@ This is the onboarding sequence for safe CatchIt work.
 - Splash/signet/motion brand work → `docs/06_motion_brand/`
 - Historical inspiration lookup → `docs/07_prototypes_archive/`
 - Historical/non-canonical holding lookup (traceability only) → `maybe_deprecated/`
-- Later gold-status reference checks → `docs/layer_2_gold_set/`
+- Later gold-status reference checks → `docs/03_gold_set/layer_2_gold_set/`

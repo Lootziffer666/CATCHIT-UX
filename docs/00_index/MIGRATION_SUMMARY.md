@@ -26,9 +26,9 @@ This file records what changed in the docs restructure and what authority bounda
 - Non-canonical archive/working zones: `docs/07_prototypes_archive/`, `docs/08_working_notes/`, and root `maybe_deprecated/`.
 
 ## 2) Gold-set clarification
-- Gold authority is now split across **two gold-related areas**: `docs/03_gold_set/` and `docs/layer_2_gold_set/`.
+- Gold authority is now organized under `docs/03_gold_set/`, with Layer 2 gold nested at `docs/03_gold_set/layer_2_gold_set/`.
 - `docs/03_gold_set/` remains the primary Core/Extended gold baseline (including `12A` Core and `12B` Extended references).
-- `docs/layer_2_gold_set/` is for later gold-status material and does not collapse Core vs Extended distinctions.
+- `docs/03_gold_set/layer_2_gold_set/` is for later gold-status material and does not collapse Core vs Extended distinctions.
 - Older unsplit gold-adjacent material preserved elsewhere is retained for traceability, not as primary authority.
 
 ## 3) Prototype/archive clarification
@@ -50,7 +50,7 @@ This file records what changed in the docs restructure and what authority bounda
 ## 6) Trust boundary reminder
 Use this order when conflicts appear:
 1. `docs/01_philosophy/` + `docs/02_system/`
-2. `docs/03_gold_set/` + `docs/layer_2_gold_set/` (Core before Extended inside `03_gold_set`)
+2. `docs/03_gold_set/` + `docs/03_gold_set/layer_2_gold_set/` (Core before Extended inside `03_gold_set`)
 3. `docs/04_screens/` + `docs/05_layers/`
 4. `docs/06_motion_brand/` (parallel spec domain)
 5. `docs/08_working_notes/`, `docs/07_prototypes_archive/`, `maybe_deprecated/`
