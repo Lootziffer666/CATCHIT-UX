@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt In Construction GUI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto max-w-7xl p-4 md:p-6">
+    <div class="mb-4 grid gap-4 lg:grid-cols-[1fr_auto]">
+      <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-sky-500/30 via-blue-500/20 to-slate-900 p-6 shadow-2xl">
+        <div class="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-300">
+          <span class="inline-flex items-center rounded-full border border-amber-300/20 bg-amber-300/20 px-2.5 py-1 text-xs font-semibold text-amber-50">In Construction</span>
+          <span>CatchIt UX Einstellungswerkzeug (temporäres Menü)</span>
+        </div>
+        <h1 class="max-w-3xl text-2xl font-black tracking-tight md:text-3xl">On-the-fly Editor für Position, Größe, Typografie + Kollisionen</h1>
+        <p class="mt-2 text-sm text-slate-300">Screen wählen → Element im Preview anklicken → X/Y/Breite/Höhe/Font/Skalierung anpassen → Exportieren.</p>
+      </div>
+      <a href="../prototype.html" class="self-start rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">Zum Prototyp-Hub</a>
+    </div>
+
+    <div class="grid gap-4 xl:grid-cols-[360px_1fr]">
+      <section class="rounded-3xl border border-white/10 bg-slate-900/80 p-4 shadow-xl space-y-4">
+        <div>
+          <label class="text-xs uppercase tracking-[0.2em] text-slate-400">Screen</label>
+          <select id="screenSelect" class="mt-1 w-full rounded-xl border border-white/20 bg-slate-950 p-2 text-sm">
+            <option value="MapFocus_lean_v3_side_by_side_toprow.html">Map Focus</option>
+            <option value="GoMode_walk_to_stop_v1.html">Go Mode</option>
+            <option value="Recovery_simple_switch_v1.html">Recovery Simple Switch</option>
+            <option value="Recovery_recheck_noetig_v1.html">Recovery Recheck</option>
+            <option value="Recovery_kette_angepasst_v2.html">Recovery Kette angepasst</option>
+            <option value="Wizard_einstieg_v1.html">Wizard Einstieg</option>
+            <option value="Wizard_bewegungsstil_tageslage_v1.html">Wizard Bewegungsstil</option>
+            <option value="Chain_summary_v1.html">Chain Summary</option>
+            <option value="Quick_change_v1.html">Quick Change</option>
+            <option value="Haltestellensuche_v2_freitext_live_poi_ready.html">Haltestellensuche</option>
+            <option value="../good/MainScreen_ready_green_v2.html">Main Ready (good)</option>
+            <option value="../good/MainScreen_adapting_yellow_v2.html">Main Adapting (good)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button id="loadBtn" class="rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm hover:bg-white/20">Screen laden</button>
+          <button id="pickBtn" class="rounded-xl border border-cyan-300/30 bg-cyan-400/20 px-3 py-2 text-sm hover:bg-cyan-400/30">Element wählen</button>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">
+          <div class="mb-1 uppercase tracking-[0.15em] text-slate-400">Auswahl</div>
+          <div id="selectedInfo" class="break-all text-slate-200">Kein Element ausgewählt.</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <label class="text-xs">X <input id="xInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Y <input id="yInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Breite <input id="wInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Höhe <input id="hInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Font-Größe <input id="fontSizeInput" type="number" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+          <label class="text-xs">Skalierung % <input id="scaleInput" type="number" value="100" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5"></label>
+        </div>
+
+        <label class="text-xs block">Font-Family
+          <input id="fontFamilyInput" type="text" placeholder="z.B. Arial, sans-serif" class="mt-1 w-full rounded border border-white/20 bg-slate-950 p-1.5">
+        </label>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button id="applyBtn" class="rounded-xl border border-emerald-300/30 bg-emerald-500/20 px-3 py-2 text-sm hover:bg-emerald-500/30">Änderung anwenden</button>
+          <button id="collisionBtn" class="rounded-xl border border-amber-300/30 bg-amber-500/20 px-3 py-2 text-sm hover:bg-amber-500/30">Kollision prüfen</button>
+        </div>
+
+        <button id="exportBtn" class="w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-sm hover:bg-white/20">Änderungen exportieren</button>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-3 text-xs">
+          <div class="mb-1 uppercase tracking-[0.15em] text-slate-400">Kollisionen</div>
+          <div id="collisionOutput" class="text-slate-200">Noch nicht geprüft.</div>
+        </div>
+
+        <textarea id="exportOutput" class="h-40 w-full rounded-xl border border-white/20 bg-slate-950 p-2 text-xs" placeholder="Export erscheint hier als JSON..."></textarea>
+      </section>
+
+      <section class="rounded-3xl border border-white/10 bg-slate-900/80 p-2 shadow-xl">
+        <iframe id="preview" src="MapFocus_lean_v3_side_by_side_toprow.html" class="h-[78vh] w-full rounded-2xl bg-white"></iframe>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const preview = document.getElementById('preview');
+    const screenSelect = document.getElementById('screenSelect');
+    const selectedInfo = document.getElementById('selectedInfo');
+    const collisionOutput = document.getElementById('collisionOutput');
+    const exportOutput = document.getElementById('exportOutput');
+
+    const fields = {
+      x: document.getElementById('xInput'),
+      y: document.getElementById('yInput'),
+      w: document.getElementById('wInput'),
+      h: document.getElementById('hInput'),
+      fontSize: document.getElementById('fontSizeInput'),
+      scale: document.getElementById('scaleInput'),
+      fontFamily: document.getElementById('fontFamilyInput')
+    };
+
+    let selectedEl = null;
+    let selectedSelector = '';
+    let pickMode = false;
+
+    const editedElements = new Map();
+
+    function cssPath(el) {
+      if (!el || el === el.ownerDocument.body) return 'body';
+      const parts = [];
+      while (el && el.nodeType === 1 && el !== el.ownerDocument.body) {
+        let part = el.tagName.toLowerCase();
+        if (el.id) {
+          part += `#${el.id}`;
+          parts.unshift(part);
+          break;
+        }
+        const parent = el.parentElement;
+        if (parent) {
+          const index = [...parent.children].indexOf(el) + 1;
+          part += `:nth-child(${index})`;
+        }
+        parts.unshift(part);
+        el = parent;
+      }
+      return parts.join(' > ');
+    }
+
+    function readBox(el) {
+      const doc = preview.contentDocument;
+      const rect = el.getBoundingClientRect();
+      const bodyRect = doc.body.getBoundingClientRect();
+      const style = preview.contentWindow.getComputedStyle(el);
+
+      fields.x.value = Math.round(rect.left - bodyRect.left);
+      fields.y.value = Math.round(rect.top - bodyRect.top);
+      fields.w.value = Math.round(rect.width);
+      fields.h.value = Math.round(rect.height);
+      fields.fontSize.value = parseFloat(style.fontSize) || '';
+      fields.fontFamily.value = style.fontFamily || '';
+      fields.scale.value = el.dataset.scalePercent || 100;
+    }
+
+    function selectElement(el) {
+      if (!el || el.tagName === 'HTML' || el.tagName === 'BODY') return;
+      const doc = preview.contentDocument;
+      doc.querySelectorAll('[data-catchit-selected="1"]').forEach(n => n.removeAttribute('data-catchit-selected'));
+      el.dataset.catchitSelected = '1';
+      selectedEl = el;
+      selectedSelector = cssPath(el);
+      selectedInfo.textContent = selectedSelector;
+      readBox(el);
+    }
+
+    function attachPicker() {
+      const doc = preview.contentDocument;
+      if (!doc) return;
+      doc.addEventListener('click', (e) => {
+        if (!pickMode) return;
+        e.preventDefault();
+        e.stopPropagation();
+        selectElement(e.target);
+        pickMode = false;
+        document.getElementById('pickBtn').textContent = 'Element wählen';
+      }, true);
+
+      const style = doc.createElement('style');
+      style.textContent = `
+        [data-catchit-selected="1"] { outline: 2px solid #22d3ee !important; }
+        [data-catchit-edited="1"] { box-shadow: 0 0 0 2px rgba(16,185,129,.9) inset !important; }
+      `;
+      doc.head.appendChild(style);
+    }
+
+    function applyChanges() {
+      if (!selectedEl) return;
+      const el = selectedEl;
+      const x = Number(fields.x.value);
+      const y = Number(fields.y.value);
+      const w = Number(fields.w.value);
+      const h = Number(fields.h.value);
+      const fontSize = Number(fields.fontSize.value);
+      const scale = Number(fields.scale.value || 100);
+
+      el.style.position = 'absolute';
+      if (!Number.isNaN(x)) el.style.left = `${x}px`;
+      if (!Number.isNaN(y)) el.style.top = `${y}px`;
+      if (!Number.isNaN(w) && w > 0) el.style.width = `${w}px`;
+      if (!Number.isNaN(h) && h > 0) el.style.height = `${h}px`;
+      if (!Number.isNaN(fontSize) && fontSize > 0) el.style.fontSize = `${fontSize}px`;
+      if (fields.fontFamily.value.trim()) el.style.fontFamily = fields.fontFamily.value.trim();
+
+      el.style.transformOrigin = 'top left';
+      el.style.transform = `scale(${scale / 100})`;
+      el.dataset.scalePercent = String(scale);
+      el.dataset.catchitEdited = '1';
+
+      editedElements.set(selectedSelector, {
+        selector: selectedSelector,
+        x, y, width: w, height: h,
+        fontSize: fontSize || null,
+        fontFamily: fields.fontFamily.value.trim() || null,
+        scalePercent: scale
+      });
+    }
+
+    function intersects(a, b) {
+      return !(a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom);
+    }
+
+    function checkCollisions() {
+      const doc = preview.contentDocument;
+      const nodes = [...doc.querySelectorAll('[data-catchit-edited="1"]')];
+      if (nodes.length < 2) {
+        collisionOutput.textContent = 'Keine Kollisionen (mindestens zwei bearbeitete Elemente nötig).';
+        return;
+      }
+
+      const collisions = [];
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          if (intersects(a.getBoundingClientRect(), b.getBoundingClientRect())) {
+            collisions.push(`${cssPath(a)}  ↔  ${cssPath(b)}`);
+          }
+        }
+      }
+
+      collisionOutput.innerHTML = collisions.length
+        ? collisions.map(c => `• ${c}`).join('<br>')
+        : 'Keine Kollisionen erkannt.';
+    }
+
+    document.getElementById('loadBtn').addEventListener('click', () => {
+      preview.src = screenSelect.value;
+    });
+
+    document.getElementById('pickBtn').addEventListener('click', () => {
+      pickMode = !pickMode;
+      document.getElementById('pickBtn').textContent = pickMode ? 'Klick im Screen...' : 'Element wählen';
+    });
+
+    document.getElementById('applyBtn').addEventListener('click', applyChanges);
+    document.getElementById('collisionBtn').addEventListener('click', checkCollisions);
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      exportOutput.value = JSON.stringify({
+        screen: screenSelect.value,
+        changes: [...editedElements.values()]
+      }, null, 2);
+    });
+
+    preview.addEventListener('load', () => {
+      selectedEl = null;
+      selectedSelector = '';
+      editedElements.clear();
+      selectedInfo.textContent = 'Kein Element ausgewählt.';
+      collisionOutput.textContent = 'Noch nicht geprüft.';
+      exportOutput.value = '';
+      attachPicker();
+    });
+  </script>
+</body>
+</html>
