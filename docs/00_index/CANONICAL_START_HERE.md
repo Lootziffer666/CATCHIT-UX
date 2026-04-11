@@ -20,9 +20,10 @@ This is the onboarding sequence for safe CatchIt work.
   - Main = current truth
   - Side Swipe = today-relevant quick modulation
   - Backstage = durable structure / rare changes
-- **Core Gold vs Extended Gold**
+- **Core Gold vs Extended Gold vs Layer 2 Gold**
   - Core Gold = architecturally central
   - Extended Gold = supporting gold-level references
+  - Layer 2 Gold = later gold-status material; gold authority, not archival
 - **Planning vs Execution**
   - planning = horizontal logic
   - execution = vertical logic
@@ -30,6 +31,9 @@ This is the onboarding sequence for safe CatchIt work.
   - prototypes inspire but do not override canonical files
 - **Motion/Brand vs Operational UI**
   - motion/branding matters, but does not outrank operational system logic
+
+- **Legacy holding zone is non-authoritative**
+  - `maybe_deprecated/` is preserved for traceability only and must not override active docs
 
 ## 3) Where to go next by task type
 - Product framing / principle dispute → `docs/01_philosophy/`
@@ -39,3 +43,5 @@ This is the onboarding sequence for safe CatchIt work.
 - Layer bindings / implementation translation → `docs/05_layers/`
 - Splash/signet/motion brand work → `docs/06_motion_brand/`
 - Historical inspiration lookup → `docs/07_prototypes_archive/`
+- Historical/non-canonical holding lookup (traceability only) → `maybe_deprecated/`
+- Later gold-status reference checks → `docs/layer_2_gold_set/`
