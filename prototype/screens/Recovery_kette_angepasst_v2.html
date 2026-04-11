@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Recovery – Kette angepasst v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --yellow1:#F5D77A; --yellow2:#F0C55F; --yellow3:#DDA947;
+      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
+      --dark:#24303c; --dark-soft:#3e5669; --mint:#88f9ad;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      min-height:100vh; overflow:hidden; position:relative; color:var(--white);
+      background:linear-gradient(180deg,var(--yellow1) 0%, var(--yellow2) 46%, var(--yellow3) 100%);
+    }
+    .glow{
+      position:absolute; right:-56px; top:-56px; width:220px; height:220px; border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.13) 0%, rgba(255,255,255,0) 72%);
+    }
+    .header{
+      position:absolute; left:0; right:0; top:0; z-index:20;
+      display:flex; justify-content:space-between; align-items:center; padding:28px 24px;
+    }
+    .icon{font-family:"Material Symbols Outlined"; font-size:28px; line-height:1}
+
+    .top{
+      position:absolute; top:120px; left:0; right:0; z-index:18; text-align:center; padding:0 24px;
+    }
+    .kicker{
+      font-size:14px; line-height:1; text-transform:uppercase; letter-spacing:.16em;
+      color:var(--white-faint); font-weight:700; margin-bottom:14px;
+    }
+    .headline{
+      font-family:"Luckiest Guy",cursive; font-size:40px; line-height:.96; margin:0; letter-spacing:.01em;
+    }
+    .sub{
+      margin:14px auto 0; max-width:282px; font-size:20px; line-height:1.12; color:var(--white-soft); font-weight:600;
+    }
+
+    .change-card, .chain-card, .footer-note{
+      position:absolute; left:18px; right:18px; border-radius:24px;
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.10); backdrop-filter:blur(10px);
+      box-shadow:0 14px 34px rgba(98,70,14,.10);
+    }
+    .change-card{ top:270px; padding:18px 16px 16px; }
+    .chain-card{ top:424px; padding:16px; display:grid; gap:12px; }
+    .footer-note{ bottom:18px; padding:12px 14px 11px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
+
+    .label{
+      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
+    }
+    .change-title{
+      margin-top:10px; font-size:28px; line-height:1; font-weight:700; color:#1f2d39;
+    }
+    .change-copy{
+      margin-top:10px; font-size:18px; line-height:1.15; color:#35556b; font-weight:700; max-width:300px;
+    }
+
+    .segment{
+      border-radius:18px; padding:14px 14px 13px;
+      display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+      background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.10);
+    }
+    .segment.changed{
+      background:rgba(136,249,173,.30); border-color:rgba(136,249,173,.20);
+    }
+    .segment.future{
+      opacity:.72;
+    }
+    .seg-left{display:flex; flex-direction:column; gap:5px; min-width:0}
+    .seg-title{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
+    .segment.changed .seg-title{color:#183126}
+    .seg-sub{font-size:16px; line-height:1.1; color:var(--white-soft); font-weight:700}
+    .segment.changed .seg-sub{color:#27513d}
+    .seg-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px; white-space:nowrap}
+    .seg-time{font-size:22px; line-height:1; font-weight:700; color:var(--white)}
+    .segment.changed .seg-time{color:#173126}
+    .seg-tag{font-size:14px; line-height:1; font-weight:700; color:var(--white-soft)}
+    .segment.changed .seg-tag{color:#22513d}
+
+    .footer-note .left{display:flex; flex-direction:column; gap:4px}
+    .footer-note .value{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
+    .footer-note .subline{font-size:15px; line-height:1.1; color:var(--white-soft)}
+    .footer-note .time{display:flex; align-items:center; gap:6px; font-size:20px; line-height:1; font-weight:700; color:var(--white); white-space:nowrap}
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <section class="top">
+      <div class="kicker">Recovery</div>
+      <h1 class="headline">Kette angepasst</h1>
+      <div class="sub">Die Route bleibt tragfähig. Nur ein Teil des Ablaufs wurde neu einsortiert.</div>
+    </section>
+
+    <section class="change-card">
+      <div class="label">Geänderte Stelle</div>
+      <div class="change-title">Zwischenstopp verschiebt sich</div>
+      <div class="change-copy">Die Schule bleibt pünktlich erreichbar. Der spätere Snack rutscht hinter die Rückkehr.</div>
+    </section>
+
+    <section class="chain-card">
+      <div class="segment">
+        <div class="seg-left">
+          <div class="label">Bleibt gleich</div>
+          <div class="seg-title">Schule</div>
+          <div class="seg-sub">Ankunft bleibt wie geplant</div>
+        </div>
+        <div class="seg-right">
+          <div class="seg-time">08:30</div>
+          <div class="seg-tag">stabil</div>
+        </div>
+      </div>
+
+      <div class="segment changed" data-flow="Chain_summary_v1.html">
+        <div class="seg-left">
+          <div class="label">Neu sortiert</div>
+          <div class="seg-title">Rückweg zuerst</div>
+          <div class="seg-sub">direkt nach Hause statt Zwischenstopp davor</div>
+        </div>
+        <div class="seg-right">
+          <div class="seg-time">11:47</div>
+          <div class="seg-tag">angepasst</div>
+        </div>
+      </div>
+
+      <div class="segment future">
+        <div class="seg-left">
+          <div class="label">Danach</div>
+          <div class="seg-title">Snack später</div>
+          <div class="seg-sub">verschiebt sich hinter die sichere Rückkehr</div>
+        </div>
+        <div class="seg-right">
+          <div class="seg-time">später</div>
+          <div class="seg-tag">ok</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <div class="left">
+        <div class="label">Neue Tragfähigkeit</div>
+        <div class="value">Tagesablauf bleibt stabil</div>
+        <div class="subline">Du musst nicht neu planen. CatchIt hat nur die Reihenfolge angepasst.</div>
+      </div>
+      <div class="time">
+        <span class="icon" style="font-size:20px;">conversion_path</span>
+        <span>1x</span>
+      </div>
+    </div>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>

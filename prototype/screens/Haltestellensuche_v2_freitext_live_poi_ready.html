@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Suche – Haltestellen & POIs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue1:#4DB9E6; --blue2:#2EA7E0; --blue3:#1F4B8F;
+      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
+      --glass:rgba(255,255,255,.14); --glass-strong:rgba(255,255,255,.18); --border:rgba(255,255,255,.10);
+      --shadow:0 18px 42px rgba(20,55,105,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      min-height:100vh; overflow:hidden; position:relative; color:var(--white);
+      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);
+    }
+    .glow{
+      position:absolute; right:-56px; top:-56px; width:220px; height:220px; border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 72%);
+    }
+    .header{
+      position:absolute; left:0; right:0; top:0; padding:28px 24px; display:flex; justify-content:space-between; align-items:center; z-index:10;
+    }
+    .icon{font-family:"Material Symbols Outlined"; font-size:28px; line-height:1}
+    .top{
+      position:absolute; left:0; right:0; top:122px; padding:0 26px; z-index:8;
+    }
+    .kicker{
+      font-size:12px; line-height:1; text-transform:uppercase; letter-spacing:.16em; color:var(--white-faint); font-weight:700; margin-bottom:18px;
+    }
+    .headline{
+      font-family:"Luckiest Guy",cursive; font-size:38px; line-height:.96; letter-spacing:.01em; margin:0; max-width:286px;
+    }
+    .sub{
+      margin-top:14px; max-width:300px; font-size:20px; line-height:1.12; color:var(--white-soft); font-weight:600;
+    }
+
+    .search-shell{
+      position:absolute; left:18px; right:18px; top:286px; z-index:6;
+      display:grid; gap:12px;
+    }
+    .search-row{
+      display:grid; grid-template-columns:1fr auto; gap:10px;
+    }
+    .search-box, .locate-btn, .result, .scope-card, .foot{
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.10); backdrop-filter:blur(10px);
+      box-shadow:var(--shadow);
+    }
+    .search-box{
+      border-radius:22px; padding:14px 16px 13px; display:flex; align-items:center; gap:10px;
+    }
+    .search-box .icon{
+      font-size:24px; color:var(--white-soft);
+    }
+    .search-copy{display:flex; flex-direction:column; gap:4px; min-width:0}
+    .typed{
+      font-size:24px; line-height:1; color:var(--white); font-weight:700;
+    }
+    .hint{
+      font-size:16px; line-height:1.1; color:var(--white-soft); font-weight:600;
+    }
+    .locate-btn{
+      appearance:none; border-radius:22px; color:var(--white); cursor:pointer;
+      padding:0 14px; min-width:74px; display:flex; align-items:center; justify-content:center; gap:6px;
+      font:700 15px/1 "Archivo Narrow",sans-serif;
+    }
+    .locate-btn .icon{font-size:20px}
+
+    .scope-card{
+      border-radius:18px; padding:12px 14px 11px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px;
+    }
+    .scope-left{display:flex; flex-direction:column; gap:4px}
+    .scope-label{
+      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
+    }
+    .scope-value{
+      font-size:22px; line-height:1; font-weight:700; color:var(--white);
+    }
+    .scope-sub{
+      font-size:15px; line-height:1.1; color:var(--white-soft);
+    }
+    .scope-chip{
+      display:flex; align-items:center; gap:6px; font-size:18px; line-height:1; font-weight:700; color:var(--white); white-space:nowrap;
+    }
+
+    .result-list{
+      display:grid; gap:12px;
+    }
+    .result{
+      border-radius:20px; padding:14px 16px 13px; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+    }
+    .result.primary{
+      background:rgba(255,255,255,.20); border-color:rgba(255,255,255,.14);
+    }
+    .res-left{display:flex; flex-direction:column; gap:5px; min-width:0}
+    .res-kicker{
+      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
+    }
+    .res-title{
+      font-size:26px; line-height:1; font-weight:700; color:var(--white);
+    }
+    .res-sub{
+      font-size:16px; line-height:1.1; color:var(--white-soft); font-weight:700;
+    }
+    .res-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px; white-space:nowrap}
+    .res-main{
+      font-size:22px; line-height:1; font-weight:700; color:var(--white);
+    }
+    .res-tag{
+      font-size:14px; line-height:1; font-weight:700; color:var(--white-soft);
+    }
+
+    .foot{
+      position:absolute; left:18px; right:18px; bottom:18px; border-radius:18px; padding:12px 14px 11px;
+      display:flex; justify-content:space-between; align-items:flex-end; gap:12px; z-index:6;
+    }
+    .foot-left{display:flex; flex-direction:column; gap:4px}
+    .foot-label{
+      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
+    }
+    .foot-value{
+      font-size:22px; line-height:1; font-weight:700; color:var(--white);
+    }
+    .foot-sub{
+      font-size:15px; line-height:1.1; color:var(--white-soft);
+    }
+    .foot-right{
+      display:flex; align-items:center; gap:6px; font-size:18px; line-height:1; font-weight:700; color:var(--white); white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <section class="top">
+      <div class="kicker">Suche</div>
+      <h1 class="headline">Was suchst du?</h1>
+      <div class="sub">Freitext reicht. CatchIt sucht schon während der Eingabe nach Haltestellen und später auch nach POIs.</div>
+    </section>
+
+    <section class="search-shell">
+      <div class="search-row">
+        <div class="search-box">
+          <span class="icon">search</span>
+          <div class="search-copy">
+            <div class="typed">friedr</div>
+            <div class="hint">Suche läuft während der Eingabe</div>
+          </div>
+        </div>
+
+        <button class="locate-btn">
+          <span class="icon">my_location</span>
+          <span>Standort</span>
+        </button>
+      </div>
+
+      <div class="scope-card">
+        <div class="scope-left">
+          <div class="scope-label">Suchraum</div>
+          <div class="scope-value">Haltestellen zuerst</div>
+          <div class="scope-sub">Die Struktur bleibt offen für spätere POI-Suche im selben Feld.</div>
+        </div>
+        <div class="scope-chip">
+          <span class="icon" style="font-size:20px;">train</span>
+          <span>POI später</span>
+        </div>
+      </div>
+
+      <div class="result-list">
+        <div class="result primary" data-flow="Chain_summary_v1.html">
+          <div class="res-left">
+            <div class="res-kicker">Bester Treffer</div>
+            <div class="res-title">Friedrich-Ebert-Str.</div>
+            <div class="res-sub">Haltestelle · Linien 21 und 431 · nah am Startpunkt</div>
+          </div>
+          <div class="res-right">
+            <div class="res-main">220 m</div>
+            <div class="res-tag">3 Min</div>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="res-left">
+            <div class="res-kicker">Weiterer Treffer</div>
+            <div class="res-title">Friedrichplatz</div>
+            <div class="res-sub">Haltestelle · ähnliche Schreibweise · etwas weiter weg</div>
+          </div>
+          <div class="res-right">
+            <div class="res-main">540 m</div>
+            <div class="res-tag">7 Min</div>
+          </div>
+        </div>
+
+        <div class="result">
+          <div class="res-left">
+            <div class="res-kicker">Später auch POI</div>
+            <div class="res-title">Markt</div>
+            <div class="res-sub">Ort/POI · kann später über dieselbe Suche erreichbar sein</div>
+          </div>
+          <div class="res-right">
+            <div class="res-main">620 m</div>
+            <div class="res-tag">8 Min</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="foot">
+      <div class="foot-left">
+        <div class="foot-label">Interaktion</div>
+        <div class="foot-value">Tippen übernimmt sofort</div>
+        <div class="foot-sub">Freitext, Live-Vorschläge und Standortbutton greifen in denselben Suchfluss.</div>
+      </div>
+      <div class="foot-right">
+        <span class="icon" style="font-size:20px;">touch_app</span>
+        <span>1 Tap</span>
+      </div>
+    </section>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>
