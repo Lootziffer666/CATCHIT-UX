@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CatchIt Mobile Prototype</title>
+  <style>
+    :root{
+      --bg:#f3f5fb;
+      --panel:#f7f8fc;
+      --surface:#ffffff;
+      --line:#d7dce8;
+      --text:#1f2430;
+      --muted:#697180;
+      --blue:#1677ff;
+      --green:#2fc59b;
+      --gold:#f2c94c;
+      --shadow:0 10px 30px rgba(20,30,60,.10);
+      --radius:24px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin:0; padding:0; min-height:100%;
+      background:#111;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+    }
+
+    body {
+      display:flex; justify-content:center; align-items:flex-start;
+      padding: max(10px, var(--safe-top)) 10px max(10px, var(--safe-bottom));
+    }
+
+    .phone {
+      width:min(100vw, 430px);
+      min-height: calc(100dvh - max(20px, var(--safe-top)) - max(20px, var(--safe-bottom)));
+      background:linear-gradient(135deg, #f5f7fb 0%, #eef2fb 100%);
+      border-radius:32px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      border:1px solid rgba(255,255,255,.7);
+    }
+
+    .stage {
+      display:none;
+      min-height:100%;
+      padding: calc(18px + var(--safe-top)) 18px calc(110px + var(--safe-bottom));
+      position:relative;
+      animation: fade .28s ease;
+    }
+    .stage.visible { display:block; }
+
+    @keyframes fade {
+      from { opacity:0; transform: translateY(8px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:48px; margin-bottom:10px;
+    }
+
+    .icon-btn {
+      width:48px; height:48px; border-radius:50%;
+      border:1px solid var(--line); background:rgba(255,255,255,.55);
+      color:var(--muted); font-size:20px; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 10px rgba(20,30,60,.04);
+      cursor:pointer;
+    }
+
+    .icon-btn:active { transform: scale(.98); }
+
+    .anchor-wrap {
+      height:82px; position:relative; margin:8px 0 12px;
+    }
+
+    .anchor {
+      width:40px; height:40px; border-radius:50%;
+      border:8px solid var(--blue);
+      background:#fff;
+      position:absolute; left:6px; top:4px;
+      box-shadow:0 4px 14px rgba(22,119,255,.18);
+    }
+
+    .anchor.timer {
+      width:84px; height:84px; border-width:0;
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.45), rgba(255,255,255,.10) 55%), linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.16));
+      border:1px solid rgba(255,255,255,.35);
+      color:#fff; display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:20px; backdrop-filter: blur(8px);
+      left:50%; transform:translateX(-50%);
+      box-shadow:0 12px 28px rgba(0, 110, 255, .20);
+    }
+
+    .security-dot {
+      width:14px; height:14px; border-radius:50%;
+      background:var(--gold); position:absolute; left:18px; top:17px;
+      box-shadow:0 0 0 4px rgba(242,201,76,.18);
+    }
+
+    .headline {
+      font-size:28px; line-height:1.1; font-weight:800; margin:0 0 8px;
+      letter-spacing:-0.02em;
+    }
+
+    .sub {
+      color:var(--muted); font-size:15px; margin:0 0 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,.66);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,.65);
+      border-radius:24px;
+      box-shadow:0 8px 24px rgba(17,24,39,.06);
+      padding:16px;
+    }
+
+    .summary-list { display:grid; gap:12px; }
+    .summary-row {
+      display:grid; grid-template-columns:16px 1fr auto; gap:12px; align-items:start;
+      padding:10px 0; border-bottom:1px solid rgba(215,220,232,.55);
+    }
+    .summary-row:last-child{ border-bottom:none; }
+    .dot { width:16px; height:16px; border-radius:50%; margin-top:4px; }
+    .dot.green{ background:var(--green); }
+    .dot.blue{ background:var(--blue); }
+    .dot.gold{ background:var(--gold); }
+    .dot.gray{ background:#b8bfcc; }
+    .summary-title { font-size:18px; font-weight:700; }
+    .summary-meta { font-size:14px; color:var(--muted); margin-top:2px; }
+    .summary-time { font-size:14px; color:var(--muted); white-space:nowrap; padding-top:2px; }
+
+    .wizard-line {
+      position:relative; height:3px; background:linear-gradient(90deg, var(--blue), #6fb0ff);
+      border-radius:999px; margin:10px 0 26px;
+    }
+    .wizard-line .step-dot{
+      width:38px; height:38px; border-radius:50%;
+      position:absolute; top:50%; transform:translate(-50%,-50%);
+      background:#7db6ff; border:0; box-shadow:none;
+    }
+    .wizard-line .step-dot.active{
+      background:#fff; border:10px solid var(--blue); width:48px; height:48px;
+      box-shadow:0 8px 20px rgba(22,119,255,.18);
+    }
+    .wizard-line .step-dot.done{
+      background:var(--green); width:42px; height:42px;
+      box-shadow:0 8px 18px rgba(47,197,155,.18);
+    }
+
+    .prompt {
+      font-size:32px; line-height:1.1; color:var(--blue);
+      font-weight:500; margin:10px 0 18px;
+      font-family: "Comic Sans MS", "Trebuchet MS", system-ui, sans-serif;
+    }
+
+    .input-wrap { margin:0 0 14px; }
+    .field-label {
+      display:block; font-size:13px; color:var(--muted); margin:0 0 8px; font-weight:600;
+    }
+    .input, .select-btn {
+      width:100%; min-height:56px; border-radius:18px;
+      border:1px solid var(--line); background:rgba(255,255,255,.9);
+      padding:0 16px; font-size:17px; color:var(--text);
+      outline:none;
+    }
+    .input:focus { border-color:var(--blue); box-shadow:0 0 0 4px rgba(22,119,255,.10); }
+
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .weekday-row {
+      display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; margin-top:8px;
+    }
+    .weekday {
+      min-height:54px; border-radius:16px; border:1px solid var(--line);
+      background:rgba(255,255,255,.75); font-size:13px; color:var(--muted);
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      gap:4px; cursor:pointer;
+    }
+    .weekday.active { border-color:var(--blue); color:var(--blue); background:#fff; font-weight:700; }
+
+    .plan-card h3 {
+      margin:0 0 8px; font-size:22px;
+    }
+    .kv { display:grid; gap:10px; margin-top:8px; }
+    .kv div { padding:12px 14px; border-radius:16px; background:rgba(255,255,255,.76); border:1px solid rgba(215,220,232,.6); }
+    .kv strong { display:block; font-size:12px; color:var(--muted); margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em; }
+    .kv span { font-size:17px; font-weight:700; }
+
+    .timeline {
+      display:grid; gap:14px; margin-top:4px;
+    }
+    .t-step {
+      display:grid; grid-template-columns:56px 1fr; gap:12px;
+      align-items:flex-start;
+    }
+    .t-badge {
+      width:56px; height:56px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:24px;
+      background:var(--blue); color:#fff;
+      box-shadow:0 10px 24px rgba(22,119,255,.20);
+    }
+    .t-badge.muted {
+      background:#edf2fb; color:#8fa0bf; box-shadow:none; font-size:18px;
+    }
+    .t-content {
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:22px; padding:14px;
+    }
+    .t-title { font-size:25px; line-height:1.1; font-weight:800; margin:0 0 10px; }
+    .t-title.small { font-size:20px; font-weight:700; color:#6d7483; }
+    .route-band {
+      display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center;
+      padding:14px 16px; border-radius:18px; background:var(--green); color:#fff; font-weight:800; font-size:22px; margin-bottom:10px;
+    }
+    .mini-grid {
+      display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; color:var(--blue);
+      font-size:14px; font-weight:700;
+    }
+    .mini-grid span { text-align:center; }
+    .mini-muted { color:#90a0bd; }
+
+    .dock {
+      position:absolute; left:18px; right:18px; bottom:calc(18px + var(--safe-bottom));
+      background:rgba(245,248,252,.82);
+      border:1px solid rgba(255,255,255,.8);
+      backdrop-filter:blur(14px);
+      border-radius:24px;
+      box-shadow:0 8px 24px rgba(17,24,39,.08);
+      padding:10px;
+      display:grid; grid-template-columns: repeat(5, 1fr); gap:8px;
+    }
+
+    .dock button {
+      min-height:52px; border-radius:18px; border:1px solid var(--line);
+      background:#fff; color:#7d8697; font-size:22px; cursor:pointer;
+    }
+
+    .cta-bar {
+      position:sticky; bottom:0; margin-top:18px;
+      padding-top:8px; background:linear-gradient(180deg, rgba(243,245,251,0), rgba(243,245,251,1) 30%);
+    }
+
+    .primary {
+      width:100%; min-height:58px; border:none; border-radius:20px; cursor:pointer;
+      background:linear-gradient(180deg, #2c8cff, #1677ff);
+      color:#fff; font-weight:800; font-size:18px;
+      box-shadow:0 14px 24px rgba(22,119,255,.22);
+    }
+
+    .secondary {
+      width:100%; min-height:56px; border-radius:18px; cursor:pointer;
+      border:1px solid var(--line); background:#fff; color:var(--text);
+      font-size:17px; font-weight:700;
+    }
+
+    .hidden { display:none !important; }
+
+    @media (max-width: 360px) {
+      .prompt { font-size:28px; }
+      .headline { font-size:24px; }
+      .t-title { font-size:22px; }
+      .grid-2 { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="phone" id="app">
+    <section class="stage visible" id="zen">
+      <div class="topbar">
+        <button class="icon-btn" aria-label="Zurück">‹</button>
+        <button class="icon-btn" aria-label="Mehr">⋮</button>
+      </div>
+
+      <div class="anchor-wrap">
+        <div class="anchor"></div>
+      </div>
+
+      <h1 class="headline">Übersicht</h1>
+      <p class="sub">Ruhige Verdichtung vor der Entscheidung.</p>
+
+      <div class="card summary-list">
+        <div class="summary-row">
+          <span class="dot green"></span>
+          <div>
+            <div class="summary-title">Luke abholen</div>
+            <div class="summary-meta">Linie 430 · robust</div>
+          </div>
+          <div class="summary-time">09:31</div>
+        </div>
+        <div class="summary-row">
+          <span class="dot green"></span>
+          <div>
+            <div class="summary-title">Ergo‑Therapie</div>
+            <div class="summary-meta">10:30 Uhr</div>
+          </div>
+          <div class="summary-time">10:30</div>
+        </div>
+        <div class="summary-row">
+          <span class="dot blue"></span>
+          <div>
+            <div class="summary-title">Zurück zur Kita</div>
+            <div class="summary-meta">Bus + Fußweg</div>
+          </div>
+          <div class="summary-time">11:28</div>
+        </div>
+        <div class="summary-row">
+          <span class="dot gray"></span>
+          <div>
+            <div class="summary-title">Nach Hause</div>
+            <div class="summary-meta">anschließend</div>
+          </div>
+          <div class="summary-time">11:59</div>
+        </div>
+      </div>
+
+      <div class="cta-bar">
+        <button class="primary" id="startPlanning">Planen</button>
+      </div>
+    </section>
+
+    <section class="stage" id="plan1">
+      <div class="topbar">
+        <button class="icon-btn js-back" aria-label="Zurück">‹</button>
+        <button class="icon-btn" aria-label="Mehr">⋮</button>
+      </div>
+
+      <div class="anchor-wrap">
+        <div class="anchor"></div>
+      </div>
+
+      <div class="wizard-line">
+        <div class="step-dot active" style="left:20%;"></div>
+        <div class="step-dot" style="left:80%;"></div>
+      </div>
+
+      <div class="prompt">Was liegt an?</div>
+
+      <div class="input-wrap">
+        <label class="field-label" for="locationInput">Ort oder Aktivität</label>
+        <input class="input" id="locationInput" type="text" placeholder="z. B. Im Mühlenhof 4, Übach‑Palenberg">
+      </div>
+
+      <div class="cta-bar">
+        <button class="primary" id="toPlan2">Weiter</button>
+      </div>
+    </section>
+
+    <section class="stage" id="plan2">
+      <div class="topbar">
+        <button class="icon-btn js-back-to-plan1" aria-label="Zurück">‹</button>
+        <button class="icon-btn" aria-label="Mehr">⋮</button>
+      </div>
+
+      <div class="anchor-wrap">
+        <div class="anchor"></div>
+      </div>
+
+      <div class="wizard-line">
+        <div class="step-dot done" style="left:20%;"></div>
+        <div class="step-dot active" style="left:80%;"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="input-wrap">
+          <label class="field-label" for="timeInput">Uhrzeit</label>
+          <input class="input" id="timeInput" type="time">
+        </div>
+        <div class="input-wrap">
+          <label class="field-label" for="dateInput">Datum</label>
+          <input class="input" id="dateInput" type="date">
+        </div>
+      </div>
+
+      <div class="field-label">Wochentage</div>
+      <div class="weekday-row" id="weekdayRow">
+        <button class="weekday active" data-day="Mo"><span>Mo</span><span>◉</span></button>
+        <button class="weekday" data-day="Di"><span>Di</span><span>○</span></button>
+        <button class="weekday" data-day="Mi"><span>Mi</span><span>○</span></button>
+        <button class="weekday" data-day="Do"><span>Do</span><span>○</span></button>
+        <button class="weekday" data-day="Fr"><span>Fr</span><span>○</span></button>
+        <button class="weekday" data-day="Sa"><span>Sa</span><span>○</span></button>
+        <button class="weekday" data-day="So"><span>So</span><span>○</span></button>
+      </div>
+
+      <div class="cta-bar">
+        <button class="primary" id="toSummary">Fertig</button>
+      </div>
+    </section>
+
+    <section class="stage" id="summary">
+      <div class="topbar">
+        <button class="icon-btn js-back-to-plan2" aria-label="Zurück">‹</button>
+        <button class="icon-btn" aria-label="Mehr">⋮</button>
+      </div>
+
+      <div class="anchor-wrap">
+        <div class="anchor"></div>
+      </div>
+
+      <div class="card plan-card">
+        <h3>Dein Plan</h3>
+        <div class="kv">
+          <div><strong>Was</strong><span id="sumWhat">—</span></div>
+          <div><strong>Wann</strong><span id="sumWhen">—</span></div>
+          <div><strong>Rhythmus</strong><span id="sumDay">Mo</span></div>
+        </div>
+      </div>
+
+      <div class="cta-bar">
+        <button class="primary" id="executePlan">Start</button>
+      </div>
+    </section>
+
+    <section class="stage" id="execute">
+      <div class="topbar">
+        <button class="icon-btn js-back-to-summary" aria-label="Zurück">‹</button>
+        <button class="icon-btn" aria-label="Mehr">⋮</button>
+      </div>
+
+      <div class="anchor-wrap">
+        <div class="anchor timer" id="countdown">15m</div>
+      </div>
+
+      <div class="timeline">
+        <div class="t-step">
+          <div class="t-badge">17</div>
+          <div class="t-content">
+            <div class="t-title">Luke abholen</div>
+            <div class="route-band">
+              <span>09:31</span>
+              <span>430</span>
+              <span style="text-align:right;">09:42</span>
+            </div>
+            <div class="mini-grid">
+              <span>09:40</span>
+              <span>ÜP1</span>
+              <span>+2</span>
+              <span>09:55</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-step">
+          <div class="t-badge muted">•</div>
+          <div class="t-content">
+            <div class="t-title small">Ergo‑Therapie 10:30 Uhr</div>
+          </div>
+        </div>
+
+        <div class="t-step">
+          <div class="t-badge muted">🚌</div>
+          <div class="t-content">
+            <div class="t-title small">Zurück zur Kita</div>
+            <div class="mini-grid mini-muted">
+              <span>11:23</span>
+              <span>11:28</span>
+              <span>11:32</span>
+              <span>11:36</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-step">
+          <div class="t-badge muted">🏠</div>
+          <div class="t-content">
+            <div class="t-title small">Nach Hause</div>
+            <div class="mini-grid mini-muted">
+              <span>11:36</span>
+              <span>Fußweg</span>
+              <span>ÜP1</span>
+              <span>12:01</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dock">
+        <button type="button" title="Zeit">◷</button>
+        <button type="button" title="Mehr">＋</button>
+        <button type="button" title="Weniger">－</button>
+        <button type="button" id="pauseBtn" title="Pause">❚❚</button>
+        <button type="button" id="cancelBtn" title="Schließen">✕</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const sections = [...document.querySelectorAll('.stage')];
+    const state = {
+      location: '',
+      time: '',
+      date: '',
+      day: 'Mo'
+    };
+
+    function show(id){
+      sections.forEach(s => s.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    document.getElementById('startPlanning').addEventListener('click', () => show('plan1'));
+
+    document.querySelectorAll('.js-back').forEach(btn => btn.addEventListener('click', () => show('zen')));
+    document.querySelectorAll('.js-back-to-plan1').forEach(btn => btn.addEventListener('click', () => show('plan1')));
+    document.querySelectorAll('.js-back-to-plan2').forEach(btn => btn.addEventListener('click', () => show('plan2')));
+    document.querySelectorAll('.js-back-to-summary').forEach(btn => btn.addEventListener('click', () => show('summary')));
+
+    document.getElementById('toPlan2').addEventListener('click', () => {
+      const value = document.getElementById('locationInput').value.trim();
+      if(!value){ alert('Bitte Ort oder Aktivität eingeben.'); return; }
+      state.location = value;
+      show('plan2');
+    });
+
+    document.querySelectorAll('.weekday').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.weekday').forEach(el => {
+          el.classList.remove('active');
+          el.querySelector('span:last-child').textContent = '○';
+        });
+        btn.classList.add('active');
+        btn.querySelector('span:last-child').textContent = '◉';
+        state.day = btn.dataset.day;
+      });
+    });
+
+    document.getElementById('toSummary').addEventListener('click', () => {
+      const time = document.getElementById('timeInput').value;
+      const date = document.getElementById('dateInput').value;
+      if(!time || !date){ alert('Bitte Uhrzeit und Datum wählen.'); return; }
+      state.time = time;
+      state.date = date;
+
+      document.getElementById('sumWhat').textContent = state.location;
+      document.getElementById('sumWhen').textContent = `${state.date} · ${state.time}`;
+      document.getElementById('sumDay').textContent = state.day;
+      show('summary');
+    });
+
+    let timerRef;
+    function startCountdown(minutes){
+      clearInterval(timerRef);
+      let seconds = minutes * 60;
+      const el = document.getElementById('countdown');
+      const render = () => {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        el.innerHTML = `${m}<span style="font-size:14px;font-weight:700;margin-left:2px;">m</span>`;
+        if (seconds < 60) {
+          el.innerHTML = `${s}<span style="font-size:14px;font-weight:700;margin-left:2px;">s</span>`;
+        }
+      };
+      render();
+      timerRef = setInterval(() => {
+        seconds = Math.max(0, seconds - 1);
+        render();
+        if(seconds === 0) clearInterval(timerRef);
+      }, 1000);
+    }
+
+    document.getElementById('executePlan').addEventListener('click', () => {
+      show('execute');
+      startCountdown(15);
+    });
+
+    document.getElementById('pauseBtn').addEventListener('click', () => {
+      clearInterval(timerRef);
+      alert('Countdown pausiert.');
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      clearInterval(timerRef);
+      show('zen');
+    });
+  </script>
+</body>
+</html>

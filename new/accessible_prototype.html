@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THERAPI – Accessible Control Panel Prototype</title>
+  <!--
+    This page is a hand‑crafted, accessible re‑implementation of the existing
+    THERAPI control panel prototype. It adheres to the visual and layout
+    constraints defined in the DESIGN.md specification (see the repository) while
+    adding missing accessibility affordances required by the W3C Web Content
+    Accessibility Guidelines (WCAG 2.1). Wherever possible, the semantics of
+    the original HTML have been preserved. All interactive elements are
+    keyboard navigable, colour tokens respect contrast ratios, and hidden
+    captions/labels are added to improve screen reader support.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* colour tokens adapted from DESIGN.md */
+      --color-background: #F7F9FB;
+      --color-surface-low: #F2F4F6;
+      --color-surface-high: #E6E8EA;
+      --color-card: #FFFFFF;
+      --color-primary: #006B5F;
+      --color-primary-container: #E0F2F1;
+      --color-on-surface: #191C1E;
+      --color-on-surface-variant: #424754;
+      --color-border: #E0E3E5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--color-background);
+      color: var(--color-on-surface);
+    }
+
+    /* Skip link for keyboard users */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--color-primary);
+      color: #FFF;
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      border-radius: 0 0.5rem 0.5rem 0;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar navigation */
+    nav[aria-label="Main navigation"] {
+      width: 240px;
+      background: var(--color-card);
+      border-right: 1px solid var(--color-border);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav img.logo {
+      max-width: 160px;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 0.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      transition: background 0.2s ease;
+    }
+    .nav-link:hover,
+    .nav-link:focus {
+      background: var(--color-surface-low);
+      outline: none;
+    }
+    .nav-link.active {
+      background: var(--color-primary);
+      color: #FFF;
+    }
+
+    /* Main area */
+    .content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 1rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-card);
+    }
+    header .status-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    header .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+    }
+    header .status-chip.primary {
+      background: var(--color-primary-container);
+      color: var(--color-primary);
+    }
+    header .status-chip.secondary {
+      background: #CCE5FF;
+      color: #003366;
+    }
+    header .status-chip.tertiary {
+      background: #E0E3E5;
+      color: var(--color-on-surface);
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    main h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin: 0 0 0.5rem 0;
+    }
+    main .subheading {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-on-surface-variant);
+      margin-bottom: 2rem;
+    }
+    /* Card component */
+    .card {
+      background: var(--color-surface-low);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .card dl {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      row-gap: 1rem;
+      column-gap: 1rem;
+    }
+    .card dt {
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+    }
+    .card dd {
+      margin: 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    /* Table styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    caption {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    thead th {
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface-low);
+    }
+    tbody td {
+      font-size: 0.875rem;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+    tbody tr:nth-child(even) {
+      background: var(--color-card);
+    }
+    tbody tr:hover {
+      background: var(--color-surface-high);
+    }
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.625rem 1rem;
+      border-radius: 10px;
+      border: 0;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #FFF;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: #005245;
+    }
+    .btn-secondary {
+      background: var(--color-surface-high);
+      color: var(--color-on-surface);
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      background: var(--color-surface-low);
+    }
+
+    /* Utility class for screen reader only text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="layout">
+    <!-- Sidebar navigation -->
+    <nav aria-label="Main navigation">
+      <img class="logo" src="https://lh3.googleusercontent.com/aida/ADBb0uiv51WmQ3o1O11ZgGGK-Tyk3nHJWq66oBillbqWSRKq3QjljKcL9Cvutlhj8U0uPYQoSRm2E6a7UUKXYaHWm23TFabLHjLW112M4K0lejEMhILriZKV4vSGCORXSXnShWDJMm8vkIHK6RRicGwuTvuN7s4yk8LGVxcsov7qeywImRxeZELYIvHxUue1oKDeeSRtupTRVgezWVu7PIGmT31l2nfA7sBazp0UyXUiOKeCgghBfm3YJVt0U4cxmgSDvlBb7zCPxU_K9w" alt="THERAPI logo" />
+      <ul>
+        <li><a href="#" class="nav-link active" aria-current="page"><span aria-hidden="true">🏠</span> <span>Control Panel</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">🔎</span> <span>Endpoint Explorer</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">🔁</span> <span>Schema Drift</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">📡</span> <span>Capture Inspector</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">📄</span> <span>OpenAPI Export</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">🗂️</span> <span>Collections Export</span></a></li>
+        <li><a href="#" class="nav-link"><span aria-hidden="true">⚙️</span> <span>Settings</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- Content area -->
+    <div class="content-wrapper">
+      <header>
+        <div class="status-group" role="status">
+          <span class="status-chip tertiary">Proxy Status: <strong>Online</strong></span>
+          <span class="status-chip secondary">Target Base URL: <strong>https://api.production.v1</strong></span>
+          <span class="status-chip primary">Capture Rate: <strong>100%</strong></span>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <h1>Control Panel</h1>
+        <p class="subheading">Session ID: TH‑992‑PX</p>
+
+        <!-- Proxy Status Card -->
+        <section class="card" aria-labelledby="proxy-status-heading">
+          <h2 id="proxy-status-heading">Proxy Status</h2>
+          <dl>
+            <div>
+              <dt>Status</dt>
+              <dd><span aria-live="polite">online</span></dd>
+            </div>
+            <div>
+              <dt>Host</dt>
+              <dd>localhost</dd>
+            </div>
+            <div>
+              <dt>Port</dt>
+              <dd>8080</dd>
+            </div>
+            <div>
+              <dt>Uptime</dt>
+              <dd>12h 4m</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- Capture Configuration Card with form -->
+        <section class="card" aria-labelledby="capture-config-heading">
+          <h2 id="capture-config-heading">Capture configuration</h2>
+          <form>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+              <div>
+                <label for="host-address" class="sr-only">Host address</label>
+                <input id="host-address" name="host" type="text" value="0.0.0.0" placeholder="Host address" aria-label="Host address" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid var(--color-border);background:var(--color-card);font-size:0.875rem;" />
+              </div>
+              <div>
+                <label for="proxy-port" class="sr-only">Proxy port</label>
+                <input id="proxy-port" name="port" type="number" value="8080" placeholder="Proxy port" aria-label="Proxy port" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid var(--color-border);background:var(--color-card);font-size:0.875rem;" />
+              </div>
+              <div>
+                <label for="target-url" class="sr-only">Target base URL</label>
+                <input id="target-url" name="target" type="url" value="https://api.production.v1" placeholder="Target base URL" aria-label="Target base URL" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid var(--color-border);background:var(--color-card);font-size:0.875rem;" />
+              </div>
+              <div>
+                <label for="store-path" class="sr-only">Store path</label>
+                <input id="store-path" name="store" type="text" value="./captures/production_main" placeholder="Store path" aria-label="Store path" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid var(--color-border);background:var(--color-card);font-size:0.875rem;" />
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem;">
+              <button type="submit" class="btn btn-primary">Save configuration</button>
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button type="button" class="btn btn-secondary" aria-label="Start capturing"><span aria-hidden="true">▶</span></button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Quick actions -->
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+          <button class="btn btn-secondary" type="button"><span aria-hidden="true">⬇</span> Export OpenAPI</button>
+          <button class="btn btn-secondary" type="button"><span aria-hidden="true">🗄</span> Export Collections</button>
+        </div>
+
+        <!-- Endpoint overview table -->
+        <section class="card" aria-labelledby="endpoint-overview-heading">
+          <h2 id="endpoint-overview-heading">Endpoint overview</h2>
+          <table>
+            <caption>API endpoints with sample counts and timestamps</caption>
+            <thead>
+              <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Path</th>
+                <th scope="col">Samples</th>
+                <th scope="col">Versions</th>
+                <th scope="col">Captures</th>
+                <th scope="col">Last changed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span aria-label="HTTP GET" aria-hidden="true">GET</span></td>
+                <td>/v1/auth/session</td>
+                <td>42</td>
+                <td>2</td>
+                <td>1.2k</td>
+                <td>2 minutes ago</td>
+              </tr>
+              <tr>
+                <td><span aria-label="HTTP POST" aria-hidden="true">POST</span></td>
+                <td>/v1/users/register</td>
+                <td>12</td>
+                <td>1</td>
+                <td>248</td>
+                <td>14 minutes ago</td>
+              </tr>
+              <tr>
+                <td><span aria-label="HTTP PUT" aria-hidden="true">PUT</span></td>
+                <td>/v1/profile/update</td>
+                <td>8</td>
+                <td>3</td>
+                <td>152</td>
+                <td>1 hour ago</td>
+              </tr>
+              <tr>
+                <td><span aria-label="HTTP DELETE" aria-hidden="true">DELETE</span></td>
+                <td>/v1/assets/:id</td>
+                <td>2</td>
+                <td>1</td>
+                <td>34</td>
+                <td>6 hours ago</td>
+              </tr>
+              <tr>
+                <td><span aria-label="HTTP GET" aria-hidden="true">GET</span></td>
+                <td>/v1/system/health</td>
+                <td>1k+</td>
+                <td>1</td>
+                <td>89k</td>
+                <td>Just now</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top:1rem;"><a href="#" style="text-decoration:underline;color:#1F6FEB;">View all 156 endpoints</a></p>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</body>
+</html>
