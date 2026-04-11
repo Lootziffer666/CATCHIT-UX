@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CatchIt Wizard – Bewegungsstil / Tageslage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { background: "#f9f9ff" },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .wizard-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-choice {
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: 0 14px 42px rgba(20, 55, 105, 0.14);
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+    .glass-choice:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .glass-choice.active {
+      background: rgba(255, 255, 255, 0.24);
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .glass-footer {
+      background: rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      box-shadow: 0 14px 42px rgba(20, 55, 105, 0.10);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="wizard-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <section class="px-8 z-10 mb-8">
+      <p class="text-[12px] uppercase tracking-[0.16em] text-white/56 font-bold mb-4">Wizard – Schritt 2</p>
+      <h1 class="font-display text-white text-[42px] leading-[0.96] max-w-[280px]" style="letter-spacing:0.01em;">Wie soll es sich heute anfühlen?</h1>
+      <p class="font-body text-white/84 text-[20px] leading-[1.12] font-semibold mt-3 max-w-[296px]">Eine Auswahl reicht. CatchIt gewichtet danach Laufen, Puffer, Umstiege und Hektik neu.</p>
+    </section>
+
+    <section class="flex-grow px-5 z-10">
+      <div class="grid grid-cols-2 gap-3.5">
+        <button class="glass-choice active rounded-3xl min-h-[138px] px-4 pt-4 pb-3.5 text-left cursor-pointer" data-choice="ruhig" data-flow="Chain_summary_v1.html">
+          <span class="material-symbols-outlined text-[34px] block mb-4" style="font-variation-settings:'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;">spa</span>
+          <span class="block text-white text-[26px] font-bold leading-none">Ruhig</span>
+          <p class="text-white/84 text-[15px] font-semibold leading-[1.1] mt-2 max-w-[140px]">weniger Hektik und lieber stabil</p>
+        </button>
+
+        <button class="glass-choice rounded-3xl min-h-[138px] px-4 pt-4 pb-3.5 text-left cursor-pointer" data-choice="schnell" data-flow="Chain_summary_v1.html">
+          <span class="material-symbols-outlined text-[34px] block mb-4" style="font-variation-settings:'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;">bolt</span>
+          <span class="block text-white text-[26px] font-bold leading-none">Schnell</span>
+          <p class="text-white/84 text-[15px] font-semibold leading-[1.1] mt-2 max-w-[140px]">zügig, wenn es dadurch einfacher wird</p>
+        </button>
+
+        <button class="glass-choice rounded-3xl min-h-[138px] px-4 pt-4 pb-3.5 text-left cursor-pointer" data-choice="wenig" data-flow="Chain_summary_v1.html">
+          <span class="material-symbols-outlined text-[34px] block mb-4" style="font-variation-settings:'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;">directions_walk</span>
+          <span class="block text-white text-[26px] font-bold leading-none">Wenig laufen</span>
+          <p class="text-white/84 text-[15px] font-semibold leading-[1.1] mt-2 max-w-[140px]">mehr Nähe, weniger Fußweg</p>
+        </button>
+
+        <button class="glass-choice rounded-3xl min-h-[138px] px-4 pt-4 pb-3.5 text-left cursor-pointer" data-choice="puffer" data-flow="Chain_summary_v1.html">
+          <span class="material-symbols-outlined text-[34px] block mb-4" style="font-variation-settings:'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;">schedule</span>
+          <span class="block text-white text-[26px] font-bold leading-none">Mehr Puffer</span>
+          <p class="text-white/84 text-[15px] font-semibold leading-[1.1] mt-2 max-w-[140px]">lieber etwas Luft als zu knapp</p>
+        </button>
+      </div>
+    </section>
+
+    <footer class="glass-footer mx-5 mb-5 rounded-2xl px-4 py-3 flex justify-between items-end gap-3 z-10">
+      <div class="flex flex-col gap-1">
+        <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold">Wirkung</span>
+        <span class="text-[22px] font-bold leading-none text-white" id="footValue">Stabiler planen</span>
+        <span class="text-[15px] leading-[1.1] text-white/84" id="footSub">CatchIt reduziert heute Hektik und gewichtet ruhigere Wege höher.</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-white font-bold text-[18px] whitespace-nowrap">
+        <span class="material-symbols-outlined text-[20px]">touch_app</span>
+        <span>1 Tap</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.glass-choice');
+    const footValue = document.getElementById('footValue');
+    const footSub = document.getElementById('footSub');
+
+    const copy = {
+      ruhig: ["Stabiler planen", "CatchIt reduziert heute Hektik und gewichtet ruhigere Wege höher."],
+      schnell: ["Kürzer entscheiden", "CatchIt darf heute direkter und zügiger priorisieren."],
+      wenig: ["Fußweg senken", "CatchIt bevorzugt nähere Einstiege und weniger Gehstrecke."],
+      puffer: ["Mehr Luft einbauen", "CatchIt gewichtet Reserve und Anschluss-Sicherheit stärker."]
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.toggle('active', b === btn));
+        const key = btn.dataset.choice;
+        footValue.textContent = copy[key][0];
+        footSub.textContent = copy[key][1];
+      });
+    });
+  </script>
+<script src="screen-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CatchIt Quick Change – Snack oder späterer Bus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .quick-change-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-choice {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 42px rgba(20,55,105,0.14);
+    }
+    .glass-choice-recommended {
+      background: rgba(136,249,173,0.28);
+      border-color: rgba(136,249,173,0.18);
+    }
+    .glass-footer {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+
+  <main class="quick-change-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="px-7 z-10 mb-8">
+      <p class="text-[12px] uppercase tracking-[0.16em] text-white/56 font-bold mb-4 leading-none">Quick Change</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] max-w-[286px]">Kleine Änderung?</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[296px]">CatchIt kann den Ablauf schnell neu sortieren, ohne die ganze Planung neu aufzubauen.</p>
+    </section>
+
+    <!-- Choice stack -->
+    <section class="flex flex-col gap-3.5 px-[18px] z-10 flex-1">
+
+      <!-- Choice 1 – Recommended -->
+      <button class="glass-choice glass-choice-recommended rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Empfohlen</span>
+          <span class="text-[28px] font-bold leading-none text-white">Snack später</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Schule und Rückweg bleiben stabil. Der Zwischenstopp rutscht nach hinten.</span>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">+0</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">tragfähig</span>
+        </div>
+      </button>
+
+      <!-- Choice 2 – Alternative -->
+      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Alternative</span>
+          <span class="text-[28px] font-bold leading-none text-white">Späteren Bus nehmen</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Mehr Luft, aber der Rest verschiebt sich leicht nach hinten.</span>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">+17</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">heute passend</span>
+        </div>
+      </button>
+
+      <!-- Choice 3 – One-off -->
+      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Nur für heute</span>
+          <span class="text-[28px] font-bold leading-none text-white">Zwischenstopp streichen</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">CatchIt behandelt den Hauptweg heute als einzige Priorität.</span>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">1x</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">direkt</span>
+        </div>
+      </button>
+    </section>
+
+    <!-- Footer note -->
+    <section class="glass-footer rounded-2xl mx-[18px] mb-[18px] mt-3.5 px-3.5 pt-3 pb-2.5 flex justify-between items-end gap-3 z-10">
+      <div class="flex flex-col gap-1">
+        <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Wirkung</span>
+        <span class="text-[22px] font-bold leading-none text-white">Tippen sortiert sofort um</span>
+        <span class="text-[15px] leading-[1.1] text-white/84">Kein extra Bestätigen. CatchIt springt direkt in die neue tragfähige Variante.</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
+        <span class="material-symbols-outlined text-[20px]">touch_app</span>
+        <span>1 Tap</span>
+      </div>
+    </section>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>

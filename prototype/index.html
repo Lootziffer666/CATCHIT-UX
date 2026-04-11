@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Prototype — Debug / Direktzugang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; padding:32px 24px;
+      font-family:"Archivo Narrow",sans-serif;
+      background:#0f1923; color:rgba(255,255,255,.90);
+    }
+    h1{font-size:28px; font-weight:700; margin:0 0 6px;}
+    .warn{font-size:15px; color:rgba(255,255,255,.44); margin-bottom:32px;}
+    h2{
+      font-size:13px; text-transform:uppercase; letter-spacing:.18em;
+      color:rgba(255,255,255,.36); font-weight:700; margin:28px 0 10px;
+    }
+    .grid{display:grid; gap:8px;}
+    a{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px; border-radius:12px;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.06);
+      color:rgba(255,255,255,.84); text-decoration:none; font-weight:600; font-size:16px;
+    }
+    a:hover{background:rgba(255,255,255,.10);}
+    .tag{font-size:12px; color:rgba(255,255,255,.32); font-weight:700;}
+    .start{
+      display:inline-block; margin-bottom:28px; padding:10px 18px;
+      border-radius:10px; background:#4DB9E6; color:#fff;
+      text-decoration:none; font-weight:700; font-size:17px;
+    }
+    .start:hover{background:#3EA0D4;}
+  </style>
+</head>
+<body>
+  <h1>CatchIt Prototype</h1>
+  <p class="warn">Debug / Direktzugang — nicht der Prototyp. Zum normalen Start:</p>
+  <a class="start" href="screens/Wizard_einstieg_v1.html">App starten (Wizard)</a>
+
+  <h2>Wizard</h2>
+  <div class="grid">
+    <a href="screens/Wizard_einstieg_v1.html">Wizard Einstieg <span class="tag">wizard</span></a>
+    <a href="screens/Wizard_bewegungsstil_tageslage_v1.html">Wizard Bewegungsstil <span class="tag">wizard</span></a>
+  </div>
+
+  <h2>Chain / Quick</h2>
+  <div class="grid">
+    <a href="screens/Chain_summary_v1.html">Chain Summary <span class="tag">chain</span></a>
+    <a href="screens/Quick_change_v1.html">Quick Change <span class="tag">chain</span></a>
+  </div>
+
+  <h2>Main States</h2>
+  <div class="grid">
+    <a href="screens/MainScreen_parent_v3_luckiest_archivo.html">Main Blue (Planning) <span class="tag">main</span></a>
+    <a href="screens/MainScreen_ready_green_v2.html">Main Green (Ready) <span class="tag">main</span></a>
+    <a href="screens/MainScreen_adapting_yellow_v2.html">Main Yellow (Adapting) <span class="tag">main</span></a>
+    <a href="screens/MainScreen_failed_red_v1.html">Main Red (Failed) <span class="tag">main</span></a>
+  </div>
+
+  <h2>Orange Actions</h2>
+  <div class="grid">
+    <a href="screens/Orange_confirm_change_v1.html">Orange Confirm <span class="tag">action</span></a>
+    <a href="screens/Orange_execute_now_v1.html">Orange Execute <span class="tag">action</span></a>
+    <a href="screens/Orange_recommit_chain_v1.html">Orange Recommit <span class="tag">action</span></a>
+  </div>
+
+  <h2>Map / Go</h2>
+  <div class="grid">
+    <a href="screens/MapReveal_progressive_spatial_disclosure_v4.html">Map Reveal <span class="tag">map</span></a>
+    <a href="screens/MapFocus_lean_v3_side_by_side_toprow.html">Map Focus <span class="tag">map</span></a>
+    <a href="screens/GoMode_walk_to_stop_v1.html">Go Mode Walk <span class="tag">go</span></a>
+  </div>
+
+  <h2>Recovery</h2>
+  <div class="grid">
+    <a href="screens/Recovery_simple_switch_v1.html">Simple Switch <span class="tag">recovery</span></a>
+    <a href="screens/Recovery_recheck_noetig_v1.html">Recheck noetig <span class="tag">recovery</span></a>
+    <a href="screens/Recovery_kette_angepasst_v2.html">Kette angepasst <span class="tag">recovery</span></a>
+  </div>
+
+  <h2>Search</h2>
+  <div class="grid">
+    <a href="screens/Haltestellensuche_v2_freitext_live_poi_ready.html">Haltestellensuche <span class="tag">search</span></a>
+  </div>
+</body>
+</html>

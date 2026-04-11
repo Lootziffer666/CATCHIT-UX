@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            mint: "#88f9ad"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"],
+            label: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .recovery-yellow-gradient {
+      background: linear-gradient(180deg, #F5D77A 0%, #F0C55F 46%, #DDA947 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+    }
+    .glass-segment {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .glass-segment-changed {
+      background: rgba(136,249,173,0.30);
+      border-color: rgba(136,249,173,0.20);
+    }
+    .glass-footer {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+
+  <main class="recovery-yellow-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-6 pt-7 pb-4 z-10">
+      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <!-- Kicker + Headline + Subtitle -->
+    <section class="flex flex-col items-center text-center px-6 pt-4 pb-6 z-10">
+      <p class="text-[14px] leading-none uppercase tracking-[0.16em] text-white/60 font-bold mb-3.5">Recovery</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] text-white m-0">Kette angepasst</h1>
+      <p class="mt-3.5 max-w-[282px] text-[20px] leading-[1.12] text-white/80 font-semibold">Die Route bleibt tragfähig. Nur ein Teil des Ablaufs wurde neu einsortiert.</p>
+    </section>
+
+    <!-- Change Card -->
+    <section class="glass-card rounded-3xl mx-[18px] px-4 pt-[18px] pb-4 z-10">
+      <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Geänderte Stelle</p>
+      <p class="mt-2.5 text-[28px] leading-none font-bold text-[#1f2d39]">Zwischenstopp verschiebt sich</p>
+      <p class="mt-2.5 text-[18px] leading-[1.15] font-bold text-[#35556b] max-w-[300px]">Die Schule bleibt pünktlich erreichbar. Der spätere Snack rutscht hinter die Rückkehr.</p>
+    </section>
+
+    <!-- Chain Card with 3 segments -->
+    <section class="glass-card rounded-3xl mx-[18px] mt-3 p-4 flex flex-col gap-3 z-10">
+
+      <!-- Segment 1: Stable (Schule) -->
+      <div class="glass-segment rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3">
+        <div class="flex flex-col gap-[5px] min-w-0">
+          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Bleibt gleich</p>
+          <p class="text-[24px] leading-none font-bold text-white">Schule</p>
+          <p class="text-[16px] leading-[1.1] font-bold text-white/80">Ankunft bleibt wie geplant</p>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <p class="text-[22px] leading-none font-bold text-white">08:30</p>
+          <p class="text-[14px] leading-none font-bold text-white/80">stabil</p>
+        </div>
+      </div>
+
+      <!-- Segment 2: Changed (Rückweg zuerst) — mint tint -->
+      <div class="glass-segment glass-segment-changed rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3 cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-[5px] min-w-0">
+          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Neu sortiert</p>
+          <p class="text-[24px] leading-none font-bold text-[#183126]">Rückweg zuerst</p>
+          <p class="text-[16px] leading-[1.1] font-bold text-[#27513d]">direkt nach Hause statt Zwischenstopp davor</p>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <p class="text-[22px] leading-none font-bold text-[#173126]">11:47</p>
+          <p class="text-[14px] leading-none font-bold text-[#22513d]">angepasst</p>
+        </div>
+      </div>
+
+      <!-- Segment 3: Future (Snack später) — dimmed -->
+      <div class="glass-segment rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3 opacity-70">
+        <div class="flex flex-col gap-[5px] min-w-0">
+          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Danach</p>
+          <p class="text-[24px] leading-none font-bold text-white">Snack später</p>
+          <p class="text-[16px] leading-[1.1] font-bold text-white/80">verschiebt sich hinter die sichere Rückkehr</p>
+        </div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <p class="text-[22px] leading-none font-bold text-white">später</p>
+          <p class="text-[14px] leading-none font-bold text-white/80">ok</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Spacer to push footer down -->
+    <div class="flex-grow"></div>
+
+    <!-- Footer Note -->
+    <div class="glass-footer rounded-3xl mx-[18px] mb-[18px] px-3.5 pt-3 pb-[11px] flex justify-between items-end gap-3 z-10">
+      <div class="flex flex-col gap-1">
+        <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Neue Tragfähigkeit</p>
+        <p class="text-[24px] leading-none font-bold text-white">Tagesablauf bleibt stabil</p>
+        <p class="text-[15px] leading-[1.1] text-white/80">Du musst nicht neu planen. CatchIt hat nur die Reihenfolge angepasst.</p>
+      </div>
+      <div class="flex items-center gap-1.5 text-[20px] leading-none font-bold text-white whitespace-nowrap">
+        <span class="material-symbols-outlined text-[20px]">conversion_path</span>
+        <span>1x</span>
+      </div>
+    </div>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>

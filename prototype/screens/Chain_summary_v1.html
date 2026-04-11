@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CatchIt Chain Summary v1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .blue-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 42px rgba(20,55,105,0.14);
+    }
+    .glass-card-primary {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .glass-segment {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .glass-segment-primary {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.12);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="blue-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="px-7 z-10">
+      <p class="text-[12px] font-bold uppercase tracking-[0.16em] text-white/56 mb-4 leading-none">Zusammenfassung</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] max-w-[286px]">So baut CatchIt deinen Ablauf</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[294px]">Die Kette ist vorbereitet. Von hier aus kann CatchIt in Planung oder direkt in die Ausf&uuml;hrung springen.</p>
+    </section>
+
+    <!-- Summary Card -->
+    <section class="flex-1 flex flex-col px-[18px] pt-5 pb-0 z-10">
+      <div class="glass-card rounded-[28px] flex-1 flex flex-col gap-3 p-4 pb-4">
+
+        <!-- Segment 1: Startpunkt (primary) -->
+        <div class="glass-segment glass-segment-primary rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="MainScreen_parent_v3_luckiest_archivo.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Start</span>
+            <span class="text-[26px] font-bold leading-none text-white">Zu Hause</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">ruhiger Fu&szlig;weg &middot; Linie 21 zuerst</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:12</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">geplant</span>
+          </div>
+        </div>
+
+        <!-- Segment 2: Hauptziel -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Hauptziel</span>
+            <span class="text-[26px] font-bold leading-none text-white">Schule</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">Ankunft mit Puffer statt knappem Umstieg</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:30</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">stabil</span>
+          </div>
+        </div>
+
+        <!-- Segment 3: Danach -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Danach</span>
+            <span class="text-[26px] font-bold leading-none text-white">R&uuml;ckweg</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">bleibt offen f&uuml;r sp&auml;tere Erg&auml;nzung oder Zwischenstopp</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">sp&auml;ter</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">optional</span>
+          </div>
+        </div>
+
+        <!-- Segment 4: Heute mitgedacht -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Heute mitgedacht</span>
+            <span class="text-[26px] font-bold leading-none text-white">Ruhig + mehr Puffer</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">weniger Hektik, weniger Risiko bei knappen Wechseln</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">2 Regeln</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">aktiv</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bottom Note -->
+    <section class="px-[18px] pt-3 pb-[18px] z-10">
+      <div class="glass-segment rounded-[18px] backdrop-blur-[8px] flex items-end justify-between gap-3 px-3.5 py-3 cursor-pointer" data-flow="Quick_change_v1.html">
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Planungsstatus</span>
+          <span class="text-[22px] font-bold leading-none text-white">Tragf&auml;hige Kette erkannt</span>
+          <span class="text-[15px] leading-[1.1] text-white/84">Der wei&szlig;e Punkt kann daraus eine gespeicherte Tour machen.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
+          <span class="material-symbols-outlined text-[20px]">trip</span>
+          <span>4 Teile</span>
+        </div>
+      </div>
+    </section>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CatchIt Recovery – Recheck nötig</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .yellow-gradient {
+      background: linear-gradient(180deg, #F5D77A 0%, #F0C55F 46%, #DDA947 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+    }
+    .glass-choice {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .glass-choice-primary {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .glass-footer {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="yellow-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="text-center px-7 z-10">
+      <p class="text-[14px] font-bold uppercase tracking-[0.16em] text-white/56 mb-3.5 leading-none">Recovery</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em]">Bitte nochmal prüfen</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[282px] mx-auto">CatchIt kann die Lage gerade nicht sauber genug für dich übernehmen.</p>
+    </section>
+
+    <!-- Reason Card -->
+    <section class="px-[18px] pt-5 z-10">
+      <div class="glass-card rounded-[24px] px-4 pt-[18px] pb-4">
+        <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Grund</span>
+        <div class="mt-2.5 text-[28px] font-bold leading-none text-[#1f2d39]">Datenlage springt</div>
+        <div class="mt-2.5 text-[18px] font-bold leading-[1.15] text-[#35556b] max-w-[300px]">Die Verbindung wird im Moment widersprüchlich gemeldet. Eine kurze Sichtprüfung ist sinnvoller als falsche Sicherheit.</div>
+      </div>
+    </section>
+
+    <!-- Choice Card -->
+    <section class="px-[18px] pt-3 z-10">
+      <div class="glass-card rounded-[24px] p-4 flex flex-col gap-3">
+
+        <!-- Primary choice -->
+        <div class="glass-choice glass-choice-primary rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="Chain_summary_v1.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Wahrscheinlich passend</span>
+            <span class="text-[24px] font-bold leading-none text-white">295 → Markt</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">wirkt aktuell am stabilsten</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:51</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">+17</span>
+          </div>
+        </div>
+
+        <!-- Secondary choice -->
+        <div class="glass-choice rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="Chain_summary_v1.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Noch unklar</span>
+            <span class="text-[24px] font-bold leading-none text-white">21 → Friedrich-Ebert-Str.</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">passt nur, wenn die letzte Meldung stimmt</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:47</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">+0</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer Note -->
+    <section class="px-[18px] pt-3 pb-[18px] z-10 mt-auto">
+      <div class="glass-footer rounded-[18px] flex items-end justify-between gap-3 px-3.5 py-3">
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Nächster sinnvoller Schritt</span>
+          <span class="text-[24px] font-bold leading-none text-white">Kurz rechecken</span>
+          <span class="text-[15px] leading-[1.1] text-white/84">Lieber 10 Sekunden prüfen als mit falscher Route losgehen.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-[20px] font-bold text-white whitespace-nowrap">
+          <span class="material-symbols-outlined text-[20px]">visibility</span>
+          <span>1x</span>
+        </div>
+      </div>
+    </section>
+  </main>
+<script src="screen-nav.js"></script>
+</body>
+</html>
