@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Recovery – Recheck nötig</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --yellow1:#F5D77A; --yellow2:#F0C55F; --yellow3:#DDA947;
+      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; display:grid; place-items:center;
+      background:#f4f4f6; padding:24px; font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      width:390px; height:844px; border-radius:30px; overflow:hidden; position:relative; color:var(--white);
+      background:linear-gradient(180deg,var(--yellow1) 0%, var(--yellow2) 46%, var(--yellow3) 100%);
+      box-shadow:0 30px 70px rgba(145,105,26,.20);
+    }
+    .glow{
+      position:absolute; right:-56px; top:-56px; width:220px; height:220px; border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.13) 0%, rgba(255,255,255,0) 72%);
+    }
+    .header{
+      position:absolute; left:0; right:0; top:0; z-index:20;
+      display:flex; justify-content:space-between; align-items:center; padding:28px 24px;
+    }
+    .icon{font-family:"Material Symbols Outlined"; font-size:28px; line-height:1}
+    .top{
+      position:absolute; top:122px; left:0; right:0; z-index:18; text-align:center; padding:0 24px;
+    }
+    .kicker{
+      font-size:14px; line-height:1; text-transform:uppercase; letter-spacing:.16em;
+      color:var(--white-faint); font-weight:700; margin-bottom:14px;
+    }
+    .headline{
+      font-family:"Luckiest Guy",cursive; font-size:40px; line-height:.96; margin:0; letter-spacing:.01em;
+    }
+    .sub{
+      margin:14px auto 0; max-width:282px; font-size:20px; line-height:1.12; color:var(--white-soft); font-weight:600;
+    }
+
+    .reason-card, .choice-card, .footer-note{
+      position:absolute; left:18px; right:18px; border-radius:24px;
+      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.10); backdrop-filter:blur(10px);
+      box-shadow:0 14px 34px rgba(98,70,14,.10);
+    }
+    .reason-card{ top:274px; padding:18px 16px 16px; }
+    .choice-card{ top:432px; padding:16px; display:grid; gap:12px; }
+    .footer-note{ bottom:18px; padding:12px 14px 11px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
+
+    .label{
+      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
+    }
+    .reason-title{
+      margin-top:10px; font-size:28px; line-height:1; font-weight:700; color:#1f2d39;
+    }
+    .reason-copy{
+      margin-top:10px; font-size:18px; line-height:1.15; color:#35556b; font-weight:700; max-width:300px;
+    }
+
+    .choice{
+      border-radius:18px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.10);
+      padding:14px 14px 13px; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+    }
+    .choice.primary{
+      background:rgba(255,255,255,.20);
+      border-color:rgba(255,255,255,.14);
+    }
+    .choice-left{display:flex; flex-direction:column; gap:5px; min-width:0}
+    .choice-title{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
+    .choice-sub{font-size:16px; line-height:1.1; color:var(--white-soft); font-weight:700}
+    .choice-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px; white-space:nowrap}
+    .choice-time{font-size:22px; line-height:1; font-weight:700; color:var(--white)}
+    .choice-tag{font-size:14px; line-height:1; font-weight:700; color:var(--white-soft)}
+
+    .footer-note .left{display:flex; flex-direction:column; gap:4px}
+    .footer-note .value{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
+    .footer-note .subline{font-size:15px; line-height:1.1; color:var(--white-soft)}
+    .footer-note .time{display:flex; align-items:center; gap:6px; font-size:20px; line-height:1; font-weight:700; color:var(--white); white-space:nowrap}
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <section class="top">
+      <div class="kicker">Recovery</div>
+      <h1 class="headline">Bitte nochmal prüfen</h1>
+      <div class="sub">CatchIt kann die Lage gerade nicht sauber genug für dich übernehmen.</div>
+    </section>
+
+    <section class="reason-card">
+      <div class="label">Grund</div>
+      <div class="reason-title">Datenlage springt</div>
+      <div class="reason-copy">Die Verbindung wird im Moment widersprüchlich gemeldet. Eine kurze Sichtprüfung ist sinnvoller als falsche Sicherheit.</div>
+    </section>
+
+    <section class="choice-card">
+      <div class="choice primary">
+        <div class="choice-left">
+          <div class="label">Wahrscheinlich passend</div>
+          <div class="choice-title">295 → Markt</div>
+          <div class="choice-sub">wirkt aktuell am stabilsten</div>
+        </div>
+        <div class="choice-right">
+          <div class="choice-time">08:51</div>
+          <div class="choice-tag">+17</div>
+        </div>
+      </div>
+
+      <div class="choice">
+        <div class="choice-left">
+          <div class="label">Noch unklar</div>
+          <div class="choice-title">21 → Friedrich-Ebert-Str.</div>
+          <div class="choice-sub">passt nur, wenn die letzte Meldung stimmt</div>
+        </div>
+        <div class="choice-right">
+          <div class="choice-time">08:47</div>
+          <div class="choice-tag">+0</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <div class="left">
+        <div class="label">Nächster sinnvoller Schritt</div>
+        <div class="value">Kurz rechecken</div>
+        <div class="subline">Lieber 10 Sekunden prüfen als mit falscher Route losgehen.</div>
+      </div>
+      <div class="time">
+        <span class="icon" style="font-size:20px;">visibility</span>
+        <span>1x</span>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

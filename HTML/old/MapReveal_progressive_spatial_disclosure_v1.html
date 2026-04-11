@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            "route-blue": "#42C2D5",
+            "route-blue-mid": "#3EA0D4",
+            "route-blue-deep": "#3281D6",
+            "route-path": "#BFF7D4",
+            "route-point": "#FFFFFF",
+            "route-card": "rgba(255,255,255,0.18)",
+            "warm-amber-soft": "#F3C86A"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"],
+            label: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .reveal-gradient {
+      background: linear-gradient(180deg, #42C2D5 0%, #3EA0D4 38%, #3281D6 66%, #2F7CCF 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-bubble {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 36px rgba(20, 55, 105, 0.12);
+    }
+    .selected-option {
+      position: relative;
+    }
+    .selected-option::before {
+      content: "";
+      position: absolute;
+      inset: -10px -10px -12px -10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      z-index: -1;
+    }
+    .status-neutral { color: rgba(255,255,255,0.9); }
+    .status-soft { color: rgba(255,255,255,0.82); }
+    .status-amber { color: #F3C86A; }
+
+    .map-reveal-zone {
+      position: relative;
+      width: 100%;
+      max-width: 23rem;
+      margin-top: 1.9rem;
+      padding-top: 1.35rem;
+    }
+    .map-reveal-zone::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4.25rem;
+      background: linear-gradient(180deg, rgba(62,160,212,0) 0%, rgba(58,140,205,0.30) 45%, rgba(50,129,214,0.62) 100%);
+      border-top-left-radius: 1.6rem;
+      border-top-right-radius: 1.6rem;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .map-surface {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.65rem;
+      height: 16.5rem;
+      background:
+        radial-gradient(circle at 80% 22%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.02) 36%, rgba(255,255,255,0) 58%),
+        linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%),
+        linear-gradient(180deg, rgba(36,105,150,0.38) 0%, rgba(30,87,135,0.52) 100%);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(14, 44, 84, 0.18);
+      z-index: 1;
+    }
+    .map-fade-cap {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 3.8rem;
+      background: linear-gradient(180deg, rgba(62,160,212,0.92) 0%, rgba(62,160,212,0.45) 52%, rgba(62,160,212,0) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .map-grid-line {
+      position: absolute;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+    .map-card {
+      position: absolute;
+      left: 0.85rem;
+      right: 0.85rem;
+      bottom: 0.95rem;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 1.15rem;
+      padding: 0.8rem 0.95rem;
+      z-index: 4;
+    }
+    .route-line {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .mini-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.36rem 0.68rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="reveal-gradient min-h-screen relative flex flex-col items-center">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <div class="flex-grow flex flex-col items-center w-full px-8 pt-2">
+      <p class="font-body text-white/92 text-[18px] mb-8 tracking-wide opacity-95">Spätestens los in:</p>
+
+      <div class="glass-bubble rounded-full w-56 h-56 flex flex-col items-center justify-center mb-14">
+        <span class="font-display text-white text-7xl leading-none" style="letter-spacing: 0.02em;">15m</span>
+      </div>
+
+      <div class="w-full max-w-sm grid grid-cols-3 gap-6 items-start">
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/70 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">491</span>
+          <span class="status-soft text-[18px] mt-3">+2</span>
+        </div>
+
+        <div class="selected-option flex flex-col items-center gap-1 px-2 py-3">
+          <span class="text-white/80 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Aktiv</span>
+          <span class="font-body text-white text-[40px] font-bold leading-none">21</span>
+          <span class="status-neutral text-[18px] mt-2">+0</span>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/70 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">295</span>
+          <span class="status-amber text-[18px] mt-3">+17</span>
+        </div>
+      </div>
+
+      <div class="map-reveal-zone">
+        <div class="map-surface">
+          <div class="map-fade-cap"></div>
+
+          <div class="map-grid-line" style="left:1.3rem; top:4.4rem; width:14rem; height:0.12rem;"></div>
+          <div class="map-grid-line" style="right:1.2rem; top:7.9rem; width:8.2rem; height:0.12rem;"></div>
+          <div class="map-grid-line" style="left:4.8rem; top:11.4rem; width:12.4rem; height:0.12rem;"></div>
+          <div class="map-grid-line" style="left:5.8rem; top:4.7rem; width:0.12rem; height:7.9rem;"></div>
+          <div class="map-grid-line" style="left:12.9rem; top:5.8rem; width:0.12rem; height:5.4rem;"></div>
+          <div class="map-grid-line" style="left:17.8rem; top:3.6rem; width:0.12rem; height:8.6rem;"></div>
+
+          <svg class="route-line" viewBox="0 0 368 264" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M61 189C88 175 103 162 122 146C143 128 159 118 181 112C208 104 232 95 250 78C267 62 279 52 298 44" stroke="#BFF7D4" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="61" cy="189" r="8" fill="white"/>
+            <circle cx="298" cy="44" r="8" fill="white"/>
+          </svg>
+
+          <div class="absolute left-[2.6rem] top-[10.2rem] z-[4]">
+            <div class="mini-pill">
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1, 'wght' 250, 'GRAD' 0, 'opsz' 20;">my_location</span>
+              <span>Du</span>
+            </div>
+          </div>
+
+          <div class="absolute right-[1.1rem] top-[2.0rem] z-[4]">
+            <div class="mini-pill">
+              <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1, 'wght' 250, 'GRAD' 0, 'opsz' 20;">directions_bus</span>
+              <span>Nächste Haltestelle</span>
+            </div>
+          </div>
+
+          <div class="map-card">
+            <p class="font-body text-white text-[18px] font-semibold leading-tight">Fußweg zur nächstbesten Haltestelle</p>
+            <p class="font-body text-white/86 text-[16px] mt-1">450 Meter · ca. 6 Minuten</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

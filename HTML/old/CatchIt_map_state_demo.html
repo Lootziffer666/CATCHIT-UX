@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Map State Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue1:#4DB9E6;
+      --blue2:#2EA7E0;
+      --blue3:#1F4B8F;
+      --mint:#6cdc92;
+      --text:rgba(255,255,255,.96);
+      --text-soft:rgba(255,255,255,.82);
+      --text-faint:rgba(255,255,255,.5);
+      --glass:rgba(255,255,255,.18);
+      --glass-border:rgba(255,255,255,.18);
+      --shadow:0 18px 48px rgba(20,55,105,.18);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:#eef3f8;
+      font-family:"Archivo Narrow",sans-serif;
+      padding:24px;
+      color:#17324f;
+    }
+    .wrap{display:grid; gap:16px; justify-items:center}
+    .controls{
+      display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    }
+    .controls button{
+      border:1px solid #cfd9e8; background:#fff; color:#234; border-radius:999px;
+      padding:10px 14px; font:600 14px/1 "Archivo Narrow",sans-serif; cursor:pointer;
+      box-shadow:0 4px 14px rgba(30,60,90,.06);
+    }
+    .controls button.active{background:#1F4B8F; color:#fff; border-color:#1F4B8F}
+    .caption{
+      width:min(390px, 92vw);
+      font-size:14px; line-height:1.35; color:#4b6075; text-align:center;
+      min-height:38px;
+    }
+
+    .phone{
+      width:390px; height:844px; border-radius:30px; overflow:hidden; position:relative;
+      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);
+      box-shadow:0 30px 70px rgba(31,75,143,.22);
+      color:var(--text);
+    }
+    .glow{
+      position:absolute; right:-56px; top:-56px; width:220px; height:220px; border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 72%);
+      pointer-events:none;
+    }
+    .header{
+      position:absolute; left:0; right:0; top:0; z-index:30;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:28px 24px;
+    }
+    .icon{font-family:"Material Symbols Outlined"; font-size:28px; line-height:1}
+    .top{
+      position:absolute; inset:0; z-index:20;
+      display:flex; flex-direction:column; align-items:center;
+      padding:118px 24px 0;
+      transition:transform .34s ease, opacity .28s ease;
+    }
+    .lead{
+      margin:0 0 36px; font-size:18px; letter-spacing:.03em; color:var(--text-soft);
+      transition:opacity .26s ease, transform .26s ease;
+    }
+    .bubble{
+      width:224px; height:224px; border-radius:50%;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.22);
+      border:1.5px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+      margin-bottom:72px;
+      transition:all .34s ease;
+    }
+    .bubbleText{
+      font-family:"Luckiest Guy",cursive; font-size:72px; line-height:1; letter-spacing:.02em;
+    }
+    .routes{
+      width:100%; max-width:320px; display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+      transition:opacity .28s ease, transform .34s ease;
+    }
+    .route{display:flex; flex-direction:column; align-items:center; gap:4px; position:relative; padding-top:10px}
+    .route.active{padding:12px 8px}
+    .route.active::before{
+      content:""; position:absolute; inset:-8px -8px -10px -8px; border-radius:999px;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); z-index:-1;
+    }
+    .kicker{font-size:10px; text-transform:uppercase; letter-spacing:.24em; color:rgba(255,255,255,.72); font-weight:700; margin-bottom:4px}
+    .value{font-size:30px; font-weight:700; line-height:1}
+    .route.active .value{font-size:40px}
+    .delay{margin-top:12px; font-size:18px; color:rgba(255,255,255,.84)}
+    .warm{color:#F3C86A}
+
+    .mapStage{
+      position:absolute; left:18px; right:18px; bottom:0; top:44%;
+      z-index:10;
+      transition:all .36s ease;
+    }
+    .mapReveal{
+      position:absolute; inset:0;
+      opacity:0;
+      transform:translateY(22px) scale(.985);
+      transition:all .34s ease;
+      pointer-events:none;
+    }
+    .state-reveal .mapReveal,
+    .state-embedded .mapReveal,
+    .state-focus .mapReveal{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      pointer-events:auto;
+    }
+
+    /* reveal = card is being born from the background */
+    .revealMask{
+      position:absolute; inset:0; overflow:hidden;
+      border-radius:28px 28px 0 0;
+    }
+    .revealMask::before{
+      content:""; position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.05) 16%, rgba(255,255,255,.08) 28%, rgba(255,255,255,.02) 100%);
+      z-index:3; pointer-events:none;
+    }
+
+    /* embedded = framed map */
+    .framedMap{
+      position:absolute; left:0; right:0; bottom:22px; top:12px;
+      border-radius:24px;
+      overflow:hidden;
+      background:rgba(255,255,255,.12);
+      backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 16px 42px rgba(13,36,67,.14);
+      opacity:0;
+      transform:translateY(24px);
+      transition:all .34s ease;
+    }
+    .state-embedded .framedMap,
+    .state-focus .framedMap{
+      opacity:1; transform:translateY(0);
+    }
+    .state-reveal .framedMap{
+      opacity:.55; transform:translateY(20px);
+      border-color:rgba(255,255,255,.08);
+      box-shadow:none;
+    }
+
+    .mapInner{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 74% 16%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.03) 26%, rgba(255,255,255,0) 46%),
+        linear-gradient(180deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.01) 100%);
+      mix-blend-mode:overlay;
+    }
+    .road{position:absolute; background:rgba(255,255,255,.1); border-radius:999px}
+    .routeSvg{position:absolute; inset:0; width:100%; height:100%}
+    .origin{
+      position:absolute; bottom:62px; left:50%; transform:translateX(-50%);
+      width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 0 20px rgba(255,255,255,.8);
+      z-index:3;
+    }
+
+    .revealInfo{
+      position:absolute; left:22px; right:22px; bottom:18px; z-index:4;
+      display:flex; justify-content:space-between; align-items:flex-end;
+      transition:opacity .28s ease, transform .28s ease;
+    }
+    .walkKicker{font-size:10px; letter-spacing:.22em; text-transform:uppercase; font-weight:700; color:var(--text-faint); margin-bottom:4px}
+    .walkValue{font-size:42px; line-height:.95; font-weight:700}
+    .walkMeta{display:flex; align-items:center; gap:6px; margin-bottom:4px; font-size:24px; font-weight:700}
+    .state-focus .revealInfo{opacity:0; transform:translateY(12px)}
+
+    .focusInfo{
+      position:absolute; left:18px; right:18px; bottom:18px; z-index:6;
+      display:grid; grid-template-columns:1fr 1fr; gap:12px 14px;
+      opacity:0; transform:translateY(18px); transition:all .3s ease;
+      pointer-events:none;
+    }
+    .state-focus .focusInfo{opacity:1; transform:translateY(0); pointer-events:auto}
+    .focusCard{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      padding:14px 14px 12px;
+      backdrop-filter:blur(12px);
+    }
+    .focusLabel{font-size:11px; text-transform:uppercase; letter-spacing:.18em; color:rgba(255,255,255,.56); font-weight:700; margin-bottom:8px}
+    .focusValue{font-size:28px; line-height:1; font-weight:700}
+    .focusSub{font-size:16px; color:rgba(255,255,255,.82); margin-top:4px; line-height:1.1}
+
+    /* state-specific behavior */
+    .state-main .mapReveal{opacity:0; transform:translateY(28px) scale(.985)}
+    .state-reveal .framedMap{top:40px; bottom:10px}
+    .state-embedded .framedMap{top:0; bottom:0}
+    .state-focus .mapStage{top:26%; left:14px; right:14px}
+    .state-focus .top{transform:translateY(-8px)}
+    .state-focus .bubble{width:176px; height:176px; margin-bottom:22px}
+    .state-focus .routes{opacity:0; transform:translateY(-8px)}
+    .state-focus .lead{opacity:0; transform:translateY(-8px)}
+    .state-focus .framedMap{top:0; bottom:166px}
+
+    .helper{
+      width:min(390px,92vw);
+      background:#fff;
+      border:1px solid #d8e1ee;
+      border-radius:16px;
+      padding:12px 14px;
+      font-size:13px;
+      line-height:1.3;
+      color:#4b6075;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="controls">
+      <button data-state="main">Main</button>
+      <button data-state="reveal" class="active">Reveal</button>
+      <button data-state="embedded">Embedded Map</button>
+      <button data-state="focus">Focus</button>
+    </div>
+
+    <div class="caption" id="caption">
+      Reveal = Die Karte wird sanft in den Main Screen eingebettet. Hauptinfos bleiben oben.
+    </div>
+
+    <main class="phone state-reveal" id="phone">
+      <div class="glow"></div>
+
+      <header class="header">
+        <div class="icon">arrow_back</div>
+        <div class="icon">more_vert</div>
+      </header>
+
+      <section class="top">
+        <p class="lead">Spätestens los in:</p>
+
+        <div class="bubble">
+          <div class="bubbleText">15m</div>
+        </div>
+
+        <div class="routes">
+          <div class="route">
+            <div class="kicker">Linie</div>
+            <div class="value">491</div>
+            <div class="delay">+2</div>
+          </div>
+
+          <div class="route active">
+            <div class="kicker" style="color:rgba(255,255,255,.82)">Aktiv</div>
+            <div class="value">21</div>
+            <div class="delay">+0</div>
+          </div>
+
+          <div class="route">
+            <div class="kicker">Linie</div>
+            <div class="value">295</div>
+            <div class="delay warm">+17</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mapStage">
+        <div class="mapReveal">
+          <div class="revealMask">
+            <div class="framedMap">
+              <div class="mapInner"></div>
+
+              <div class="road" style="left:36px; top:64px; width:220px; height:2px;"></div>
+              <div class="road" style="left:72px; top:156px; width:186px; height:2px;"></div>
+              <div class="road" style="left:120px; top:240px; width:180px; height:2px;"></div>
+              <div class="road" style="left:92px; top:82px; width:2px; height:220px;"></div>
+              <div class="road" style="left:202px; top:112px; width:2px; height:160px;"></div>
+              <div class="road" style="left:302px; top:58px; width:2px; height:180px;"></div>
+
+              <svg class="routeSvg" viewBox="0 0 390 442" aria-hidden="true">
+                <path d="M 195 442 Q 180 300 220 250 T 170 150" fill="none" stroke="#6cdc92" stroke-dasharray="1 12" stroke-linecap="round" stroke-width="6"></path>
+                <circle cx="170" cy="150" fill="#6cdc92" r="8"></circle>
+                <circle cx="170" cy="150" fill="#6cdc92" r="16" opacity="0.20"></circle>
+              </svg>
+
+              <div class="origin"></div>
+
+              <div class="revealInfo">
+                <div>
+                  <div class="walkKicker">Fussweg</div>
+                  <div class="walkValue">450 Meter</div>
+                </div>
+                <div class="walkMeta">
+                  <span class="icon" style="font-size:24px">directions_walk</span>
+                  <span>6 Min</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="focusInfo">
+          <div class="focusCard">
+            <div class="focusLabel">Strecke</div>
+            <div class="focusValue">450 m</div>
+            <div class="focusSub">ruhiger Fussweg</div>
+          </div>
+          <div class="focusCard">
+            <div class="focusLabel">Dauer</div>
+            <div class="focusValue">6 Min</div>
+            <div class="focusSub">gut machbar</div>
+          </div>
+          <div class="focusCard">
+            <div class="focusLabel">Haltestelle</div>
+            <div class="focusValue">Broadway</div>
+            <div class="focusSub">Linie 21 aktiv</div>
+          </div>
+          <div class="focusCard">
+            <div class="focusLabel">Hinweis</div>
+            <div class="focusValue">Direkt</div>
+            <div class="focusSub">kein Umweg noetig</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="helper">
+      <strong>Lesart:</strong> Reveal = Karte wird eingebettet. Embedded Map = stabiler Koexistenzzustand. Focus = Bubble + Farbe bleiben, weitere Infos kommen unter die Karte.
+    </div>
+  </div>
+
+  <script>
+    const phone = document.getElementById('phone');
+    const caption = document.getElementById('caption');
+    const buttons = document.querySelectorAll('[data-state]');
+    const texts = {
+      main: "Main = Nur Hauptinfos, keine Karte.",
+      reveal: "Reveal = Die Karte wird sanft in den Main Screen eingebettet. Hauptinfos bleiben oben.",
+      embedded: "Embedded Map = Hauptinfos und eingefasste Karte koexistieren stabil.",
+      focus: "Focus = Bubble + Farbe bleiben, Karte wird dominant, weitere Infos erscheinen darunter."
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const state = btn.dataset.state;
+        phone.className = 'phone state-' + state;
+        buttons.forEach(b => b.classList.toggle('active', b === btn));
+        caption.textContent = texts[state];
+      });
+    });
+  </script>
+</body>
+</html>

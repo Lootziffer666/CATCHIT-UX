@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Map Focus Lean v2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue1:#4DB9E6;
+      --blue2:#2EA7E0;
+      --blue3:#1F4B8F;
+      --mint:#6cdc92;
+      --white:rgba(255,255,255,.96);
+      --white-soft:rgba(255,255,255,.82);
+      --white-faint:rgba(255,255,255,.54);
+      --amber:#F3C86A;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:#eef3f8;
+      font-family:"Archivo Narrow",sans-serif;
+      padding:24px;
+    }
+    .phone{
+      width:390px;
+      height:844px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      color:var(--white);
+      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);
+      box-shadow:0 30px 70px rgba(31,75,143,.22);
+    }
+    .glow{
+      position:absolute;
+      right:-56px;
+      top:-56px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 72%);
+      pointer-events:none;
+    }
+    .header{
+      position:absolute;
+      left:0; right:0; top:0;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:28px 24px;
+    }
+    .icon{
+      font-family:"Material Symbols Outlined";
+      font-size:28px;
+      line-height:1;
+    }
+    .bubble{
+      position:absolute;
+      top:82px;
+      left:50%;
+      transform:translateX(-50%);
+      width:118px;
+      height:118px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.14);
+      backdrop-filter:blur(10px);
+      z-index:25;
+    }
+    .bubbleText{
+      font-family:"Luckiest Guy",cursive;
+      font-size:42px;
+      line-height:1;
+      letter-spacing:.02em;
+    }
+
+    .map-card{
+      position:absolute;
+      left:16px;
+      right:16px;
+      top:146px;
+      bottom:112px;
+      border-radius:28px;
+      overflow:hidden;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 14px 40px rgba(13,36,67,.14);
+      backdrop-filter:blur(8px);
+    }
+
+    .map-tint{
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(77,185,230,.18) 0%, rgba(62,160,212,.08) 28%, rgba(31,75,143,.10) 100%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .roads{
+      position:absolute; inset:0;
+      background:#dadbe0;
+      z-index:0;
+    }
+    .r{position:absolute; background:#9eb0c0; border-radius:999px;}
+    .b{position:absolute; background:#d2d6dc; border-radius:10px; border:1px solid rgba(120,130,150,.10);}
+    .green{position:absolute; background:#c7e4d0; border-radius:0 0 0 40px;}
+    .label{
+      position:absolute;
+      color:rgba(70,85,100,.70);
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.01em;
+      text-shadow:0 1px 0 rgba(255,255,255,.35);
+      z-index:2;
+    }
+
+    .routeSvg{position:absolute; inset:0; width:100%; height:100%; z-index:3}
+    .origin{
+      position:absolute;
+      right:78px;
+      bottom:156px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:0 0 20px rgba(255,255,255,.8);
+      z-index:4;
+    }
+
+    .switchers{
+      position:absolute;
+      left:12px;
+      right:12px;
+      top:14px;
+      z-index:5;
+      display:flex;
+      gap:8px;
+      justify-content:center;
+    }
+    .switcher{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.09);
+      color:var(--white);
+      border-radius:999px;
+      padding:8px 10px 7px;
+      min-width:62px;
+      cursor:pointer;
+      backdrop-filter:blur(8px);
+      font:700 12px/1 "Archivo Narrow",sans-serif;
+    }
+    .switcher .topline{
+      display:block;
+      font-size:8px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:rgba(255,255,255,.60);
+      margin-bottom:4px;
+      font-weight:700;
+    }
+    .switcher .line{
+      display:block;
+      font-size:20px;
+      line-height:1;
+      font-weight:700;
+    }
+    .switcher .delay{
+      display:block;
+      margin-top:5px;
+      font-size:13px;
+      line-height:1;
+      color:rgba(255,255,255,.78);
+    }
+    .switcher.active{
+      background:rgba(255,255,255,.16);
+      border-color:rgba(255,255,255,.14);
+    }
+    .switcher.active .topline{ color:rgba(255,255,255,.84); }
+    .switcher.delay-warm .delay{ color:var(--amber); }
+
+    .walk-anchor{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      z-index:5;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:16px;
+      text-shadow:0 1px 10px rgba(13,36,67,.10);
+    }
+    .walk-kicker{
+      font-size:10px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-weight:700;
+      color:var(--white-faint);
+      margin-bottom:4px;
+    }
+    .walk-value{
+      font-size:38px;
+      line-height:.95;
+      font-weight:700;
+      color:var(--white);
+    }
+    .walk-meta{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      margin-bottom:4px;
+      font-size:22px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+
+    .info-strip{
+      position:absolute;
+      left:16px;
+      right:16px;
+      bottom:16px;
+      z-index:10;
+      border-radius:18px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(8px);
+      padding:12px 14px 11px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+    }
+    .info-left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .info-label{
+      font-size:10px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:rgba(255,255,255,.56);
+      font-weight:700;
+    }
+    .info-value{
+      font-size:28px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+    .info-sub{
+      font-size:16px;
+      line-height:1.1;
+      color:rgba(255,255,255,.82);
+    }
+    .walk-chip{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:20px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <div class="bubble">
+      <div class="bubbleText">15m</div>
+    </div>
+
+    <section class="map-card">
+      <div class="roads">
+        <div class="green" style="right:0; top:0; width:118px; height:92px;"></div>
+
+        <div class="r" style="left:-18px; top:54px; width:304px; height:34px; transform:rotate(12deg);"></div>
+        <div class="r" style="left:220px; top:68px; width:180px; height:26px; transform:rotate(2deg);"></div>
+        <div class="r" style="left:72px; top:120px; width:34px; height:220px; transform:rotate(28deg);"></div>
+        <div class="r" style="left:30px; top:294px; width:290px; height:26px; transform:rotate(-8deg);"></div>
+        <div class="r" style="left:220px; top:370px; width:150px; height:22px; transform:rotate(4deg);"></div>
+        <div class="r" style="left:278px; top:196px; width:24px; height:176px; transform:rotate(18deg);"></div>
+
+        <div class="b" style="left:22px; top:108px; width:118px; height:80px; transform:rotate(-10deg);"></div>
+        <div class="b" style="left:140px; top:20px; width:56px; height:44px; transform:rotate(52deg);"></div>
+        <div class="b" style="left:228px; top:128px; width:122px; height:96px; transform:rotate(-12deg);"></div>
+        <div class="b" style="left:48px; top:246px; width:128px; height:92px; transform:rotate(-8deg);"></div>
+        <div class="b" style="left:176px; top:250px; width:54px; height:40px; transform:rotate(-2deg);"></div>
+        <div class="b" style="left:232px; top:260px; width:84px; height:64px; transform:rotate(-8deg);"></div>
+        <div class="b" style="left:128px; top:364px; width:166px; height:84px; transform:rotate(-9deg);"></div>
+        <div class="b" style="left:300px; top:334px; width:62px; height:48px; transform:rotate(-14deg);"></div>
+
+        <div class="label" style="left:212px; top:58px; transform:rotate(18deg); font-size:16px;">Friedrich-Ebert-Strasse</div>
+        <div class="label" style="left:74px; top:160px; transform:rotate(-64deg); font-size:16px;">Amselweg</div>
+        <div class="label" style="left:124px; top:328px; transform:rotate(-8deg); font-size:16px;">Carolus-Magnus-Strasse</div>
+      </div>
+
+      <div class="map-tint"></div>
+
+      <div class="switchers">
+        <button class="switcher" data-line="491">
+          <span class="topline">Linie</span>
+          <span class="line">491</span>
+          <span class="delay">+2</span>
+        </button>
+
+        <button class="switcher active" data-line="21">
+          <span class="topline">Aktiv</span>
+          <span class="line">21</span>
+          <span class="delay">+0</span>
+        </button>
+
+        <button class="switcher delay-warm" data-line="295">
+          <span class="topline">Linie</span>
+          <span class="line">295</span>
+          <span class="delay">+17</span>
+        </button>
+      </div>
+
+      <svg class="routeSvg" viewBox="0 0 390 554" aria-hidden="true">
+        <path id="routePath" d="M 306 466 C 286 455 257 438 229 422 C 203 406 171 392 148 370 C 123 346 116 315 119 282 C 122 245 139 209 163 180 C 187 152 224 126 261 102" fill="none" stroke="#3B00FF" stroke-linecap="round" stroke-width="8" stroke-dasharray="1 17"></path>
+        <circle id="targetDot" cx="261" cy="102" fill="#ff4c3f" r="8"></circle>
+        <circle id="originDot" cx="306" cy="466" fill="#3B00FF" r="8"></circle>
+      </svg>
+
+      <div class="origin"></div>
+
+      <div class="walk-anchor">
+        <div>
+          <div class="walk-kicker">Fussweg</div>
+          <div class="walk-value" id="walkValue">220 Meter</div>
+        </div>
+        <div class="walk-meta">
+          <span class="icon" style="font-size:22px">directions_walk</span>
+          <span id="walkTime">3 Min</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-strip">
+      <div class="info-left">
+        <div class="info-label">Haltestelle</div>
+        <div class="info-value" id="stopValue">Friedrich-Ebert-Str.</div>
+        <div class="info-sub" id="stopSub">Linie 21 aktiv � direkt erreichbar</div>
+      </div>
+      <div class="walk-chip">
+        <span class="icon" style="font-size:20px">directions_walk</span>
+        <span id="chipTime">3 Min</span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.switcher');
+    const routePath = document.getElementById('routePath');
+    const targetDot = document.getElementById('targetDot');
+    const originDot = document.getElementById('originDot');
+    const walkValue = document.getElementById('walkValue');
+    const walkTime = document.getElementById('walkTime');
+    const stopValue = document.getElementById('stopValue');
+    const stopSub = document.getElementById('stopSub');
+    const chipTime = document.getElementById('chipTime');
+
+    const lineData = {
+      "491": {
+        path: "M 306 466 C 290 448 266 432 242 408 C 214 381 184 342 173 302 C 164 272 164 236 174 206 C 186 171 210 138 242 112",
+        tx: 242, ty: 112,
+        ox: 306, oy: 466,
+        walk: "260 Meter", time: "4 Min",
+        stop: "Amselweg", sub: "Linie 491 � schnell erreichbar"
+      },
+      "21": {
+        path: "M 306 466 C 286 455 257 438 229 422 C 203 406 171 392 148 370 C 123 346 116 315 119 282 C 122 245 139 209 163 180 C 187 152 224 126 261 102",
+        tx: 261, ty: 102,
+        ox: 306, oy: 466,
+        walk: "220 Meter", time: "3 Min",
+        stop: "Friedrich-Ebert-Str.", sub: "Linie 21 aktiv � direkt erreichbar"
+      },
+      "295": {
+        path: "M 306 466 C 284 455 252 440 224 430 C 194 419 163 401 143 378 C 119 351 107 317 108 280 C 109 241 125 198 156 156 C 191 108 238 90 296 90",
+        tx: 296, ty: 90,
+        ox: 306, oy: 466,
+        walk: "300 Meter", time: "4 Min",
+        stop: "Markt", sub: "Linie 295 � durch +17 passend"
+      }
+    };
+
+    function setLine(line){
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.line === line));
+      const d = lineData[line];
+      routePath.setAttribute('d', d.path);
+      targetDot.setAttribute('cx', d.tx);
+      targetDot.setAttribute('cy', d.ty);
+      originDot.setAttribute('cx', d.ox);
+      originDot.setAttribute('cy', d.oy);
+      walkValue.textContent = d.walk;
+      walkTime.textContent = d.time;
+      chipTime.textContent = d.time;
+      stopValue.textContent = d.stop;
+      stopSub.textContent = d.sub;
+    }
+
+    buttons.forEach(btn => btn.addEventListener('click', () => setLine(btn.dataset.line)));
+    setLine('21');
+  </script>
+</body>
+</html>

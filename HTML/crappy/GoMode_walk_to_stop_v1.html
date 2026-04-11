@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Go Mode – Walk to Stop v1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green1:#71D8C0;
+      --green2:#57CFAF;
+      --green3:#43BE92;
+      --white:rgba(255,255,255,.96);
+      --white-soft:rgba(255,255,255,.84);
+      --white-faint:rgba(255,255,255,.56);
+      --glass:rgba(255,255,255,.16);
+      --glass-border:rgba(255,255,255,.12);
+      --active:#ffffff;
+      --inactive:rgba(255,255,255,.28);
+      --mint:#88f9ad;
+      --dark:#1f3b34;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:#eef6f2;
+      padding:24px;
+      font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      width:390px;
+      height:844px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      color:var(--white);
+      background:linear-gradient(180deg,var(--green1) 0%, var(--green2) 46%, var(--green3) 100%);
+      box-shadow:0 30px 70px rgba(48,123,93,.22);
+    }
+    .glow{
+      position:absolute;
+      right:-56px;
+      top:-56px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 72%);
+      pointer-events:none;
+    }
+    .header{
+      position:absolute;
+      left:0; right:0; top:0;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:28px 24px;
+    }
+    .icon{
+      font-family:"Material Symbols Outlined";
+      font-size:28px;
+      line-height:1;
+    }
+
+    .hero{
+      position:absolute;
+      top:96px;
+      left:18px;
+      right:18px;
+      z-index:18;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+    }
+    .hero-copy{
+      flex:1;
+      padding-top:10px;
+    }
+    .kicker{
+      font-size:12px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--white-faint);
+      font-weight:700;
+      margin-bottom:12px;
+    }
+    .headline{
+      font-family:"Luckiest Guy", cursive;
+      font-size:42px;
+      line-height:.96;
+      letter-spacing:.01em;
+      margin:0;
+    }
+    .sub{
+      margin-top:12px;
+      font-size:20px;
+      line-height:1.1;
+      color:var(--white-soft);
+      font-weight:600;
+    }
+    .bubble{
+      width:108px;
+      height:108px;
+      border-radius:50%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.16);
+      backdrop-filter:blur(10px);
+      flex-shrink:0;
+      box-shadow:0 12px 28px rgba(32,92,69,.12);
+    }
+    .bubble-main{
+      font-family:"Luckiest Guy", cursive;
+      font-size:34px;
+      line-height:1;
+      letter-spacing:.02em;
+    }
+    .bubble-sub{
+      margin-top:4px;
+      font-size:11px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-soft);
+      font-weight:700;
+    }
+
+    .route-chip{
+      position:absolute;
+      top:248px;
+      left:18px;
+      z-index:19;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;
+      padding:10px 14px 9px;
+      backdrop-filter:blur(8px);
+      box-shadow:0 10px 22px rgba(32,92,69,.10);
+    }
+    .route-chip .line{
+      font-size:22px;
+      line-height:1;
+      font-weight:700;
+    }
+    .route-chip .meta{
+      font-size:16px;
+      line-height:1;
+      color:var(--white-soft);
+      font-weight:700;
+    }
+
+    .steps-card{
+      position:absolute;
+      left:18px;
+      right:18px;
+      top:302px;
+      bottom:18px;
+      border-radius:28px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(10px);
+      box-shadow:0 16px 38px rgba(33,94,71,.14);
+      padding:24px 18px 18px 16px;
+    }
+    .steps{
+      position:relative;
+      height:100%;
+      padding-left:54px;
+      padding-bottom:76px;
+    }
+    .rail{
+      position:absolute;
+      left:23px;
+      top:14px;
+      bottom:26px;
+      width:4px;
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.14) 100%);
+    }
+    .step{
+      position:relative;
+      min-height:116px;
+    }
+    .step + .step{ margin-top:12px; }
+
+    .pin{
+      position:absolute;
+      left:-54px;
+      top:0;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      z-index:2;
+      font-family:"Material Symbols Outlined";
+      font-size:20px;
+      line-height:1;
+    }
+    .pin.active{
+      background:rgba(255,255,255,.96);
+      color:#20664d;
+      box-shadow:0 0 0 4px rgba(255,255,255,.14);
+    }
+    .pin.next{
+      background:rgba(255,255,255,.22);
+      color:rgba(255,255,255,.82);
+      border:2px solid rgba(255,255,255,.18);
+    }
+    .pin.later{
+      background:rgba(255,255,255,.14);
+      color:rgba(255,255,255,.52);
+      border:2px solid rgba(255,255,255,.12);
+    }
+
+    .content{
+      padding-top:2px;
+    }
+    .step-label{
+      font-size:11px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-faint);
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .step-title{
+      font-size:30px;
+      line-height:.98;
+      font-weight:700;
+      color:#14342b;
+    }
+    .step-title.future{
+      color:rgba(20,52,43,.58);
+    }
+    .step-copy{
+      margin-top:10px;
+      font-size:19px;
+      line-height:1.12;
+      color:#21443a;
+      font-weight:600;
+      max-width:250px;
+    }
+    .step-copy.future{
+      color:rgba(33,68,58,.62);
+    }
+    .meta-row{
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 16px;
+      font-size:16px;
+      line-height:1;
+      color:#2b6253;
+      font-weight:700;
+    }
+    .meta-row.future{
+      color:rgba(43,98,83,.54);
+    }
+
+    .active-hint{
+      margin-top:14px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(136,249,173,.64);
+      color:#184333;
+      border-radius:999px;
+      padding:8px 12px 7px;
+      font-size:16px;
+      line-height:1;
+      font-weight:700;
+      box-shadow:0 8px 16px rgba(136,249,173,.16);
+    }
+    .active-hint .material{
+      font-family:"Material Symbols Outlined";
+      font-size:18px;
+      line-height:1;
+    }
+
+    .footer-note{
+      position:absolute;
+      left:16px;
+      right:16px;
+      bottom:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.10);
+      padding:12px 14px 11px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+    }
+    .footer-note .left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .footer-note .label{
+      font-size:10px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-faint);
+      font-weight:700;
+    }
+    .footer-note .value{
+      font-size:24px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+    .footer-note .subline{
+      font-size:15px;
+      line-height:1.1;
+      color:var(--white-soft);
+    }
+    .footer-note .time{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:20px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="kicker">Go Mode</div>
+        <h1 class="headline">Jetzt los</h1>
+        <div class="sub">Zur Haltestelle gehen. CatchIt führt dich zum nächsten relevanten Schritt.</div>
+      </div>
+
+      <div class="bubble">
+        <div class="bubble-main">8</div>
+        <div class="bubble-sub">min</div>
+      </div>
+    </section>
+
+    <div class="route-chip">
+      <div class="line">21</div>
+      <div class="meta">Friedrich-Ebert-Str. · 08:47</div>
+    </div>
+
+    <section class="steps-card">
+      <div class="steps">
+        <div class="rail"></div>
+
+        <div class="step">
+          <div class="pin active">directions_walk</div>
+          <div class="content">
+            <div class="step-label">Jetzt</div>
+            <div class="step-title">Geradeaus bis Carolus-Magnus-Str.</div>
+            <div class="step-copy">Noch 120 m geradeaus. Die Abzweigung kommt danach, nicht sofort.</div>
+            <div class="active-hint">
+              <span class="material">near_me</span>
+              <span>Nächster sinnvoller Schritt aktiv</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="pin next">turn_left</div>
+          <div class="content">
+            <div class="step-label">Danach</div>
+            <div class="step-title future">Links in den Amselweg</div>
+            <div class="step-copy future">Nicht schon vorher abbiegen. Die Gasse kommt erst nach dem langen Häuserblock.</div>
+            <div class="meta-row future">
+              <span>noch ca. 2 Min</span>
+              <span>ruhiger Fußweg</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="pin later">directions_bus</div>
+          <div class="content">
+            <div class="step-label">Anschließend</div>
+            <div class="step-title future">Haltestelle Friedrich-Ebert-Str.</div>
+            <div class="meta-row future">
+              <span>Linie 21</span>
+              <span>08:47</span>
+              <span>+0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          <div class="left">
+            <div class="label">Aktuelle Tragfähigkeit</div>
+            <div class="value">Gut machbar</div>
+            <div class="subline">Wenn du jetzt losgehst, bleibt die Verbindung stabil.</div>
+          </div>
+          <div class="time">
+            <span class="icon" style="font-size:20px;">schedule</span>
+            <span>8 Min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

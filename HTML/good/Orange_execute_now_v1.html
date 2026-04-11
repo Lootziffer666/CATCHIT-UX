@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            "soft-amber": "#F3C86A",
+            "soft-orange": "#E78A4A",
+            "soft-orange-light": "#F2B36D"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"],
+            label: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .actnow-gradient {
+      background: linear-gradient(180deg, #F2B36D 0%, #EC9A58 46%, #E78A4A 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .instruction-surface {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 14px 42px rgba(122, 63, 17, 0.14);
+    }
+    .selected-option {
+      position: relative;
+    }
+    .selected-option::before {
+      content: "";
+      position: absolute;
+      inset: -10px -10px -12px -10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: -1;
+    }
+    .status-neutral { color: rgba(255,255,255,0.95); }
+    .status-soft { color: rgba(255,255,255,0.86); }
+    .status-amber { color: #F7D18A; }
+    .support-line {
+      color: rgba(255,255,255,0.93);
+      letter-spacing: 0.03em;
+    }
+    .micro-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.38rem 0.72rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.96);
+      font-size: 14px;
+      line-height: 1;
+    }
+    .continuity-block {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1.25rem;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      max-width: 20rem;
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+
+  <main class="actnow-gradient min-h-screen relative flex flex-col items-center">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <div class="flex-grow flex flex-col items-center justify-center w-full px-8 -mt-12">
+      <p class="font-body text-white/92 text-[18px] mb-8 tracking-wide opacity-95">Jetzt wichtig:</p>
+
+      <div class="instruction-surface rounded-[2rem] w-full max-w-[18rem] min-h-[14rem] flex flex-col items-center justify-center px-6 py-8 mb-16 text-center">
+        <p class="font-display text-white text-[40px] leading-[0.95]">Jetzt los</p>
+        <p class="font-body text-white/94 text-[24px] font-semibold mt-4 leading-tight">Zur Haltestelle gehen</p>
+        <p class="font-body text-white/84 text-[18px] mt-3">Noch 6 Minuten gut machbar</p>
+      </div>
+
+      <div class="w-full max-w-sm grid grid-cols-3 gap-6 items-start">
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/72 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">491</span>
+          <span class="status-soft text-[18px] mt-3">+4</span>
+        </div>
+
+        <div class="selected-option flex flex-col items-center gap-1 px-2 py-3">
+          <span class="text-white/84 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Aktiv</span>
+          <span class="font-body text-white text-[40px] font-bold leading-none">21</span>
+          <span class="status-neutral text-[18px] mt-2">+0</span>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/72 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">295</span>
+          <span class="status-amber text-[18px] mt-3">+17</span>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col items-center gap-3 min-h-[72px] w-full">
+        
+    <div class="micro-pill">
+      <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;">directions_walk</span>
+      <span>Handlung nötig</span>
+    </div>
+    <p class="support-line text-[14px] font-medium">Wenn du jetzt losgehst, bleibt die Verbindung tragfähig.</p>
+    
+      </div>
+    </div>
+  </main>
+</body>
+</html>

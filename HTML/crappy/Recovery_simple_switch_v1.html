@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchIt Recovery – Simple Switch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --yellow1:#F5D77A;
+      --yellow2:#F0C55F;
+      --yellow3:#DDA947;
+      --white:rgba(255,255,255,.96);
+      --white-soft:rgba(255,255,255,.84);
+      --white-faint:rgba(255,255,255,.56);
+      --card:rgba(255,255,255,.16);
+      --card-border:rgba(255,255,255,.10);
+      --mint:#88f9ad;
+      --dark:#25323d;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:#f4f4f6;
+      padding:24px;
+      font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      width:390px;
+      height:844px;
+      border-radius:30px;
+      overflow:hidden;
+      position:relative;
+      color:var(--white);
+      background:linear-gradient(180deg,var(--yellow1) 0%, var(--yellow2) 46%, var(--yellow3) 100%);
+      box-shadow:0 30px 70px rgba(145,105,26,.20);
+    }
+    .glow{
+      position:absolute;
+      right:-56px;
+      top:-56px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.13) 0%, rgba(255,255,255,0) 72%);
+    }
+    .header{
+      position:absolute;
+      left:0; right:0; top:0;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:28px 24px;
+    }
+    .icon{
+      font-family:"Material Symbols Outlined";
+      font-size:28px;
+      line-height:1;
+    }
+    .top{
+      position:absolute;
+      top:122px;
+      left:0; right:0;
+      z-index:18;
+      text-align:center;
+      padding:0 24px;
+    }
+    .kicker{
+      font-size:14px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--white-faint);
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .headline{
+      font-family:"Luckiest Guy",cursive;
+      font-size:40px;
+      line-height:.96;
+      margin:0;
+      letter-spacing:.01em;
+    }
+    .sub{
+      margin:14px auto 0;
+      max-width:270px;
+      font-size:20px;
+      line-height:1.12;
+      color:var(--white-soft);
+      font-weight:600;
+    }
+
+    .switch-card{
+      position:absolute;
+      left:18px;
+      right:18px;
+      top:264px;
+      border-radius:28px;
+      background:var(--card);
+      border:1px solid var(--card-border);
+      backdrop-filter:blur(10px);
+      box-shadow:0 14px 34px rgba(98,70,14,.12);
+      padding:22px 18px 18px;
+    }
+    .switch-label{
+      font-size:11px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-faint);
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .switch-grid{
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      gap:12px;
+      align-items:center;
+    }
+    .switch-side{
+      min-width:0;
+    }
+    .switch-side .title{
+      font-size:26px;
+      line-height:1;
+      font-weight:700;
+      color:#1d2c37;
+    }
+    .switch-side .meta{
+      margin-top:8px;
+      font-size:17px;
+      line-height:1.1;
+      color:#31546a;
+      font-weight:700;
+    }
+    .arrow{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:rgba(136,249,173,.52);
+      color:#1b503a;
+      font-family:"Material Symbols Outlined";
+      font-size:24px;
+      line-height:1;
+      box-shadow:0 8px 16px rgba(136,249,173,.14);
+    }
+
+    .route-list{
+      position:absolute;
+      left:18px;
+      right:18px;
+      top:474px;
+      display:grid;
+      gap:12px;
+    }
+    .route-row{
+      border-radius:20px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(8px);
+      padding:14px 16px 13px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .route-row.primary{
+      background:rgba(136,249,173,.34);
+      border-color:rgba(136,249,173,.22);
+    }
+    .row-left{
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      min-width:0;
+    }
+    .row-kicker{
+      font-size:10px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-faint);
+      font-weight:700;
+    }
+    .row-title{
+      font-size:26px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+    .route-row.primary .row-title{
+      color:#183126;
+    }
+    .row-sub{
+      font-size:16px;
+      line-height:1.1;
+      color:var(--white-soft);
+      font-weight:700;
+    }
+    .route-row.primary .row-sub{
+      color:#27513e;
+    }
+    .row-right{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:6px;
+      white-space:nowrap;
+    }
+    .row-time{
+      font-size:24px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+    .route-row.primary .row-time{
+      color:#173126;
+    }
+    .row-badge{
+      font-size:14px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white-soft);
+    }
+    .route-row.primary .row-badge{
+      color:#22513d;
+    }
+
+    .footer-note{
+      position:absolute;
+      left:18px;
+      right:18px;
+      bottom:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.10);
+      padding:12px 14px 11px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+    }
+    .footer-note .left{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .footer-note .label{
+      font-size:10px;
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--white-faint);
+      font-weight:700;
+    }
+    .footer-note .value{
+      font-size:24px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+    }
+    .footer-note .subline{
+      font-size:15px;
+      line-height:1.1;
+      color:var(--white-soft);
+    }
+    .footer-note .time{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:20px;
+      line-height:1;
+      font-weight:700;
+      color:var(--white);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="phone">
+    <div class="glow"></div>
+
+    <header class="header">
+      <div class="icon">arrow_back</div>
+      <div class="icon">more_vert</div>
+    </header>
+
+    <section class="top">
+      <div class="kicker">Recovery</div>
+      <h1 class="headline">Einfach wechseln</h1>
+      <div class="sub">CatchIt hat eine passende Ausweichoption gefunden. Du musst nichts neu planen.</div>
+    </section>
+
+    <section class="switch-card">
+      <div class="switch-label">Wechsel</div>
+      <div class="switch-grid">
+        <div class="switch-side">
+          <div class="title">Linie 21</div>
+          <div class="meta">08:47 · bisher aktiv</div>
+        </div>
+
+        <div class="arrow">arrow_forward</div>
+
+        <div class="switch-side" style="text-align:right;">
+          <div class="title">Linie 295</div>
+          <div class="meta">08:51 · heute passend</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="route-list">
+      <div class="route-row primary">
+        <div class="row-left">
+          <div class="row-kicker">Neue passende Option</div>
+          <div class="row-title">295 → Markt</div>
+          <div class="row-sub">durch +17 jetzt ohne Hektik erreichbar</div>
+        </div>
+        <div class="row-right">
+          <div class="row-time">08:51</div>
+          <div class="row-badge">+17</div>
+        </div>
+      </div>
+
+      <div class="route-row">
+        <div class="row-left">
+          <div class="row-kicker">Bisherige Option</div>
+          <div class="row-title">21 → Friedrich-Ebert-Str.</div>
+          <div class="row-sub">wird knapp, neue Option ist ruhiger</div>
+        </div>
+        <div class="row-right">
+          <div class="row-time">08:47</div>
+          <div class="row-badge">+0</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <div class="left">
+        <div class="label">Neue Tragfähigkeit</div>
+        <div class="value">Weiter gut machbar</div>
+        <div class="subline">Die Alternative ist schon eingerechnet. Du kannst einfach mitgehen.</div>
+      </div>
+      <div class="time">
+        <span class="icon" style="font-size:20px;">swap_horiz</span>
+        <span>1x</span>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

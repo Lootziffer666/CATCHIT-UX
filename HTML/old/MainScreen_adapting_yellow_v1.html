@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff",
+            "soft-amber": "#F3C86A",
+            "soft-amber-deep": "#E7B24A",
+            "soft-green": "#88E0A3"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"],
+            label: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .adapting-gradient {
+      background: linear-gradient(180deg, #F5D77A 0%, #F0C55F 46%, #E7B24A 100%);
+    }
+    .glass-bubble-adapting {
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 14px 42px rgba(112, 78, 18, 0.12);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .selected-option {
+      position: relative;
+    }
+    .selected-option::before {
+      content: "";
+      position: absolute;
+      inset: -10px -10px -12px -10px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      z-index: -1;
+    }
+    .status-neutral {
+      color: rgba(255,255,255,0.94);
+    }
+    .status-soft {
+      color: rgba(255,255,255,0.84);
+    }
+    .status-amber {
+      color: rgba(255,255,255,0.92);
+    }
+    .support-cue {
+      color: rgba(255,255,255,0.93);
+      letter-spacing: 0.04em;
+    }
+    .adapt-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.38rem 0.72rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: rgba(255,255,255,0.95);
+      font-size: 14px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="adapting-gradient min-h-screen relative flex flex-col items-center">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
+    </header>
+
+    <div class="flex-grow flex flex-col items-center justify-center w-full px-8 -mt-16">
+      <p class="font-body text-white/94 text-[18px] mb-8 tracking-wide opacity-95">Spätestens los in:</p>
+
+      <div class="glass-bubble-adapting rounded-full w-50 h-50 flex flex-col items-center justify-center mb-10" style="width: 12.25rem; height: 12.25rem;">
+        <span class="font-display text-white text-[62px] leading-none" style="letter-spacing: 0.02em;">8m</span>
+      </div>
+
+      <div class="adapt-chip mb-7">
+        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;">autorenew</span>
+        <span>CatchIt passt gerade an</span>
+      </div>
+
+      <p class="support-cue text-[14px] font-medium mb-9">Eine Alternative bleibt tragfähig.</p>
+
+      <div class="w-full max-w-sm grid grid-cols-3 gap-6 items-start">
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/76 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">491</span>
+          <span class="status-soft text-[18px] mt-3">+4</span>
+        </div>
+
+        <div class="selected-option flex flex-col items-center gap-1 px-2 py-3">
+          <span class="text-white/86 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Aktiv</span>
+          <span class="font-body text-white text-[40px] font-bold leading-none">21</span>
+          <span class="status-neutral text-[18px] mt-2">+0</span>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/76 text-[10px] uppercase tracking-[0.24em] font-medium mb-1">Linie</span>
+          <span class="font-body text-white text-[30px] font-semibold leading-none">295</span>
+          <span class="status-amber text-[18px] mt-3">+17</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

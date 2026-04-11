@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>CatchIt — Map Reveal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --blue-a:#4DB9E6;
+      --blue-b:#3EA0D4;
+      --blue-c:#1F4B8F;
+      --mint:#6cdc92;
+      --white:rgba(255,255,255,0.96);
+      --white-soft:rgba(255,255,255,0.84);
+      --white-faint:rgba(255,255,255,0.46);
+      --glass:rgba(255,255,255,0.28);
+      --glass-border:rgba(255,255,255,0.18);
+    }
+    body{
+      min-height:max(844px,100dvh);
+      background:#edf4fb;
+      font-family:"Archivo Narrow",sans-serif;
+    }
+    .phone{
+      width:390px;
+      height:844px;
+      background:linear-gradient(180deg,var(--blue-a) 0%, var(--blue-b) 44%, var(--blue-c) 100%);
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 30px 70px rgba(31,75,143,0.22);
+    }
+    .hero-glow{
+      position:absolute;
+      top:-56px;
+      right:-56px;
+      width:220px;
+      height:220px;
+      border-radius:9999px;
+      background:radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 72%);
+      pointer-events:none;
+      z-index:0;
+    }
+    .glass-bubble{
+      background:var(--glass);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border:1.5px solid var(--glass-border);
+      box-shadow:0 14px 42px rgba(13,36,67,0.14);
+    }
+    .selected-option::before{
+      content:"";
+      position:absolute;
+      inset:-8px -8px -10px -8px;
+      border-radius:9999px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.10);
+      z-index:-1;
+    }
+    .map-reveal-layer{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      top:44%;
+      z-index:10;
+    }
+    .map-mask{
+      width:100%;
+      height:100%;
+      position:relative;
+      overflow:hidden;
+      mask-image:linear-gradient(to top, rgba(0,0,0,1) 58%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,1) 58%, rgba(0,0,0,0) 100%);
+    }
+    .map-img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:grayscale(1);
+      opacity:.34;
+      mix-blend-mode:overlay;
+    }
+    .map-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,
+        rgba(77,185,230,0.00) 0%,
+        rgba(77,185,230,0.10) 10%,
+        rgba(62,160,212,0.16) 22%,
+        rgba(31,75,143,0.00) 46%);
+      pointer-events:none;
+    }
+    .map-info{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:28px;
+      padding:0 24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      z-index:4;
+      text-shadow:0 1px 10px rgba(13,36,67,0.18);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-6">
+  <main class="phone rounded-[32px]">
+    <div class="hero-glow"></div>
+
+    <header class="relative z-30 flex items-center justify-between px-6 py-7">
+      <button class="text-white">
+        <span class="material-symbols-outlined text-[28px]">arrow_back</span>
+      </button>
+      <button class="text-white">
+        <span class="material-symbols-outlined text-[28px]">more_vert</span>
+      </button>
+    </header>
+
+    <section class="relative z-20 flex flex-col items-center pt-5 px-6">
+      <p class="text-white/90 text-[18px] tracking-[0.03em] mb-9">Spätestens los in:</p>
+
+      <div class="glass-bubble w-56 h-56 rounded-full flex items-center justify-center mb-14">
+        <span class="font-['Luckiest_Guy'] text-white text-7xl leading-none tracking-[0.02em]">15m</span>
+      </div>
+
+      <div class="w-full max-w-[320px] grid grid-cols-3 gap-6 items-start">
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/70 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Linie</span>
+          <span class="text-white text-[30px] font-bold leading-none">491</span>
+          <span class="text-white/82 text-[18px] mt-3">+2</span>
+        </div>
+
+        <div class="selected-option relative flex flex-col items-center gap-1 px-2 py-3">
+          <span class="text-white/82 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Aktiv</span>
+          <span class="text-white text-[40px] font-bold leading-none">21</span>
+          <span class="text-white/92 text-[18px] mt-2">+0</span>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 pt-3">
+          <span class="text-white/70 text-[10px] uppercase tracking-[0.24em] font-semibold mb-1">Linie</span>
+          <span class="text-white text-[30px] font-bold leading-none">295</span>
+          <span class="text-[#F3C86A] text-[18px] mt-3">+17</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="map-reveal-layer">
+      <div class="map-mask">
+        <img
+          class="map-img"
+          alt="Karte"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuCl28Decc9QxuO08uMAzR3f5OQaj42uRehJ5kXTBSFxpeIt125DRcpqpeWR4ABVhidNNz_r0mBnYx6_CPYFacIQ3Q721OKlOESmtZvvpMCuqGdCcUZsVNlOtYJVJtjbeP0D5pfxvpAB2jF93HcEYj8gwVc_QaDnCBO--8EgEveYAII6R_vQfIPOZ8Zt1gFA8YwE-kOCGkBmKS4P040r01A3cJyhh20_qt7sOxVjoFsuYdWU9j8gU8Eebuxd2nUY9R1-KvqVR7UllH"
+        />
+
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="absolute inset-0 w-full h-full" viewBox="0 0 390 442" aria-hidden="true">
+            <path
+              d="M 195 442 Q 180 300 220 250 T 170 150"
+              fill="none"
+              stroke="#6cdc92"
+              stroke-dasharray="1 12"
+              stroke-linecap="round"
+              stroke-width="6"
+              opacity="0.75"
+            ></path>
+            <circle cx="170" cy="150" fill="#6cdc92" r="8"></circle>
+            <circle cx="170" cy="150" fill="#6cdc92" r="16" opacity="0.20"></circle>
+          </svg>
+
+          <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_20px_rgba(255,255,255,0.8)]"></div>
+        </div>
+
+        <div class="map-overlay"></div>
+
+        <div class="map-info">
+          <div class="flex flex-col">
+            <span class="text-white/46 text-[10px] tracking-[0.22em] uppercase font-bold mb-1">Fussweg</span>
+            <span class="text-white text-[46px] leading-[0.92] font-bold">450 Meter</span>
+          </div>
+          <div class="flex items-center gap-2 mb-2 opacity-95">
+            <span class="material-symbols-outlined text-white text-[26px]">directions_walk</span>
+            <span class="text-white text-[26px] leading-none font-bold">6 Min</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
