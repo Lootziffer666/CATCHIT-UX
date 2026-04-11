@@ -1,342 +1,166 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="light" lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>CatchIt Map Focus Lean v3</title>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root{
-      --blue1:#4DB9E6;
-      --blue2:#2EA7E0;
-      --blue3:#1F4B8F;
-      --white:rgba(255,255,255,.96);
-      --white-soft:rgba(255,255,255,.82);
-      --white-faint:rgba(255,255,255,.56);
-      --amber:#F3C86A;
-      --card:rgba(255,255,255,.14);
-      --card-border:rgba(255,255,255,.10);
-      --map-base:#cfd5dc;
-      --map-road:#9aaebe;
-      --map-road-soft:#b9c4cf;
-      --route:#f7f7fb;
-      --start:#50c88a;
-      --end:#f1f2f8;
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Archivo Narrow",sans-serif;
+    .map-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
     }
-    .phone{
-      min-height:100vh;
-      overflow:hidden;
-      position:relative;
-      color:var(--white);
-      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
     }
-    .glow{
-      position:absolute;
-      right:-56px;
-      top:-56px;
-      width:220px;
-      height:220px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 72%);
-      pointer-events:none;
+    .glass-bubble {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(20,55,105,0.12);
     }
-    .header{
-      position:absolute;
-      left:0; right:0; top:0;
-      z-index:20;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:28px 24px;
+    .glass-switcher {
+      background: rgba(255,255,255,0.11);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 8px 20px rgba(20,55,105,0.10);
     }
-    .icon{
-      font-family:"Material Symbols Outlined";
-      font-size:28px;
-      line-height:1;
+    .glass-switcher.active {
+      background: rgba(255,255,255,0.17);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .glass-map {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 14px 40px rgba(13,36,67,0.14);
+    }
+    .glass-info {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .focus-top{
-      position:absolute;
-      left:18px;
-      right:18px;
-      top:118px;
-      z-index:25;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:14px;
+    /* Map rendering */
+    .map-bg {
+      position: absolute;
+      inset: 0;
+      background: #cfd5dc;
     }
-
-    .switchers{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      padding-top:6px;
+    .green-zone {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 112px;
+      height: 84px;
+      background: #c8e2cf;
+      border-radius: 0 0 0 34px;
+      opacity: 0.95;
     }
-    .switcher{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.11);
-      color:var(--white);
-      border-radius:999px;
-      padding:8px 12px 7px;
-      min-width:54px;
-      cursor:pointer;
-      backdrop-filter:blur(8px);
-      font:700 12px/1 "Archivo Narrow",sans-serif;
-      box-shadow:0 8px 20px rgba(20,55,105,.10);
+    .road {
+      position: absolute;
+      background: #9aaebe;
+      border-radius: 999px;
     }
-    .switcher .line{
-      display:block;
-      font-size:18px;
-      line-height:1;
-      font-weight:700;
+    .road.soft {
+      background: #b9c4cf;
     }
-    .switcher .delay{
-      display:block;
-      margin-top:4px;
-      font-size:12px;
-      line-height:1;
-      color:rgba(255,255,255,.76);
+    .building {
+      position: absolute;
+      background: #cfd4db;
+      border-radius: 12px;
+      border: 1px solid rgba(120,130,150,0.10);
     }
-    .switcher.active{
-      background:rgba(255,255,255,.17);
-      border-color:rgba(255,255,255,.14);
+    .label {
+      position: absolute;
+      color: rgba(82,95,110,0.70);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+      z-index: 2;
     }
-    .switcher.delay-warm .delay{ color:var(--amber); }
-
-    .bubble{
-      width:90px;
-      height:90px;
-      border-radius:50%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.16);
-      backdrop-filter:blur(10px);
-      flex-shrink:0;
-      box-shadow:0 12px 30px rgba(20,55,105,.12);
-    }
-    .bubble-main{
-      font-family:"Luckiest Guy",cursive;
-      font-size:28px;
-      line-height:1;
-      letter-spacing:.02em;
-    }
-    .bubble-sub{
-      margin-top:4px;
-      font-size:12px;
-      line-height:1;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--white-soft);
-      font-weight:700;
-    }
-
-    .context-line{
-      position:absolute;
-      left:22px;
-      top:194px;
-      z-index:24;
-      font-size:12px;
-      line-height:1;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--white-soft);
-      font-weight:700;
-    }
-
-    .map-card{
-      position:absolute;
-      left:18px;
-      right:18px;
-      top:226px;
-      bottom:118px;
-      border-radius:28px;
-      overflow:hidden;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 14px 40px rgba(13,36,67,.14);
-      backdrop-filter:blur(8px);
-    }
-
-    .map-bg{
-      position:absolute;
-      inset:0;
-      background:var(--map-base);
-    }
-    .green-zone{
-      position:absolute;
-      right:0;
-      top:0;
-      width:112px;
-      height:84px;
-      background:#c8e2cf;
-      border-radius:0 0 0 34px;
-      opacity:.95;
-    }
-
-    .road{position:absolute; background:var(--map-road); border-radius:999px;}
-    .road.soft{background:var(--map-road-soft);}
-    .building{
-      position:absolute;
-      background:#cfd4db;
-      border-radius:12px;
-      border:1px solid rgba(120,130,150,.10);
-    }
-    .label{
-      position:absolute;
-      color:rgba(82,95,110,.70);
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.01em;
-      text-shadow:0 1px 0 rgba(255,255,255,.35);
-      z-index:2;
-    }
-
-    .routeSvg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      z-index:4;
-    }
-
-    .walk-anchor{
-      position:absolute;
-      left:18px;
-      right:18px;
-      bottom:16px;
-      z-index:6;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:14px;
-      text-shadow:0 1px 10px rgba(13,36,67,.10);
-    }
-    .walk-kicker{
-      font-size:10px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      font-weight:700;
-      color:var(--white-faint);
-      margin-bottom:4px;
-    }
-    .walk-value{
-      font-size:38px;
-      line-height:.95;
-      font-weight:700;
-      color:var(--white);
-    }
-    .walk-meta{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      margin-bottom:4px;
-      font-size:22px;
-      line-height:1;
-      font-weight:700;
-      color:var(--white);
-      white-space:nowrap;
-    }
-
-    .info-strip{
-      position:absolute;
-      left:18px;
-      right:18px;
-      bottom:18px;
-      z-index:10;
-      border-radius:18px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(8px);
-      padding:12px 14px 11px;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:14px;
-    }
-    .info-left{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .info-label{
-      font-size:10px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:rgba(255,255,255,.56);
-      font-weight:700;
-    }
-    .info-value{
-      font-size:26px;
-      line-height:1;
-      font-weight:700;
-      color:var(--white);
-    }
-    .info-sub{
-      font-size:16px;
-      line-height:1.1;
-      color:rgba(255,255,255,.82);
-    }
-    .walk-chip{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:20px;
-      line-height:1;
-      font-weight:700;
-      color:var(--white);
-      white-space:nowrap;
+    .route-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
     }
   </style>
 </head>
-<body>
-  <main class="phone">
-    <div class="glow"></div>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
 
-    <header class="header">
-      <div class="icon">arrow_back</div>
-      <div class="icon">more_vert</div>
+  <main class="map-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-6 pt-7 pb-4 z-10">
+      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <section class="focus-top">
-      <div class="switchers">
-        <button class="switcher" data-line="491">
-          <span class="line">491</span>
-          <span class="delay">+2</span>
+    <!-- Top row: line switchers + time bubble -->
+    <section class="flex items-start justify-between px-[18px] pt-4 pb-2 z-10">
+      <div class="flex items-center gap-2 pt-1.5">
+        <button class="glass-switcher rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body" data-line="491">
+          <span class="block text-lg leading-none font-bold">491</span>
+          <span class="block mt-1 text-xs leading-none text-white/[0.76]">+2</span>
         </button>
-        <button class="switcher active" data-line="21">
-          <span class="line">21</span>
-          <span class="delay">+0</span>
+        <button class="glass-switcher active rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body" data-line="21">
+          <span class="block text-lg leading-none font-bold">21</span>
+          <span class="block mt-1 text-xs leading-none text-white/[0.76]">+0</span>
         </button>
-        <button class="switcher delay-warm" data-line="295">
-          <span class="line">295</span>
-          <span class="delay">+17</span>
+        <button class="glass-switcher rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body delay-warm" data-line="295">
+          <span class="block text-lg leading-none font-bold">295</span>
+          <span class="block mt-1 text-xs leading-none text-[#F3C86A]">+17</span>
         </button>
       </div>
 
-      <div class="bubble">
-        <div class="bubble-main">15</div>
-        <div class="bubble-sub">min</div>
+      <div class="glass-bubble w-[90px] h-[90px] rounded-full flex flex-col items-center justify-center flex-shrink-0">
+        <span class="font-display text-[28px] leading-none tracking-[0.02em]">15</span>
+        <span class="mt-1 text-xs leading-none uppercase tracking-[0.18em] text-white/[0.82] font-bold">min</span>
       </div>
     </section>
 
-    <div class="context-line">Approaching Central St.</div>
+    <!-- Context line -->
+    <div class="px-[22px] pb-3 z-10">
+      <span class="text-xs leading-none uppercase tracking-[0.16em] text-white/[0.82] font-bold">Approaching Central St.</span>
+    </div>
 
-    <section class="map-card">
+    <!-- Map card (flex-grow to fill available space) -->
+    <section class="glass-map rounded-[28px] mx-[18px] flex-grow overflow-hidden relative z-10 mb-[108px]">
       <div class="map-bg"></div>
       <div class="green-zone"></div>
 
+      <!-- Roads -->
       <div class="road" style="left:-12px; top:64px; width:284px; height:34px; transform:rotate(12deg);"></div>
       <div class="road" style="left:216px; top:76px; width:170px; height:24px; transform:rotate(2deg);"></div>
       <div class="road" style="left:72px; top:126px; width:32px; height:206px; transform:rotate(28deg);"></div>
@@ -344,49 +168,54 @@
       <div class="road" style="left:226px; top:378px; width:146px; height:20px; transform:rotate(4deg);"></div>
       <div class="road" style="left:282px; top:208px; width:22px; height:164px; transform:rotate(18deg);"></div>
 
+      <!-- Buildings -->
       <div class="building" style="left:28px; top:118px; width:112px; height:84px; transform:rotate(-10deg);"></div>
       <div class="building" style="left:230px; top:138px; width:120px; height:96px; transform:rotate(-12deg);"></div>
       <div class="building" style="left:56px; top:258px; width:126px; height:94px; transform:rotate(-8deg);"></div>
       <div class="building" style="left:226px; top:262px; width:86px; height:66px; transform:rotate(-8deg);"></div>
       <div class="building" style="left:136px; top:370px; width:160px; height:84px; transform:rotate(-9deg);"></div>
 
+      <!-- Labels -->
       <div class="label" style="left:210px; top:60px; transform:rotate(18deg); font-size:15px;">Friedrich-Ebert-Str.</div>
       <div class="label" style="left:76px; top:166px; transform:rotate(-64deg); font-size:15px;">Amselweg</div>
       <div class="label" style="left:128px; top:332px; transform:rotate(-8deg); font-size:15px;">Carolus-Magnus-Strasse</div>
 
-      <svg class="routeSvg" viewBox="0 0 390 554" aria-hidden="true">
+      <!-- SVG route overlay -->
+      <svg class="route-svg" viewBox="0 0 390 554" aria-hidden="true">
         <path id="routePath" d="M 296 470 C 274 458 245 442 220 430 C 194 418 166 403 148 380 C 126 352 118 316 120 282 C 123 248 142 214 168 182 C 196 148 228 122 256 96" fill="none" stroke="#f7f7fb" stroke-linecap="round" stroke-width="7" stroke-dasharray="1 16"></path>
         <circle id="startDot" cx="296" cy="470" fill="#50c88a" r="6"></circle>
         <circle id="endDot" cx="256" cy="96" fill="#f1f2f8" r="7"></circle>
       </svg>
 
-      <div class="walk-anchor">
+      <!-- Walk anchor -->
+      <div class="absolute left-[18px] right-[18px] bottom-4 z-[6] flex items-end justify-between gap-3.5" style="text-shadow: 0 1px 10px rgba(13,36,67,0.10);">
         <div>
-          <div class="walk-kicker">Estimated Walk</div>
-          <div class="walk-value" id="walkValue">450 Meters</div>
+          <div class="text-[10px] leading-none uppercase tracking-[0.22em] font-bold text-white/[0.56] mb-1">Estimated Walk</div>
+          <div class="text-[38px] leading-[0.95] font-bold text-white" id="walkValue">450 Meters</div>
         </div>
-        <div class="walk-meta">
-          <span class="icon" style="font-size:22px">directions_walk</span>
+        <div class="flex items-center gap-1.5 mb-1 text-[22px] leading-none font-bold text-white whitespace-nowrap">
+          <span class="material-symbols-outlined text-[22px]">directions_walk</span>
           <span id="walkTime">6 Min</span>
         </div>
       </div>
     </section>
 
-    <section class="info-strip" data-flow="GoMode_walk_to_stop_v1.html">
-      <div class="info-left">
-        <div class="info-label">Haltestelle</div>
-        <div class="info-value" id="stopValue">Central St.</div>
-        <div class="info-sub" id="stopSub">Linie 21 aktiv · direkt erreichbar</div>
+    <!-- Info strip -->
+    <section class="glass-info rounded-[18px] mx-[18px] px-3.5 py-3 pb-[11px] flex items-end justify-between gap-3.5 absolute left-0 right-0 bottom-[18px] z-20" data-flow="GoMode_walk_to_stop_v1.html">
+      <div class="flex flex-col gap-1">
+        <span class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/[0.56] font-bold">Haltestelle</span>
+        <span class="text-[26px] leading-none font-bold text-white" id="stopValue">Central St.</span>
+        <span class="text-base leading-tight text-white/[0.82]" id="stopSub">Linie 21 aktiv · direkt erreichbar</span>
       </div>
-      <div class="walk-chip">
-        <span class="icon" style="font-size:20px">directions_walk</span>
+      <div class="flex items-center gap-1.5 text-xl leading-none font-bold text-white whitespace-nowrap">
+        <span class="material-symbols-outlined text-xl">directions_walk</span>
         <span id="chipTime">6 Min</span>
       </div>
     </section>
   </main>
 
   <script>
-    const buttons = document.querySelectorAll('.switcher');
+    const buttons = document.querySelectorAll('.glass-switcher');
     const routePath = document.getElementById('routePath');
     const startDot = document.getElementById('startDot');
     const endDot = document.getElementById('endDot');
@@ -435,6 +264,6 @@
     buttons.forEach(btn => btn.addEventListener('click', () => setLine(btn.dataset.line)));
     setLine('21');
   </script>
-<script src="screen-nav.js"></script>
+  <script src="screen-nav.js"></script>
 </body>
 </html>

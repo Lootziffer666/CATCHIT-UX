@@ -1,144 +1,140 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="light" lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>CatchIt Recovery – Recheck nötig</title>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root{
-      --yellow1:#F5D77A; --yellow2:#F0C55F; --yellow3:#DDA947;
-      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0; min-height:100vh; font-family:"Archivo Narrow",sans-serif;
+    .yellow-gradient {
+      background: linear-gradient(180deg, #F5D77A 0%, #F0C55F 46%, #DDA947 100%);
     }
-    .phone{
-      min-height:100vh; overflow:hidden; position:relative; color:var(--white);
-      background:linear-gradient(180deg,var(--yellow1) 0%, var(--yellow2) 46%, var(--yellow3) 100%);
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
     }
-    .glow{
-      position:absolute; right:-56px; top:-56px; width:220px; height:220px; border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.13) 0%, rgba(255,255,255,0) 72%);
+    .glass-card {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
     }
-    .header{
-      position:absolute; left:0; right:0; top:0; z-index:20;
-      display:flex; justify-content:space-between; align-items:center; padding:28px 24px;
+    .glass-choice {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.10);
     }
-    .icon{font-family:"Material Symbols Outlined"; font-size:28px; line-height:1}
-    .top{
-      position:absolute; top:122px; left:0; right:0; z-index:18; text-align:center; padding:0 24px;
+    .glass-choice-primary {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.14);
     }
-    .kicker{
-      font-size:14px; line-height:1; text-transform:uppercase; letter-spacing:.16em;
-      color:var(--white-faint); font-weight:700; margin-bottom:14px;
+    .glass-footer {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
     }
-    .headline{
-      font-family:"Luckiest Guy",cursive; font-size:40px; line-height:.96; margin:0; letter-spacing:.01em;
-    }
-    .sub{
-      margin:14px auto 0; max-width:282px; font-size:20px; line-height:1.12; color:var(--white-soft); font-weight:600;
-    }
-
-    .reason-card, .choice-card, .footer-note{
-      position:absolute; left:18px; right:18px; border-radius:24px;
-      background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.10); backdrop-filter:blur(10px);
-      box-shadow:0 14px 34px rgba(98,70,14,.10);
-    }
-    .reason-card{ top:274px; padding:18px 16px 16px; }
-    .choice-card{ top:432px; padding:16px; display:grid; gap:12px; }
-    .footer-note{ bottom:18px; padding:12px 14px 11px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
-
-    .label{
-      font-size:10px; line-height:1; text-transform:uppercase; letter-spacing:.18em; color:var(--white-faint); font-weight:700;
-    }
-    .reason-title{
-      margin-top:10px; font-size:28px; line-height:1; font-weight:700; color:#1f2d39;
-    }
-    .reason-copy{
-      margin-top:10px; font-size:18px; line-height:1.15; color:#35556b; font-weight:700; max-width:300px;
-    }
-
-    .choice{
-      border-radius:18px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.10);
-      padding:14px 14px 13px; display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
-    }
-    .choice.primary{
-      background:rgba(255,255,255,.20);
-      border-color:rgba(255,255,255,.14);
-    }
-    .choice-left{display:flex; flex-direction:column; gap:5px; min-width:0}
-    .choice-title{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
-    .choice-sub{font-size:16px; line-height:1.1; color:var(--white-soft); font-weight:700}
-    .choice-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px; white-space:nowrap}
-    .choice-time{font-size:22px; line-height:1; font-weight:700; color:var(--white)}
-    .choice-tag{font-size:14px; line-height:1; font-weight:700; color:var(--white-soft)}
-
-    .footer-note .left{display:flex; flex-direction:column; gap:4px}
-    .footer-note .value{font-size:24px; line-height:1; font-weight:700; color:var(--white)}
-    .footer-note .subline{font-size:15px; line-height:1.1; color:var(--white-soft)}
-    .footer-note .time{display:flex; align-items:center; gap:6px; font-size:20px; line-height:1; font-weight:700; color:var(--white); white-space:nowrap}
   </style>
 </head>
-<body>
-  <main class="phone">
-    <div class="glow"></div>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="yellow-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
 
-    <header class="header">
-      <div class="icon">arrow_back</div>
-      <div class="icon">more_vert</div>
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <section class="top">
-      <div class="kicker">Recovery</div>
-      <h1 class="headline">Bitte nochmal prüfen</h1>
-      <div class="sub">CatchIt kann die Lage gerade nicht sauber genug für dich übernehmen.</div>
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="text-center px-7 z-10">
+      <p class="text-[14px] font-bold uppercase tracking-[0.16em] text-white/56 mb-3.5 leading-none">Recovery</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em]">Bitte nochmal prüfen</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[282px] mx-auto">CatchIt kann die Lage gerade nicht sauber genug für dich übernehmen.</p>
     </section>
 
-    <section class="reason-card">
-      <div class="label">Grund</div>
-      <div class="reason-title">Datenlage springt</div>
-      <div class="reason-copy">Die Verbindung wird im Moment widersprüchlich gemeldet. Eine kurze Sichtprüfung ist sinnvoller als falsche Sicherheit.</div>
-    </section>
-
-    <section class="choice-card">
-      <div class="choice primary" data-flow="Chain_summary_v1.html">
-        <div class="choice-left">
-          <div class="label">Wahrscheinlich passend</div>
-          <div class="choice-title">295 → Markt</div>
-          <div class="choice-sub">wirkt aktuell am stabilsten</div>
-        </div>
-        <div class="choice-right">
-          <div class="choice-time">08:51</div>
-          <div class="choice-tag">+17</div>
-        </div>
-      </div>
-
-      <div class="choice" data-flow="Chain_summary_v1.html">
-        <div class="choice-left">
-          <div class="label">Noch unklar</div>
-          <div class="choice-title">21 → Friedrich-Ebert-Str.</div>
-          <div class="choice-sub">passt nur, wenn die letzte Meldung stimmt</div>
-        </div>
-        <div class="choice-right">
-          <div class="choice-time">08:47</div>
-          <div class="choice-tag">+0</div>
-        </div>
+    <!-- Reason Card -->
+    <section class="px-[18px] pt-5 z-10">
+      <div class="glass-card rounded-[24px] px-4 pt-[18px] pb-4">
+        <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Grund</span>
+        <div class="mt-2.5 text-[28px] font-bold leading-none text-[#1f2d39]">Datenlage springt</div>
+        <div class="mt-2.5 text-[18px] font-bold leading-[1.15] text-[#35556b] max-w-[300px]">Die Verbindung wird im Moment widersprüchlich gemeldet. Eine kurze Sichtprüfung ist sinnvoller als falsche Sicherheit.</div>
       </div>
     </section>
 
-    <div class="footer-note">
-      <div class="left">
-        <div class="label">Nächster sinnvoller Schritt</div>
-        <div class="value">Kurz rechecken</div>
-        <div class="subline">Lieber 10 Sekunden prüfen als mit falscher Route losgehen.</div>
+    <!-- Choice Card -->
+    <section class="px-[18px] pt-3 z-10">
+      <div class="glass-card rounded-[24px] p-4 flex flex-col gap-3">
+
+        <!-- Primary choice -->
+        <div class="glass-choice glass-choice-primary rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="Chain_summary_v1.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Wahrscheinlich passend</span>
+            <span class="text-[24px] font-bold leading-none text-white">295 → Markt</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">wirkt aktuell am stabilsten</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:51</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">+17</span>
+          </div>
+        </div>
+
+        <!-- Secondary choice -->
+        <div class="glass-choice rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="Chain_summary_v1.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Noch unklar</span>
+            <span class="text-[24px] font-bold leading-none text-white">21 → Friedrich-Ebert-Str.</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">passt nur, wenn die letzte Meldung stimmt</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:47</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">+0</span>
+          </div>
+        </div>
+
       </div>
-      <div class="time">
-        <span class="icon" style="font-size:20px;">visibility</span>
-        <span>1x</span>
+    </section>
+
+    <!-- Footer Note -->
+    <section class="px-[18px] pt-3 pb-[18px] z-10 mt-auto">
+      <div class="glass-footer rounded-[18px] flex items-end justify-between gap-3 px-3.5 py-3">
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Nächster sinnvoller Schritt</span>
+          <span class="text-[24px] font-bold leading-none text-white">Kurz rechecken</span>
+          <span class="text-[15px] leading-[1.1] text-white/84">Lieber 10 Sekunden prüfen als mit falscher Route losgehen.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-[20px] font-bold text-white whitespace-nowrap">
+          <span class="material-symbols-outlined text-[20px]">visibility</span>
+          <span>1x</span>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 <script src="screen-nav.js"></script>
 </body>

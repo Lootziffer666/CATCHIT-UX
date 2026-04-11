@@ -1,116 +1,134 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="light" lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>CatchIt Quick Change – Snack oder späterer Bus</title>
-  
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --blue1:#4DB9E6; --blue2:#2EA7E0; --blue3:#1F4B8F;
-      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
-      --glass:rgba(255,255,255,.14); --border:rgba(255,255,255,.10); --active:rgba(255,255,255,.22);
-      --mint:rgba(136,249,173,.28); --mint-border:rgba(136,249,173,.22);
-      --shadow:0 18px 42px rgba(20,55,105,.14);
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
     }
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:"Archivo Narrow",sans-serif;}
-    .phone{min-height:100vh;overflow:hidden;position:relative;color:var(--white);
-      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);}
-    .glow{position:absolute;right:-56px;top:-56px;width:220px;height:220px;border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 72%);}
-    .header{position:absolute;left:0;right:0;top:0;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;z-index:10;}
-    .icon{font-family:"Material Symbols Outlined";font-size:28px;line-height:1}
-    .top{position:absolute;left:0;right:0;top:122px;padding:0 26px;z-index:8;}
-    .kicker{font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.16em;color:var(--white-faint);font-weight:700;margin-bottom:18px;}
-    .headline{font-family:"Luckiest Guy",cursive;font-size:40px;line-height:.96;letter-spacing:.01em;margin:0;max-width:286px;}
-    .sub{margin-top:14px;max-width:296px;font-size:20px;line-height:1.12;color:var(--white-soft);font-weight:600;}
-
-    .choice-stack{position:absolute;left:18px;right:18px;top:308px;display:grid;gap:14px;z-index:6;}
-    .choice{appearance:none;border:1px solid var(--border);background:var(--glass);color:var(--white);
-      border-radius:24px;min-height:112px;padding:16px 16px 14px;text-align:left;cursor:pointer;
-      backdrop-filter:blur(10px);box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
-    .choice.primary{background:var(--active);border-color:rgba(255,255,255,.14);}
-    .choice.recommended{background:var(--mint);border-color:var(--mint-border);}
-    .choice-left{display:flex;flex-direction:column;gap:6px;min-width:0}
-    .choice-kicker{font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:var(--white-faint);font-weight:700}
-    .choice-title{font-size:28px;line-height:1;font-weight:700;color:var(--white)}
-    .choice-copy{font-size:16px;line-height:1.08;color:var(--white-soft);font-weight:700;max-width:220px}
-    .choice-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;white-space:nowrap}
-    .choice-time{font-size:22px;line-height:1;font-weight:700;color:var(--white)}
-    .choice-tag{font-size:14px;line-height:1;font-weight:700;color:var(--white-soft)}
-
-    .impact-card{position:absolute;left:18px;right:18px;bottom:18px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(8px);padding:12px 14px 11px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;z-index:6;}
-    .impact-left{display:flex;flex-direction:column;gap:4px}
-    .impact-label{font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:var(--white-faint);font-weight:700}
-    .impact-value{font-size:22px;line-height:1;font-weight:700;color:var(--white)}
-    .impact-sub{font-size:15px;line-height:1.1;color:var(--white-soft)}
-    .impact-right{display:flex;align-items:center;gap:6px;font-size:18px;line-height:1;font-weight:700;color:var(--white);white-space:nowrap}
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .quick-change-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-choice {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 42px rgba(20,55,105,0.14);
+    }
+    .glass-choice-recommended {
+      background: rgba(136,249,173,0.28);
+      border-color: rgba(136,249,173,0.18);
+    }
+    .glass-footer {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
   </style>
 </head>
-<body>
-  <main class="phone">
-    <div class="glow"></div>
-    <header class="header">
-      <div class="icon">arrow_back</div>
-      <div class="icon">more_vert</div>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+
+  <main class="quick-change-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <section class="top">
-      <div class="kicker">Quick Change</div>
-      <h1 class="headline">Kleine Änderung?</h1>
-      <div class="sub">CatchIt kann den Ablauf schnell neu sortieren, ohne die ganze Planung neu aufzubauen.</div>
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="px-7 z-10 mb-8">
+      <p class="text-[12px] uppercase tracking-[0.16em] text-white/56 font-bold mb-4 leading-none">Quick Change</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] max-w-[286px]">Kleine Änderung?</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[296px]">CatchIt kann den Ablauf schnell neu sortieren, ohne die ganze Planung neu aufzubauen.</p>
     </section>
 
-    <section class="choice-stack">
-      <button class="choice recommended" data-flow="Chain_summary_v1.html">
-        <div class="choice-left">
-          <div class="choice-kicker">Empfohlen</div>
-          <div class="choice-title">Snack später</div>
-          <div class="choice-copy">Schule und Rückweg bleiben stabil. Der Zwischenstopp rutscht nach hinten.</div>
+    <!-- Choice stack -->
+    <section class="flex flex-col gap-3.5 px-[18px] z-10 flex-1">
+
+      <!-- Choice 1 – Recommended -->
+      <button class="glass-choice glass-choice-recommended rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Empfohlen</span>
+          <span class="text-[28px] font-bold leading-none text-white">Snack später</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Schule und Rückweg bleiben stabil. Der Zwischenstopp rutscht nach hinten.</span>
         </div>
-        <div class="choice-right">
-          <div class="choice-time">+0</div>
-          <div class="choice-tag">tragfähig</div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">+0</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">tragfähig</span>
         </div>
       </button>
 
-      <button class="choice primary" data-flow="Chain_summary_v1.html">
-        <div class="choice-left">
-          <div class="choice-kicker">Alternative</div>
-          <div class="choice-title">Späteren Bus nehmen</div>
-          <div class="choice-copy">Mehr Luft, aber der Rest verschiebt sich leicht nach hinten.</div>
+      <!-- Choice 2 – Alternative -->
+      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Alternative</span>
+          <span class="text-[28px] font-bold leading-none text-white">Späteren Bus nehmen</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Mehr Luft, aber der Rest verschiebt sich leicht nach hinten.</span>
         </div>
-        <div class="choice-right">
-          <div class="choice-time">+17</div>
-          <div class="choice-tag">heute passend</div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">+17</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">heute passend</span>
         </div>
       </button>
 
-      <button class="choice" data-flow="Chain_summary_v1.html">
-        <div class="choice-left">
-          <div class="choice-kicker">Nur für heute</div>
-          <div class="choice-title">Zwischenstopp streichen</div>
-          <div class="choice-copy">CatchIt behandelt den Hauptweg heute als einzige Priorität.</div>
+      <!-- Choice 3 – One-off -->
+      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Nur für heute</span>
+          <span class="text-[28px] font-bold leading-none text-white">Zwischenstopp streichen</span>
+          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">CatchIt behandelt den Hauptweg heute als einzige Priorität.</span>
         </div>
-        <div class="choice-right">
-          <div class="choice-time">1x</div>
-          <div class="choice-tag">direkt</div>
+        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+          <span class="text-[22px] font-bold leading-none text-white">1x</span>
+          <span class="text-[14px] font-bold leading-none text-white/84">direkt</span>
         </div>
       </button>
     </section>
 
-    <section class="impact-card">
-      <div class="impact-left">
-        <div class="impact-label">Wirkung</div>
-        <div class="impact-value">Tippen sortiert sofort um</div>
-        <div class="impact-sub">Kein extra Bestätigen. CatchIt springt direkt in die neue tragfähige Variante.</div>
+    <!-- Footer note -->
+    <section class="glass-footer rounded-2xl mx-[18px] mb-[18px] mt-3.5 px-3.5 pt-3 pb-2.5 flex justify-between items-end gap-3 z-10">
+      <div class="flex flex-col gap-1">
+        <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Wirkung</span>
+        <span class="text-[22px] font-bold leading-none text-white">Tippen sortiert sofort um</span>
+        <span class="text-[15px] leading-[1.1] text-white/84">Kein extra Bestätigen. CatchIt springt direkt in die neue tragfähige Variante.</span>
       </div>
-      <div class="impact-right">
-        <span class="icon" style="font-size:20px;">touch_app</span>
+      <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
+        <span class="material-symbols-outlined text-[20px]">touch_app</span>
         <span>1 Tap</span>
       </div>
     </section>

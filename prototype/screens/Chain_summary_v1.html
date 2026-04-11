@@ -1,127 +1,154 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="light" lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>CatchIt Chain Summary v1</title>
-  
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --blue1:#4DB9E6; --blue2:#2EA7E0; --blue3:#1F4B8F;
-      --white:rgba(255,255,255,.96); --white-soft:rgba(255,255,255,.84); --white-faint:rgba(255,255,255,.56);
-      --glass:rgba(255,255,255,.14); --border:rgba(255,255,255,.10); --shadow:0 18px 42px rgba(20,55,105,.14);
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
     }
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;font-family:"Archivo Narrow",sans-serif;}
-    .phone{min-height:100vh;overflow:hidden;position:relative;color:var(--white);
-      background:linear-gradient(180deg,var(--blue1) 0%, var(--blue2) 46%, var(--blue3) 100%);}
-    .glow{position:absolute;right:-56px;top:-56px;width:220px;height:220px;border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 72%);}
-    .header{position:absolute;left:0;right:0;top:0;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;z-index:10;}
-    .icon{font-family:"Material Symbols Outlined";font-size:28px;line-height:1}
-    .top{position:absolute;left:0;right:0;top:122px;padding:0 26px;z-index:8;}
-    .kicker{font-size:12px;line-height:1;text-transform:uppercase;letter-spacing:.16em;color:var(--white-faint);font-weight:700;margin-bottom:18px;}
-    .headline{font-family:"Luckiest Guy",cursive;font-size:40px;line-height:.96;letter-spacing:.01em;margin:0;max-width:286px;}
-    .sub{margin-top:14px;max-width:294px;font-size:20px;line-height:1.12;color:var(--white-soft);font-weight:600;}
-
-    .summary-card{position:absolute;left:18px;right:18px;top:286px;bottom:106px;border-radius:28px;
-      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(10px);
-      box-shadow:var(--shadow);padding:18px 16px 16px;display:grid;gap:12px;}
-    .segment{border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.10);
-      padding:14px 14px 13px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
-    .segment.primary{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.14);}
-    .seg-left{display:flex;flex-direction:column;gap:5px;min-width:0}
-    .seg-kicker{font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:var(--white-faint);font-weight:700}
-    .seg-title{font-size:26px;line-height:1;font-weight:700;color:var(--white)}
-    .seg-sub{font-size:16px;line-height:1.1;color:var(--white-soft);font-weight:700}
-    .seg-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;white-space:nowrap}
-    .seg-time{font-size:22px;line-height:1;font-weight:700;color:var(--white)}
-    .seg-tag{font-size:14px;line-height:1;font-weight:700;color:var(--white-soft)}
-
-    .bottom-note{position:absolute;left:18px;right:18px;bottom:18px;border-radius:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(8px);padding:12px 14px 11px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;z-index:6;}
-    .note-left{display:flex;flex-direction:column;gap:4px}
-    .note-label{font-size:10px;line-height:1;text-transform:uppercase;letter-spacing:.18em;color:var(--white-faint);font-weight:700}
-    .note-value{font-size:22px;line-height:1;font-weight:700;color:var(--white)}
-    .note-sub{font-size:15px;line-height:1.1;color:var(--white-soft)}
-    .note-right{display:flex;align-items:center;gap:6px;font-size:18px;line-height:1;font-weight:700;color:var(--white);white-space:nowrap}
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .blue-gradient {
+      background: linear-gradient(180deg, #4DB9E6 0%, #2EA7E0 46%, #1F4B8F 100%);
+    }
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 14px 42px rgba(20,55,105,0.14);
+    }
+    .glass-card-primary {
+      background: rgba(255,255,255,0.20);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .glass-segment {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .glass-segment-primary {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.12);
+    }
   </style>
 </head>
-<body>
-  <main class="phone">
-    <div class="glow"></div>
-    <header class="header">
-      <div class="icon">arrow_back</div>
-      <div class="icon">more_vert</div>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
+  <main class="blue-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <section class="top">
-      <div class="kicker">Zusammenfassung</div>
-      <h1 class="headline">So baut CatchIt deinen Ablauf</h1>
-      <div class="sub">Die Kette ist vorbereitet. Von hier aus kann CatchIt in Planung oder direkt in die Ausführung springen.</div>
+    <!-- Kicker / Headline / Subtitle -->
+    <section class="px-7 z-10">
+      <p class="text-[12px] font-bold uppercase tracking-[0.16em] text-white/56 mb-4 leading-none">Zusammenfassung</p>
+      <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] max-w-[286px]">So baut CatchIt deinen Ablauf</h1>
+      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[294px]">Die Kette ist vorbereitet. Von hier aus kann CatchIt in Planung oder direkt in die Ausf&uuml;hrung springen.</p>
     </section>
 
-    <section class="summary-card">
-      <div class="segment primary" data-flow="MainScreen_parent_v3_luckiest_archivo.html">
-        <div class="seg-left">
-          <div class="seg-kicker">Start</div>
-          <div class="seg-title">Zu Hause</div>
-          <div class="seg-sub">ruhiger Fußweg · Linie 21 zuerst</div>
-        </div>
-        <div class="seg-right">
-          <div class="seg-time">08:12</div>
-          <div class="seg-tag">geplant</div>
-        </div>
-      </div>
+    <!-- Summary Card -->
+    <section class="flex-1 flex flex-col px-[18px] pt-5 pb-0 z-10">
+      <div class="glass-card rounded-[28px] flex-1 flex flex-col gap-3 p-4 pb-4">
 
-      <div class="segment">
-        <div class="seg-left">
-          <div class="seg-kicker">Hauptziel</div>
-          <div class="seg-title">Schule</div>
-          <div class="seg-sub">Ankunft mit Puffer statt knappem Umstieg</div>
+        <!-- Segment 1: Startpunkt (primary) -->
+        <div class="glass-segment glass-segment-primary rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5 cursor-pointer" data-flow="MainScreen_parent_v3_luckiest_archivo.html">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Start</span>
+            <span class="text-[26px] font-bold leading-none text-white">Zu Hause</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">ruhiger Fu&szlig;weg &middot; Linie 21 zuerst</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:12</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">geplant</span>
+          </div>
         </div>
-        <div class="seg-right">
-          <div class="seg-time">08:30</div>
-          <div class="seg-tag">stabil</div>
-        </div>
-      </div>
 
-      <div class="segment">
-        <div class="seg-left">
-          <div class="seg-kicker">Danach</div>
-          <div class="seg-title">Rückweg</div>
-          <div class="seg-sub">bleibt offen für spätere Ergänzung oder Zwischenstopp</div>
+        <!-- Segment 2: Hauptziel -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Hauptziel</span>
+            <span class="text-[26px] font-bold leading-none text-white">Schule</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">Ankunft mit Puffer statt knappem Umstieg</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">08:30</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">stabil</span>
+          </div>
         </div>
-        <div class="seg-right">
-          <div class="seg-time">später</div>
-          <div class="seg-tag">optional</div>
-        </div>
-      </div>
 
-      <div class="segment">
-        <div class="seg-left">
-          <div class="seg-kicker">Heute mitgedacht</div>
-          <div class="seg-title">Ruhig + mehr Puffer</div>
-          <div class="seg-sub">weniger Hektik, weniger Risiko bei knappen Wechseln</div>
+        <!-- Segment 3: Danach -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Danach</span>
+            <span class="text-[26px] font-bold leading-none text-white">R&uuml;ckweg</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">bleibt offen f&uuml;r sp&auml;tere Erg&auml;nzung oder Zwischenstopp</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">sp&auml;ter</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">optional</span>
+          </div>
         </div>
-        <div class="seg-right">
-          <div class="seg-time">2 Regeln</div>
-          <div class="seg-tag">aktiv</div>
+
+        <!-- Segment 4: Heute mitgedacht -->
+        <div class="glass-segment rounded-[18px] flex items-start justify-between gap-3 px-3.5 py-3.5">
+          <div class="flex flex-col gap-[5px] min-w-0">
+            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Heute mitgedacht</span>
+            <span class="text-[26px] font-bold leading-none text-white">Ruhig + mehr Puffer</span>
+            <span class="text-[16px] font-bold leading-[1.1] text-white/84">weniger Hektik, weniger Risiko bei knappen Wechseln</span>
+          </div>
+          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
+            <span class="text-[22px] font-bold leading-none text-white">2 Regeln</span>
+            <span class="text-[14px] font-bold leading-none text-white/84">aktiv</span>
+          </div>
         </div>
+
       </div>
     </section>
 
-    <section class="bottom-note" data-flow="Quick_change_v1.html">
-      <div class="note-left">
-        <div class="note-label">Planungsstatus</div>
-        <div class="note-value">Tragfähige Kette erkannt</div>
-        <div class="note-sub">Der weiße Punkt kann daraus eine gespeicherte Tour machen.</div>
-      </div>
-      <div class="note-right">
-        <span class="icon" style="font-size:20px;">trip</span>
-        <span>4 Teile</span>
+    <!-- Bottom Note -->
+    <section class="px-[18px] pt-3 pb-[18px] z-10">
+      <div class="glass-segment rounded-[18px] backdrop-blur-[8px] flex items-end justify-between gap-3 px-3.5 py-3 cursor-pointer" data-flow="Quick_change_v1.html">
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Planungsstatus</span>
+          <span class="text-[22px] font-bold leading-none text-white">Tragf&auml;hige Kette erkannt</span>
+          <span class="text-[15px] leading-[1.1] text-white/84">Der wei&szlig;e Punkt kann daraus eine gespeicherte Tour machen.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
+          <span class="material-symbols-outlined text-[20px]">trip</span>
+          <span>4 Teile</span>
+        </div>
       </div>
     </section>
   </main>

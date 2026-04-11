@@ -1,417 +1,190 @@
 <!DOCTYPE html>
-<html lang="de">
+<html class="light" lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>CatchIt Go Mode – Walk to Stop v1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#f9f9ff"
+          },
+          fontFamily: {
+            display: ["Luckiest Guy", "cursive"],
+            body: ["Archivo Narrow", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root{
-      --green1:#71D8C0;
-      --green2:#57CFAF;
-      --green3:#43BE92;
-      --white:rgba(255,255,255,.96);
-      --white-soft:rgba(255,255,255,.84);
-      --white-faint:rgba(255,255,255,.56);
-      --glass:rgba(255,255,255,.16);
-      --glass-border:rgba(255,255,255,.12);
-      --active:#ffffff;
-      --inactive:rgba(255,255,255,.28);
-      --mint:#88f9ad;
-      --dark:#1f3b34;
+    .go-gradient {
+      background: linear-gradient(180deg, #71D8C0 0%, #57CFAF 46%, #43BE92 100%);
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Archivo Narrow",sans-serif;
+    .header-decoration {
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 72%);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
     }
-    .phone{
-      min-height:100vh;
-      overflow:hidden;
-      position:relative;
-      color:var(--white);
-      background:linear-gradient(180deg,var(--green1) 0%, var(--green2) 46%, var(--green3) 100%);
+    .glass-bubble {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 12px 28px rgba(32,92,69,0.12);
     }
-    .glow{
-      position:absolute;
-      right:-56px;
-      top:-56px;
-      width:220px;
-      height:220px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 72%);
-      pointer-events:none;
+    .glass-card {
+      background: rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 16px 38px rgba(33,94,71,0.14);
     }
-    .header{
-      position:absolute;
-      left:0; right:0; top:0;
-      z-index:20;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:28px 24px;
+    .glass-chip {
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: 0 10px 22px rgba(32,92,69,0.10);
     }
-    .icon{
-      font-family:"Material Symbols Outlined";
-      font-size:28px;
-      line-height:1;
+    .glass-footer {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.10);
     }
-
-    .hero{
-      position:absolute;
-      top:96px;
-      left:18px;
-      right:18px;
-      z-index:18;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:16px;
+    .active-hint-pill {
+      background: rgba(136,249,173,0.64);
+      color: #184333;
+      box-shadow: 0 8px 16px rgba(136,249,173,0.16);
     }
-    .hero-copy{
-      flex:1;
-      padding-top:10px;
+    .step-rail {
+      position: absolute;
+      left: 23px;
+      top: 14px;
+      bottom: 26px;
+      width: 4px;
+      border-radius: 9999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.14) 100%);
     }
-    .kicker{
-      font-size:12px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--white-faint);
-      font-weight:700;
-      margin-bottom:12px;
+    .pin-active {
+      background: #fff;
+      color: #20664d;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.14);
     }
-    .headline{
-      font-family:"Luckiest Guy", cursive;
-      font-size:42px;
-      line-height:.96;
-      letter-spacing:.01em;
-      margin:0;
+    .pin-next {
+      background: rgba(255,255,255,0.20);
+      color: rgba(255,255,255,0.82);
+      border: 2px solid rgba(255,255,255,0.18);
     }
-    .sub{
-      margin-top:12px;
-      font-size:20px;
-      line-height:1.1;
-      color:var(--white-soft);
-      font-weight:600;
-    }
-    .bubble{
-      width:108px;
-      height:108px;
-      border-radius:50%;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,.16);
-      backdrop-filter:blur(10px);
-      flex-shrink:0;
-      box-shadow:0 12px 28px rgba(32,92,69,.12);
-    }
-    .bubble-main{
-      font-family:"Luckiest Guy", cursive;
-      font-size:34px;
-      line-height:1;
-      letter-spacing:.02em;
-    }
-    .bubble-sub{
-      margin-top:4px;
-      font-size:11px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:var(--white-soft);
-      font-weight:700;
-    }
-
-    .route-chip{
-      position:absolute;
-      top:248px;
-      left:18px;
-      z-index:19;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:999px;
-      padding:10px 14px 9px;
-      backdrop-filter:blur(8px);
-      box-shadow:0 10px 22px rgba(32,92,69,.10);
-    }
-    .route-chip .line{
-      font-size:22px;
-      line-height:1;
-      font-weight:700;
-    }
-    .route-chip .meta{
-      font-size:16px;
-      line-height:1;
-      color:var(--white-soft);
-      font-weight:700;
-    }
-
-    .steps-card{
-      position:absolute;
-      left:18px;
-      right:18px;
-      top:302px;
-      bottom:18px;
-      border-radius:28px;
-      background:rgba(255,255,255,.16);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px);
-      box-shadow:0 16px 38px rgba(33,94,71,.14);
-      padding:24px 18px 18px 16px;
-    }
-    .steps{
-      position:relative;
-      height:100%;
-      padding-left:54px;
-      padding-bottom:76px;
-    }
-    .rail{
-      position:absolute;
-      left:23px;
-      top:14px;
-      bottom:26px;
-      width:4px;
-      border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.14) 100%);
-    }
-    .step{
-      position:relative;
-      min-height:116px;
-    }
-    .step + .step{ margin-top:12px; }
-
-    .pin{
-      position:absolute;
-      left:-54px;
-      top:0;
-      width:38px;
-      height:38px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      z-index:2;
-      font-family:"Material Symbols Outlined";
-      font-size:20px;
-      line-height:1;
-    }
-    .pin.active{
-      background:rgba(255,255,255,.96);
-      color:#20664d;
-      box-shadow:0 0 0 4px rgba(255,255,255,.14);
-    }
-    .pin.next{
-      background:rgba(255,255,255,.22);
-      color:rgba(255,255,255,.82);
-      border:2px solid rgba(255,255,255,.18);
-    }
-    .pin.later{
-      background:rgba(255,255,255,.14);
-      color:rgba(255,255,255,.52);
-      border:2px solid rgba(255,255,255,.12);
-    }
-
-    .content{
-      padding-top:2px;
-    }
-    .step-label{
-      font-size:11px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:var(--white-faint);
-      font-weight:700;
-      margin-bottom:8px;
-    }
-    .step-title{
-      font-size:30px;
-      line-height:.98;
-      font-weight:700;
-      color:#14342b;
-    }
-    .step-title.future{
-      color:rgba(20,52,43,.58);
-    }
-    .step-copy{
-      margin-top:10px;
-      font-size:19px;
-      line-height:1.12;
-      color:#21443a;
-      font-weight:600;
-      max-width:250px;
-    }
-    .step-copy.future{
-      color:rgba(33,68,58,.62);
-    }
-    .meta-row{
-      margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px 16px;
-      font-size:16px;
-      line-height:1;
-      color:#2b6253;
-      font-weight:700;
-    }
-    .meta-row.future{
-      color:rgba(43,98,83,.54);
-    }
-
-    .active-hint{
-      margin-top:14px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:rgba(136,249,173,.64);
-      color:#184333;
-      border-radius:999px;
-      padding:8px 12px 7px;
-      font-size:16px;
-      line-height:1;
-      font-weight:700;
-      box-shadow:0 8px 16px rgba(136,249,173,.16);
-    }
-    .active-hint .material{
-      font-family:"Material Symbols Outlined";
-      font-size:18px;
-      line-height:1;
-    }
-
-    .footer-note{
-      position:absolute;
-      left:16px;
-      right:16px;
-      bottom:16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.10);
-      padding:12px 14px 11px;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:12px;
-    }
-    .footer-note .left{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .footer-note .label{
-      font-size:10px;
-      line-height:1;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:var(--white-faint);
-      font-weight:700;
-    }
-    .footer-note .value{
-      font-size:24px;
-      line-height:1;
-      font-weight:700;
-      color:var(--white);
-    }
-    .footer-note .subline{
-      font-size:15px;
-      line-height:1.1;
-      color:var(--white-soft);
-    }
-    .footer-note .time{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:20px;
-      line-height:1;
-      font-weight:700;
-      color:var(--white);
-      white-space:nowrap;
+    .pin-later {
+      background: rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.52);
+      border: 2px solid rgba(255,255,255,0.12);
     }
   </style>
 </head>
-<body>
-  <main class="phone">
-    <div class="glow"></div>
+<body class="bg-background font-body text-white antialiased min-h-screen overflow-hidden selection:bg-white/20">
 
-    <header class="header">
-      <div class="icon">arrow_back</div>
-      <div class="icon">more_vert</div>
+  <main class="go-gradient min-h-screen relative flex flex-col">
+    <div class="header-decoration"></div>
+
+    <!-- Header -->
+    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+      <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="kicker">Go Mode</div>
-        <h1 class="headline">Jetzt los</h1>
-        <div class="sub">Zur Haltestelle gehen. CatchIt führt dich zum nächsten relevanten Schritt.</div>
+    <!-- Hero section -->
+    <section class="flex items-start justify-between px-5 gap-4 z-10">
+      <div class="flex-1 pt-2.5">
+        <p class="text-[12px] leading-none uppercase tracking-[0.16em] text-white/56 font-bold mb-3">Go Mode</p>
+        <h1 class="font-display text-[42px] leading-[0.96] tracking-[0.01em] m-0">Jetzt los</h1>
+        <p class="mt-3 text-[20px] leading-[1.1] text-white/84 font-semibold">Zur Haltestelle gehen. CatchIt f&uuml;hrt dich zum n&auml;chsten relevanten Schritt.</p>
       </div>
-
-      <div class="bubble">
-        <div class="bubble-main">8</div>
-        <div class="bubble-sub">min</div>
+      <div class="glass-bubble rounded-full w-[108px] h-[108px] flex flex-col items-center justify-center shrink-0">
+        <span class="font-display text-[34px] leading-none tracking-[0.02em]">8</span>
+        <span class="mt-1 text-[11px] leading-none uppercase tracking-[0.18em] text-white/84 font-bold">min</span>
       </div>
     </section>
 
-    <div class="route-chip">
-      <div class="line">21</div>
-      <div class="meta">Friedrich-Ebert-Str. · 08:47</div>
+    <!-- Route chip -->
+    <div class="glass-chip rounded-full inline-flex items-center gap-2.5 px-3.5 py-2.5 mx-5 mt-4 self-start z-10">
+      <span class="text-[22px] leading-none font-bold">21</span>
+      <span class="text-[16px] leading-none text-white/84 font-bold">Friedrich-Ebert-Str. &middot; 08:47</span>
     </div>
 
-    <section class="steps-card">
-      <div class="steps">
-        <div class="rail"></div>
+    <!-- Steps card -->
+    <section class="glass-card rounded-[28px] mx-5 mt-4 flex-1 mb-5 p-6 pl-4 relative flex flex-col z-10">
+      <div class="relative flex-1 pl-[54px] pb-[76px]">
+        <div class="step-rail"></div>
 
-        <div class="step">
-          <div class="pin active">directions_walk</div>
-          <div class="content">
-            <div class="step-label">Jetzt</div>
-            <div class="step-title">Geradeaus bis Carolus-Magnus-Str.</div>
-            <div class="step-copy">Noch 120 m geradeaus. Die Abzweigung kommt danach, nicht sofort.</div>
-            <div class="active-hint">
-              <span class="material">near_me</span>
-              <span>Nächster sinnvoller Schritt aktiv</span>
+        <!-- Step 1: Active -->
+        <div class="relative min-h-[116px]">
+          <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-active">
+            <span class="material-symbols-outlined text-[20px] leading-none">directions_walk</span>
+          </div>
+          <div class="pt-0.5">
+            <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Jetzt</p>
+            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]">Geradeaus bis Carolus-Magnus-Str.</p>
+            <p class="mt-2.5 text-[19px] leading-[1.12] text-[#21443a] font-semibold max-w-[250px]">Noch 120 m geradeaus. Die Abzweigung kommt danach, nicht sofort.</p>
+            <div class="active-hint-pill inline-flex items-center gap-2 rounded-full px-3 py-2 mt-3.5 text-[16px] leading-none font-bold">
+              <span class="material-symbols-outlined text-[18px] leading-none">near_me</span>
+              <span>N&auml;chster sinnvoller Schritt aktiv</span>
             </div>
           </div>
         </div>
 
-        <div class="step">
-          <div class="pin next">turn_left</div>
-          <div class="content">
-            <div class="step-label">Danach</div>
-            <div class="step-title future">Links in den Amselweg</div>
-            <div class="step-copy future">Nicht schon vorher abbiegen. Die Gasse kommt erst nach dem langen Häuserblock.</div>
-            <div class="meta-row future">
+        <!-- Step 2: Next -->
+        <div class="relative min-h-[116px] mt-3">
+          <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-next">
+            <span class="material-symbols-outlined text-[20px] leading-none">turn_left</span>
+          </div>
+          <div class="pt-0.5">
+            <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Danach</p>
+            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]/60">Links in den Amselweg</p>
+            <p class="mt-2.5 text-[19px] leading-[1.12] text-[#21443a]/60 font-semibold max-w-[250px]">Nicht schon vorher abbiegen. Die Gasse kommt erst nach dem langen H&auml;userblock.</p>
+            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-3 text-[16px] leading-none text-[#2b6253]/54 font-bold">
               <span>noch ca. 2 Min</span>
-              <span>ruhiger Fußweg</span>
+              <span>ruhiger Fu&szlig;weg</span>
             </div>
           </div>
         </div>
 
-        <div class="step" data-flow="Chain_summary_v1.html">
-          <div class="pin later">directions_bus</div>
-          <div class="content">
-            <div class="step-label">Anschließend</div>
-            <div class="step-title future">Haltestelle Friedrich-Ebert-Str.</div>
-            <div class="meta-row future">
+        <!-- Step 3: Later (bus stop) -->
+        <div class="relative min-h-[116px] mt-3" data-flow="Chain_summary_v1.html">
+          <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-later">
+            <span class="material-symbols-outlined text-[20px] leading-none">directions_bus</span>
+          </div>
+          <div class="pt-0.5">
+            <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Anschlie&szlig;end</p>
+            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]/60">Haltestelle Friedrich-Ebert-Str.</p>
+            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-3 text-[16px] leading-none text-[#2b6253]/54 font-bold">
               <span>Linie 21</span>
               <span>08:47</span>
               <span>+0</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="footer-note" data-flow="Recovery_simple_switch_v1.html">
-          <div class="left">
-            <div class="label">Aktuelle Tragfähigkeit</div>
-            <div class="value">Gut machbar</div>
-            <div class="subline">Wenn du jetzt losgehst, bleibt die Verbindung stabil.</div>
-          </div>
-          <div class="time">
-            <span class="icon" style="font-size:20px;">schedule</span>
-            <span>8 Min</span>
-          </div>
+      <!-- Footer note inside steps card -->
+      <div class="glass-footer rounded-[18px] px-3.5 py-3 flex justify-between items-end gap-3 absolute left-4 right-4 bottom-4" data-flow="Recovery_simple_switch_v1.html">
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold">Aktuelle Tragf&auml;higkeit</span>
+          <span class="text-[24px] leading-none font-bold text-white/96">Gut machbar</span>
+          <span class="text-[15px] leading-[1.1] text-white/84">Wenn du jetzt losgehst, bleibt die Verbindung stabil.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-[20px] leading-none font-bold text-white/96 whitespace-nowrap">
+          <span class="material-symbols-outlined text-[20px] leading-none">schedule</span>
+          <span>8 Min</span>
         </div>
       </div>
     </section>
