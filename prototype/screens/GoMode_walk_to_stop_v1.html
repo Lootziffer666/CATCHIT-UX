@@ -99,7 +99,6 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-8 py-10 z-10">
       <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
     <!-- Hero section -->
@@ -107,7 +106,7 @@
       <div class="flex-1 pt-2.5">
         <p class="text-[12px] leading-none uppercase tracking-[0.16em] text-white/56 font-bold mb-3">Go Mode</p>
         <h1 class="font-display text-[42px] leading-[0.96] tracking-[0.01em] m-0">Jetzt los</h1>
-        <p class="mt-3 text-[20px] leading-[1.1] text-white/84 font-semibold">Zur Haltestelle gehen. CatchIt f&uuml;hrt dich zum n&auml;chsten relevanten Schritt.</p>
+        <p class="mt-3 text-[18px] leading-[1.1] text-white/84 font-semibold">Zur Haltestelle gehen.</p>
       </div>
       <div class="glass-bubble rounded-full w-[108px] h-[108px] flex flex-col items-center justify-center shrink-0">
         <span class="font-display text-[34px] leading-none tracking-[0.02em]">8</span>
@@ -127,63 +126,45 @@
         <div class="step-rail"></div>
 
         <!-- Step 1: Active -->
-        <div class="relative min-h-[116px]">
+        <div class="relative min-h-[96px]">
           <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-active">
             <span class="material-symbols-outlined text-[20px] leading-none">directions_walk</span>
           </div>
           <div class="pt-0.5">
             <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Jetzt</p>
-            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]">Geradeaus bis Carolus-Magnus-Str.</p>
-            <p class="mt-2.5 text-[19px] leading-[1.12] text-[#21443a] font-semibold max-w-[250px]">Noch 120 m geradeaus. Die Abzweigung kommt danach, nicht sofort.</p>
-            <div class="active-hint-pill inline-flex items-center gap-2 rounded-full px-3 py-2 mt-3.5 text-[16px] leading-none font-bold">
-              <span class="material-symbols-outlined text-[18px] leading-none">near_me</span>
-              <span>N&auml;chster sinnvoller Schritt aktiv</span>
-            </div>
+            <p class="text-[28px] leading-[0.98] font-bold text-[#14342b]">Geradeaus, 120 m</p>
+            <p class="mt-2 text-[17px] leading-[1.12] text-[#21443a] font-semibold max-w-[250px]">Abzweigung kommt erst danach.</p>
           </div>
         </div>
 
         <!-- Step 2: Next -->
-        <div class="relative min-h-[116px] mt-3">
-          <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-next">
-            <span class="material-symbols-outlined text-[20px] leading-none">turn_left</span>
+        <div class="relative min-h-[72px] mt-3">
+          <div class="absolute -left-[54px] top-0 w-[32px] h-[32px] rounded-full grid place-items-center z-[2] pin-next">
+            <span class="material-symbols-outlined text-[18px] leading-none">turn_left</span>
           </div>
           <div class="pt-0.5">
-            <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Danach</p>
-            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]/60">Links in den Amselweg</p>
-            <p class="mt-2.5 text-[19px] leading-[1.12] text-[#21443a]/60 font-semibold max-w-[250px]">Nicht schon vorher abbiegen. Die Gasse kommt erst nach dem langen H&auml;userblock.</p>
-            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-3 text-[16px] leading-none text-[#2b6253]/54 font-bold">
-              <span>noch ca. 2 Min</span>
-              <span>ruhiger Fu&szlig;weg</span>
-            </div>
+            <p class="text-[20px] leading-tight font-bold text-[#14342b]/60">Links in den Amselweg</p>
+            <p class="mt-1 text-[13px] leading-tight text-[#2b6253]/54 font-bold">noch ca. 2 Min</p>
           </div>
         </div>
 
         <!-- Step 3: Later (bus stop) -->
-        <div class="relative min-h-[116px] mt-3" data-flow="Chain_summary_v1.html">
-          <div class="absolute -left-[54px] top-0 w-[38px] h-[38px] rounded-full grid place-items-center z-[2] pin-later">
-            <span class="material-symbols-outlined text-[20px] leading-none">directions_bus</span>
+        <div class="relative min-h-[72px] mt-3" data-flow="Chain_summary_v1.html">
+          <div class="absolute -left-[54px] top-0 w-[32px] h-[32px] rounded-full grid place-items-center z-[2] pin-later">
+            <span class="material-symbols-outlined text-[18px] leading-none">directions_bus</span>
           </div>
           <div class="pt-0.5">
-            <p class="text-[11px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold mb-2">Anschlie&szlig;end</p>
-            <p class="text-[30px] leading-[0.98] font-bold text-[#14342b]/60">Haltestelle Friedrich-Ebert-Str.</p>
-            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-3 text-[16px] leading-none text-[#2b6253]/54 font-bold">
-              <span>Linie 21</span>
-              <span>08:47</span>
-              <span>+0</span>
-            </div>
+            <p class="text-[20px] leading-tight font-bold text-[#14342b]/60">Haltestelle Friedrich-Ebert-Str.</p>
+            <p class="mt-1 text-[13px] leading-tight text-[#2b6253]/54 font-bold">Linie 21 · 08:47</p>
           </div>
         </div>
       </div>
 
       <!-- Footer note inside steps card -->
-      <div class="glass-footer rounded-[18px] px-3.5 py-3 flex justify-between items-end gap-3 absolute left-4 right-4 bottom-4" data-flow="Recovery_simple_switch_v1.html">
-        <div class="flex flex-col gap-1">
-          <span class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/56 font-bold">Aktuelle Tragf&auml;higkeit</span>
-          <span class="text-[24px] leading-none font-bold text-white/96">Gut machbar</span>
-          <span class="text-[15px] leading-[1.1] text-white/84">Wenn du jetzt losgehst, bleibt die Verbindung stabil.</span>
-        </div>
-        <div class="flex items-center gap-1.5 text-[20px] leading-none font-bold text-white/96 whitespace-nowrap">
-          <span class="material-symbols-outlined text-[20px] leading-none">schedule</span>
+      <div class="glass-footer rounded-[18px] px-3.5 py-2.5 flex justify-between items-center gap-3 absolute left-4 right-4 bottom-4" data-flow="Recovery_simple_switch_v1.html">
+        <span class="text-[17px] leading-tight font-bold text-white/96">Gut machbar</span>
+        <div class="flex items-center gap-1.5 text-[15px] leading-none font-bold text-white/84 whitespace-nowrap">
+          <span class="material-symbols-outlined text-[16px] leading-none">schedule</span>
           <span>8 Min</span>
         </div>
       </div>

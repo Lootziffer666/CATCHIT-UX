@@ -42,23 +42,20 @@
       background: linear-gradient(180deg, #F5D77A 0%, #F0C55F 46%, #DDA947 100%);
     }
     .glass-switch {
-      background: rgba(255,255,255,0.16);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 14px 34px rgba(98,70,14,0.12);
     }
     .glass-route {
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
     }
     .glass-route-primary {
-      background: rgba(136,249,173,0.34);
-      border-color: rgba(136,249,173,0.22);
+      background: rgba(136,249,173,0.26);
+      border-color: rgba(136,249,173,0.18);
     }
     .glass-footer {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
     }
   </style>
 </head>
@@ -70,7 +67,6 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-8 py-10 z-10">
       <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
     <!-- Kicker + Headline + Subtitle -->
@@ -91,9 +87,7 @@
         </div>
         <!-- Arrow -->
         <div class="flex justify-center">
-          <div class="w-[46px] h-[46px] rounded-full bg-mint/52 flex items-center justify-center shadow-[0_8px_16px_rgba(136,249,173,0.14)]">
-            <span class="material-symbols-outlined text-[24px] text-[#1b503a]">arrow_forward</span>
-          </div>
+          <span class="material-symbols-outlined text-[32px] text-[#1b503a]">arrow_forward</span>
         </div>
         <!-- Right side -->
         <div class="min-w-0 text-right">
@@ -108,9 +102,9 @@
       <!-- Primary route row -->
       <div class="glass-route glass-route-primary rounded-[20px] px-4 pt-3.5 pb-[13px] flex justify-between items-start gap-3.5" data-flow="Chain_summary_v1.html">
         <div class="flex flex-col gap-[5px] min-w-0">
-          <span class="text-[10px] uppercase tracking-[0.18em] font-bold text-white/56">Neue passende Option</span>
+          <span class="text-[10px] uppercase tracking-[0.18em] font-bold text-[#1b503a]">CatchIt-Empfehlung</span>
           <span class="text-[26px] leading-none font-bold text-[#183126]">295 → Markt</span>
-          <span class="text-[16px] leading-[1.1] font-bold text-[#27513e]">durch +17 jetzt ohne Hektik erreichbar</span>
+          <span class="text-[16px] leading-[1.1] font-bold text-[#27513e]">jetzt ohne Hektik erreichbar</span>
         </div>
         <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
           <span class="text-[24px] leading-none font-bold text-[#173126]">08:51</span>
@@ -118,17 +112,13 @@
         </div>
       </div>
 
-      <!-- Secondary route row -->
-      <div class="glass-route rounded-[20px] px-4 pt-3.5 pb-[13px] flex justify-between items-start gap-3.5" data-flow="MainScreen_ready_green_v2.html">
-        <div class="flex flex-col gap-[5px] min-w-0">
-          <span class="text-[10px] uppercase tracking-[0.18em] font-bold text-white/56">Bisherige Option</span>
-          <span class="text-[26px] leading-none font-bold text-white/96">21 → Friedrich-Ebert-Str.</span>
-          <span class="text-[16px] leading-[1.1] font-bold text-white/84">wird knapp, neue Option ist ruhiger</span>
+      <!-- Secondary route row (dimmed) -->
+      <div class="glass-route rounded-[20px] px-4 pt-3 pb-3 flex justify-between items-center gap-3 opacity-60" data-flow="MainScreen_ready_green_v2.html">
+        <div class="flex flex-col min-w-0">
+          <span class="text-[18px] leading-tight font-bold text-white/84">21 → Friedrich-Ebert-Str.</span>
+          <span class="text-[13px] leading-tight text-white/56">wird knapp</span>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <span class="text-[24px] leading-none font-bold text-white/96">08:47</span>
-          <span class="text-[14px] leading-none font-bold text-white/84">+0</span>
-        </div>
+        <span class="text-[16px] leading-none font-bold text-white/84 whitespace-nowrap">08:47</span>
       </div>
     </section>
 

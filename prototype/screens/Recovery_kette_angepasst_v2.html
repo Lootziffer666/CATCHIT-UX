@@ -43,24 +43,23 @@
       pointer-events: none;
     }
     .glass-card {
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
     }
     .glass-segment {
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
     }
     .glass-segment-changed {
-      background: rgba(136,249,173,0.30);
-      border-color: rgba(136,249,173,0.20);
+      background: rgba(255,255,255,0.10);
+      border-left: 3px solid #88f9ad;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
     .glass-footer {
-      background: rgba(255,255,255,0.14);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 14px 34px rgba(98,70,14,0.10);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.08);
     }
   </style>
 </head>
@@ -72,7 +71,6 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-6 pt-7 pb-4 z-10">
       <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
     <!-- Kicker + Headline + Subtitle -->
@@ -93,42 +91,31 @@
     <section class="glass-card rounded-3xl mx-[18px] mt-3 p-4 flex flex-col gap-3 z-10">
 
       <!-- Segment 1: Stable (Schule) -->
-      <div class="glass-segment rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3">
-        <div class="flex flex-col gap-[5px] min-w-0">
-          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Bleibt gleich</p>
-          <p class="text-[24px] leading-none font-bold text-white">Schule</p>
-          <p class="text-[16px] leading-[1.1] font-bold text-white/80">Ankunft bleibt wie geplant</p>
+      <div class="glass-segment rounded-2xl px-3.5 py-2.5 flex justify-between items-center gap-3">
+        <div class="flex flex-col min-w-0">
+          <p class="text-[20px] leading-tight font-bold text-white">Schule</p>
+          <p class="text-[13px] leading-tight font-bold text-white/72">stabil</p>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <p class="text-[22px] leading-none font-bold text-white">08:30</p>
-          <p class="text-[14px] leading-none font-bold text-white/80">stabil</p>
-        </div>
+        <p class="text-[18px] leading-none font-bold text-white whitespace-nowrap">08:30</p>
       </div>
 
-      <!-- Segment 2: Changed (Rückweg zuerst) — mint tint -->
-      <div class="glass-segment glass-segment-changed rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3 cursor-pointer" data-flow="Chain_summary_v1.html">
-        <div class="flex flex-col gap-[5px] min-w-0">
-          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Neu sortiert</p>
-          <p class="text-[24px] leading-none font-bold text-[#183126]">Rückweg zuerst</p>
-          <p class="text-[16px] leading-[1.1] font-bold text-[#27513d]">direkt nach Hause statt Zwischenstopp davor</p>
+      <!-- Segment 2: Changed (Rückweg zuerst) — mint accent -->
+      <div class="glass-segment glass-segment-changed rounded-2xl px-3.5 py-2.5 flex justify-between items-center gap-3 cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col min-w-0">
+          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/72 font-bold mb-1">Neu sortiert</p>
+          <p class="text-[20px] leading-tight font-bold text-white">Rückweg zuerst</p>
+          <p class="text-[13px] leading-tight font-bold text-white/72">vor dem Zwischenstopp</p>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <p class="text-[22px] leading-none font-bold text-[#173126]">11:47</p>
-          <p class="text-[14px] leading-none font-bold text-[#22513d]">angepasst</p>
-        </div>
+        <p class="text-[18px] leading-none font-bold text-white whitespace-nowrap">11:47</p>
       </div>
 
       <!-- Segment 3: Future (Snack später) — dimmed -->
-      <div class="glass-segment rounded-2xl px-3.5 pt-3.5 pb-[13px] flex justify-between items-start gap-3 opacity-70">
-        <div class="flex flex-col gap-[5px] min-w-0">
-          <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Danach</p>
-          <p class="text-[24px] leading-none font-bold text-white">Snack später</p>
-          <p class="text-[16px] leading-[1.1] font-bold text-white/80">verschiebt sich hinter die sichere Rückkehr</p>
+      <div class="glass-segment rounded-2xl px-3.5 py-2.5 flex justify-between items-center gap-3 opacity-60">
+        <div class="flex flex-col min-w-0">
+          <p class="text-[20px] leading-tight font-bold text-white">Snack später</p>
+          <p class="text-[13px] leading-tight font-bold text-white/72">danach</p>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <p class="text-[22px] leading-none font-bold text-white">später</p>
-          <p class="text-[14px] leading-none font-bold text-white/80">ok</p>
-        </div>
+        <p class="text-[18px] leading-none font-bold text-white whitespace-nowrap">später</p>
       </div>
 
     </section>
@@ -137,16 +124,9 @@
     <div class="flex-grow"></div>
 
     <!-- Footer Note -->
-    <div class="glass-footer rounded-3xl mx-[18px] mb-[18px] px-3.5 pt-3 pb-[11px] flex justify-between items-end gap-3 z-10">
-      <div class="flex flex-col gap-1">
-        <p class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/60 font-bold">Neue Tragfähigkeit</p>
-        <p class="text-[24px] leading-none font-bold text-white">Tagesablauf bleibt stabil</p>
-        <p class="text-[15px] leading-[1.1] text-white/80">Du musst nicht neu planen. CatchIt hat nur die Reihenfolge angepasst.</p>
-      </div>
-      <div class="flex items-center gap-1.5 text-[20px] leading-none font-bold text-white whitespace-nowrap">
-        <span class="material-symbols-outlined text-[20px]">conversion_path</span>
-        <span>1x</span>
-      </div>
+    <div class="glass-footer rounded-2xl mx-[18px] mb-[18px] px-3.5 py-2.5 flex justify-between items-center gap-3 z-10">
+      <p class="text-[16px] leading-tight font-bold text-white">Tagesablauf bleibt stabil</p>
+      <span class="material-symbols-outlined text-[20px] text-white/80">conversion_path</span>
     </div>
   </main>
 <script src="screen-nav.js"></script>

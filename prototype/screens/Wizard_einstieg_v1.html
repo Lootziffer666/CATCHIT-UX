@@ -40,26 +40,15 @@
       pointer-events: none;
     }
     .glass-choice {
-      background: rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 14px 42px rgba(20, 55, 105, 0.14);
-      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
     .glass-choice:hover {
-      transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.18);
-      border-color: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.12);
     }
     .glass-choice.active {
-      background: rgba(255, 255, 255, 0.24);
-      border-color: rgba(255, 255, 255, 0.16);
-    }
-    .glass-footer {
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      box-shadow: 0 14px 42px rgba(20, 55, 105, 0.10);
+      border-color: rgba(255, 255, 255, 0.40);
     }
   </style>
 </head>
@@ -67,9 +56,8 @@
   <main class="wizard-gradient min-h-screen relative flex flex-col">
     <div class="header-decoration"></div>
 
-    <header class="w-full flex items-center justify-between px-8 py-10 z-10">
+    <header class="w-full flex items-center justify-between px-8 py-6 z-10">
       <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
     <section class="px-8 z-10 mb-8">
@@ -106,37 +94,16 @@
       </div>
     </section>
 
-    <footer class="glass-footer mx-5 mb-5 rounded-2xl px-4 py-3 flex justify-between items-end gap-3 z-10">
-      <div class="flex flex-col gap-1">
-        <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold">Verhalten</span>
-        <span class="text-[22px] font-bold leading-none text-white" id="footValue">Direkt weiter</span>
-        <span class="text-[15px] leading-[1.1] text-white/84" id="footSub">Tippen führt ohne extra Bestätigung zur nächsten Frage.</span>
-      </div>
-      <div class="flex items-center gap-1.5 text-white font-bold text-[18px] whitespace-nowrap">
-        <span class="material-symbols-outlined text-[20px]">touch_app</span>
-        <span>1 Tap</span>
-      </div>
+    <footer class="px-6 py-5 z-10">
+      <p class="text-[14px] leading-[1.1] text-white/72 font-bold">Tippen führt direkt weiter.</p>
     </footer>
   </main>
 
   <script>
     const buttons = document.querySelectorAll('.glass-choice');
-    const footValue = document.getElementById('footValue');
-    const footSub = document.getElementById('footSub');
-
-    const copy = {
-      einfach: ["Direkt weiter", "Eine Auswahl reicht. CatchIt springt ohne Next-Button in den nächsten Schritt."],
-      kette: ["Kette vorbereiten", "CatchIt fragt danach direkt nach dem nächsten Halt oder Folgeweg."],
-      kind: ["Mit mehr Puffer", "Ab hier werden Kinderlogik, sichere Übergänge und ruhigere Wege stärker gewichtet."],
-      vorsichtig: ["Stabiler planen", "CatchIt behandelt heute geringe Hektik und mehr Tragfähigkeit als Priorität."]
-    };
-
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.toggle('active', b === btn));
-        const key = btn.dataset.choice;
-        footValue.textContent = copy[key][0];
-        footSub.textContent = copy[key][1];
       });
     });
   </script>
