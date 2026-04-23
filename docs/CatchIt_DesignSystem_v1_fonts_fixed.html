@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CatchIt — Design System v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════
+   CATCHIT DESIGN SYSTEM — Token Foundation
+   ══════════════════════════════════════════════ */
+:root {
+  /* State base colors */
+  --c-blue:    #42C2D5;
+  --c-green:   #3BB06A;
+  --c-yellow:  #E8C44A;
+  --c-orange:  #E8834A;
+  --c-red:     #C94040;
+
+  /* State wash (wireframe / doc surface) */
+  --wash-blue:   #d0eaf2;
+  --wash-green:  #ceebd8;
+  --wash-yellow: #f0e5b4;
+  --wash-orange: #f0d4bc;
+  --wash-red:    #e8c0bb;
+
+  /* State screen gradients */
+  --grad-blue:   linear-gradient(175deg, #5acfe0 0%, #3bacc2 45%, #2882b8 100%);
+  --grad-green:  linear-gradient(175deg, #55c585 0%, #38a660 45%, #268048 100%);
+  --grad-yellow: linear-gradient(175deg, #f0d060 0%, #e6b830 45%, #c89010 100%);
+  --grad-orange: linear-gradient(175deg, #f0a060 0%, #e67838 45%, #cc5818 100%);
+  --grad-red:    linear-gradient(175deg, #d85050 0%, #c03030 45%, #9c1818 100%);
+
+  /* Glass hierarchy */
+  --glass-1: rgba(255,255,255,0.22);
+  --glass-2: rgba(255,255,255,0.12);
+  --glass-3: rgba(255,255,255,0.07);
+  --glass-border: rgba(255,255,255,0.18);
+
+  /* Text opacity scale (on state surfaces) */
+  --t-100: rgba(255,255,255,1.00);
+  --t-92:  rgba(255,255,255,0.92);
+  --t-80:  rgba(255,255,255,0.80);
+  --t-60:  rgba(255,255,255,0.60);
+  --t-40:  rgba(255,255,255,0.40);
+
+  /* Doc surface */
+  --paper: #f3f0e8;
+  --ink:   #1e1c18;
+  --ink-2: #3a362f;
+  --ink-m: #6b6558;
+  --ink-f: #a39d8e;
+  --rule:  rgba(30,28,24,0.14);
+
+  /* Typography */
+  --f-display: 'Manrope', sans-serif;
+  --f-body: 'Noto Sans', sans-serif;
+  --f-label: 'Noto Sans', sans-serif;
+
+  /* Spacing scale */
+  --sp-xs: 4px;
+  --sp-s:  8px;
+  --sp-m:  16px;
+  --sp-l:  24px;
+  --sp-xl: 40px;
+  --sp-2xl: 64px;
+
+  /* Border radius */
+  --r-pill: 999px;
+  --r-card: 20px;
+  --r-chip: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--paper); font-family: var(--f-body); color: var(--ink); }
+
+/* ══════ LAYOUT ══════ */
+.ds-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+/* ══════ SIDEBAR ══════ */
+.ds-nav {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--ink);
+  color: white;
+  padding: 28px 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+.ds-nav-brand {
+  padding: 0 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  margin-bottom: 16px;
+}
+.ds-nav-brand h1 {
+  font-family: var(--f-display);
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+.ds-nav-brand span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ds-nav-section {
+  padding: 8px 20px 4px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-top: 12px;
+}
+.ds-nav a {
+  display: block;
+  padding: 7px 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+.ds-nav a:hover, .ds-nav a.active {
+  color: white;
+  border-left-color: var(--c-orange);
+  background: rgba(255,255,255,0.05);
+}
+.state-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: middle;
+}
+
+/* ══════ MAIN CONTENT ══════ */
+.ds-main {
+  overflow-y: auto;
+}
+
+/* ══════ SECTION HEADERS ══════ */
+.ds-section {
+  padding: 56px 48px 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.ds-section:last-child { border-bottom: none; }
+.section-tag {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-m);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--f-display);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--ink-2);
+  max-width: 640px;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* ══════ TOKEN GRID ══════ */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.token-swatch {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.swatch-color {
+  height: 64px;
+}
+.swatch-info {
+  padding: 10px 12px;
+  background: white;
+}
+.swatch-name { font-size: 11px; font-weight: 600; color: var(--ink); }
+.swatch-val { font-size: 10px; color: var(--ink-m); font-family: monospace; margin-top: 2px; }
+
+.token-type-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-m);
+  margin: 24px 0 10px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+}
+
+/* Gradient swatches */
+.grad-swatch {
+  border-radius: 12px;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 14px;
+  border: 1px solid var(--rule);
+  position: relative;
+}
+.grad-swatch span {
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.grad-swatch .hex {
+  position: absolute;
+  top: 10px; right: 12px;
+  font-size: 9px;
+  font-family: monospace;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Glass swatches */
+.glass-demo {
+  display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0;
+}
+.glass-swatch {
+  width: 120px; height: 80px;
+  border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 11px; color: white; gap: 4px;
+  position: relative;
+}
+.glass-bg-demo {
+  border-radius: 16px;
+  padding: 16px;
+  background: var(--grad-blue);
+  margin-bottom: 8px;
+}
+.glass-bg-demo .label-sm {
+  font-size: 10px; color: rgba(255,255,255,0.55);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* ══════ TYPOGRAPHY TABLE ══════ */
+.type-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.type-table th {
+  text-align: left;
+  padding: 8px 16px 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-m);
+  font-weight: 500;
+}
+.type-table td {
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: middle;
+}
+.type-sample {
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+/* ══════ SPACING VIZ ══════ */
+.space-row {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 10px;
+}
+.space-bar {
+  background: var(--c-orange);
+  height: 12px;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+.space-label { font-size: 11px; color: var(--ink-m); width: 60px; font-family: monospace; }
+.space-val { font-size: 11px; color: var(--ink-2); }
+
+/* ══════ SCREEN VIEWER ══════ */
+.screen-gallery {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 6px 6px 20px;
+  scroll-snap-type: x mandatory;
+}
+.screen-gallery::-webkit-scrollbar { height: 6px; }
+.screen-gallery::-webkit-scrollbar-thumb { background: var(--ink-f); border-radius: 3px; }
+
+.screen-card {
+  flex: 0 0 auto;
+  width: 280px;
+  scroll-snap-align: start;
+}
+.screen-card-label {
+  font-size: 11px;
+  color: var(--ink-m);
+  margin-bottom: 8px;
+  font-family: var(--f-display);
+  font-size: 14px;
+}
+.screen-card-label small {
+  display: block;
+  font-family: var(--f-body);
+  font-size: 10px;
+  color: var(--ink-f);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ══════ PHONE FRAME ══════ */
+.phone {
+  width: 280px;
+  height: 580px;
+  border-radius: 36px;
+  border: 1px solid rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.3);
+}
+.phone::before {
+  content: "";
+  position: absolute; inset: 3px;
+  border-radius: 33px;
+  border: 1px dashed rgba(255,255,255,0.15);
+  pointer-events: none; z-index: 10;
+}
+
+/* ══════ STATE SCREENS ══════ */
+.screen-body {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+/* Vertical rail line */
+.v-rail {
+  position: absolute;
+  left: 20px; top: 60px; bottom: 100px;
+  width: 1px;
+  background: rgba(255,255,255,0.18);
+  z-index: 2;
+}
+.v-rail-dot {
+  position: absolute;
+  left: 14px; top: 58px;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  z-index: 3;
+}
+
+.screen-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px 0;
+  z-index: 5;
+  position: relative;
+}
+.screen-header-name {
+  font-family: var(--f-label);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--t-60);
+  padding-left: 22px;
+}
+.screen-header-state {
+  font-family: var(--f-label);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--t-60);
+}
+
+.screen-content {
+  flex: 1;
+  padding: 16px 18px 0 38px;
+  display: flex; flex-direction: column;
+  position: relative; z-index: 4;
+}
+.screen-meta-label {
+  font-family: var(--f-label);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--t-60);
+  margin-bottom: 6px;
+}
+.screen-time-big {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 0.88;
+  color: var(--t-100);
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+.screen-sub {
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--t-92);
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.chain-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--glass-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--r-pill);
+  padding: 7px 14px;
+  font-size: 12px;
+  color: var(--t-92);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  width: fit-content;
+  backdrop-filter: blur(6px);
+}
+
+/* State label rotated */
+.state-label-rot {
+  position: absolute;
+  left: -2px;
+  bottom: 110px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--t-40);
+  z-index: 5;
+}
+
+/* Bottom card */
+.bottom-card {
+  margin: 0 10px 12px;
+  background: var(--glass-1);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  z-index: 5;
+  position: relative;
+}
+.bottom-card-tag {
+  font-family: var(--f-label);
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--t-60);
+  margin-bottom: 5px;
+}
+.bottom-card-headline {
+  font-size: 16px; font-weight: 600;
+  color: var(--t-100); line-height: 1.2;
+  margin-bottom: 4px;
+}
+.bottom-card-sub {
+  font-size: 11px; color: var(--t-80);
+  line-height: 1.4;
+}
+.bottom-card-badge {
+  position: absolute;
+  right: 14px; bottom: 14px;
+  font-size: 24px; font-weight: 600;
+  color: var(--t-100);
+  font-family: var(--f-body);
+}
+
+/* Yellow adapt trace */
+.adapt-trace {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--r-pill);
+  padding: 5px 12px;
+  font-size: 11px; color: var(--t-80);
+  margin-top: 6px;
+  width: fit-content;
+}
+.adapt-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.7);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{opacity:1} 50%{opacity:0.3}
+}
+
+/* Orange instruction anchor */
+.instr-block {
+  margin-top: 4px;
+}
+.instr-time-trace {
+  font-size: 10px; color: var(--t-60);
+  margin-bottom: 12px; letter-spacing: 0.05em;
+}
+.instr-time-trace b { color: var(--t-80); font-weight: 500; }
+.instr-headline {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 0.95;
+  color: var(--t-100);
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+}
+.instr-sub {
+  font-size: 17px; font-weight: 400;
+  color: var(--t-80);
+  line-height: 1.25;
+}
+
+/* Red failed */
+.fail-block {
+  margin-top: 8px;
+}
+.fail-headline {
+  font-family: var(--f-display);
+  font-size: 28px; font-weight: 800;
+  color: var(--t-100); line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+.fail-sub {
+  font-size: 14px; color: var(--t-80);
+  line-height: 1.5;
+}
+.fail-action {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 20px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--r-pill);
+  padding: 9px 18px;
+  font-size: 13px; font-weight: 500;
+  color: var(--t-92);
+  cursor: pointer;
+}
+
+/* ══════ COMPONENT SHOWCASE ══════ */
+.comp-row {
+  display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;
+  margin-bottom: 32px;
+}
+.comp-item {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.comp-item-label {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-m);
+}
+
+/* Options grid (3 slots) */
+.options-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  background: rgba(0,0,0,0.04);
+  border-radius: 16px; padding: 12px;
+}
+.option-slot {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  transition: background 0.15s;
+}
+.option-slot.active {
+  background: rgba(0,0,0,0.06);
+  outline: 1px solid rgba(0,0,0,0.1);
+}
+.option-line-label {
+  font-family: var(--f-label);
+  font-size: 9px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-m);
+}
+.option-line-num {
+  font-family: var(--f-display);
+  font-size: 28px; font-weight: 800;
+  color: var(--ink); line-height: 1;
+}
+.option-slot.active .option-line-num { font-size: 36px; }
+.option-delta { font-size: 11px; color: var(--ink-m); }
+.option-delta.amber { color: #c07020; }
+.option-delta.red-d { color: #b02020; }
+
+/* Doc-surface options grid (on state bg) */
+.options-grid-live {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.opt-live {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 8px 4px;
+}
+.opt-live-label { font-family: var(--f-label); font-size: 8px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--t-60); }
+.opt-live-num { font-family: var(--f-display); font-size: 26px; font-weight: 800; color: var(--t-100); line-height: 1; }
+.opt-live.best .opt-live-num { font-size: 34px; }
+.opt-live-delta { font-size: 11px; color: var(--t-80); }
+.opt-live-delta.amber { color: #ffe090; }
+.opt-live-delta.red-d { color: #ffb0b0; }
+
+/* Answer chips */
+.chips-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--r-pill);
+  padding: 8px 16px;
+  font-size: 13px; font-weight: 500; color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+}
+.chip:hover { background: rgba(0,0,0,0.05); }
+.chip.on { background: var(--ink); color: white; }
+
+/* Binary answer rows */
+.binary-row { display: flex; flex-direction: column; gap: 10px; width: 220px; }
+.binary-opt {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1.5px solid var(--rule);
+  font-size: 15px; font-weight: 400; color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  background: white;
+}
+.binary-opt:hover { border-color: var(--ink); }
+.binary-opt.on { border-color: var(--ink); background: var(--ink); color: white; }
+.binary-opt-icon { font-size: 18px; opacity: 0.4; }
+.binary-opt.on .binary-opt-icon { opacity: 0.8; }
+
+/* Progress steps */
+.progress-steps { display: flex; gap: 5px; align-items: center; }
+.p-step { width: 20px; height: 2px; border-radius: 2px; background: var(--ink-f); }
+.p-step.on { background: var(--ink); }
+
+/* Confirmation / Recovery anchor */
+.confirm-block {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.confirm-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: white;
+}
+.confirm-text {
+  font-size: 22px; font-weight: 400;
+  line-height: 1.2; color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.confirm-sub { font-size: 13px; color: var(--ink-m); }
+
+/* ══════ WIZARD SCREENS ══════ */
+/* Wizard uses doc-paper surface, not gradient */
+.wiz-screen-body {
+  position: absolute; inset: 0;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  padding: 52px 20px 20px;
+  overflow: hidden;
+}
+.wiz-step-indicator {
+  display: flex; gap: 5px; align-items: center;
+  margin-bottom: 28px;
+}
+.wiz-step-dot {
+  width: 16px; height: 2px; border-radius: 2px;
+  background: var(--ink-f);
+  transition: background 0.2s;
+}
+.wiz-step-dot.on { background: var(--ink); }
+
+.wiz-q-open {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.wiz-q-sub {
+  font-size: 13px; color: var(--ink-m);
+  line-height: 1.5; margin-bottom: 28px;
+}
+.wiz-q-prag {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.wiz-ans-block { display: flex; flex-direction: column; gap: 10px; }
+.wiz-ans {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid var(--rule);
+  background: white;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: all 0.15s;
+}
+.wiz-ans:hover { border-color: var(--ink); }
+.wiz-ans.on { border-color: var(--ink); background: var(--ink); }
+.wiz-ans-text {
+  font-size: 15px; color: var(--ink); font-weight: 400;
+  line-height: 1.25;
+}
+.wiz-ans.on .wiz-ans-text { color: white; }
+.wiz-ans-icon { font-size: 18px; opacity: 0.35; }
+.wiz-ans.on .wiz-ans-icon { opacity: 0.7; color: white; }
+
+.wiz-chips-block { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.wiz-chip {
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--rule);
+  background: white;
+  font-size: 13px; color: var(--ink);
+  cursor: pointer; transition: all 0.15s;
+}
+.wiz-chip:hover { border-color: var(--ink); }
+.wiz-chip.on { background: var(--ink); color: white; border-color: var(--ink); }
+
+.wiz-continue {
+  margin-top: auto;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: white;
+  font-size: 15px; font-weight: 500;
+  border: none; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.wiz-continue:disabled { opacity: 0.3; cursor: default; }
+
+/* Answered-trace */
+.wiz-answered {
+  font-size: 11px; color: var(--ink-m);
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--rule);
+  margin-bottom: 20px;
+}
+.wiz-answered b { color: var(--ink-2); font-weight: 500; }
+
+/* ══════ MAP SCREEN ══════ */
+.map-reveal-body {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+}
+.map-top {
+  flex: 0 0 200px;
+  background: var(--grad-blue);
+  display: flex; flex-direction: column;
+  padding: 14px 16px 10px;
+  position: relative;
+}
+.map-float-bubble {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--glass-2);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  backdrop-filter: blur(8px);
+  margin-top: auto;
+}
+.map-bubble-time {
+  font-size: 36px; font-weight: 200;
+  color: var(--t-100); letter-spacing: -0.03em;
+  line-height: 1;
+}
+.map-bubble-info { display: flex; flex-direction: column; gap: 2px; }
+.map-bubble-label { font-size: 9px; color: var(--t-60); letter-spacing: 0.15em; text-transform: uppercase; }
+.map-bubble-sub { font-size: 13px; color: var(--t-92); font-weight: 400; }
+.map-area {
+  flex: 1;
+  background: #e8e4da;
+  position: relative;
+  overflow: hidden;
+}
+.map-sketch {
+  position: absolute; inset: 0;
+  opacity: 0.5;
+}
+.map-stop-pin {
+  position: absolute;
+  background: var(--c-blue);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.map-route-line {
+  position: absolute;
+  background: var(--c-blue);
+  opacity: 0.6;
+}
+.map-walk-label {
+  position: absolute;
+  background: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 11px; font-weight: 600; color: var(--ink);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.map-handle {
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 36px; height: 3px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 2px;
+}
+
+/* ══════ GO MODE ══════ */
+.go-screen-body {
+  position: absolute; inset: 0;
+  background: var(--grad-orange);
+  display: flex; flex-direction: column;
+}
+.go-top {
+  padding: 14px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.go-top-label {
+  font-family: var(--f-label);
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--t-60);
+}
+.go-countdown {
+  font-size: 18px; font-weight: 200;
+  color: var(--t-100); letter-spacing: -0.02em;
+}
+.go-countdown b { font-weight: 500; }
+.go-content {
+  flex: 1;
+  padding: 0 18px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.go-main-instr {
+  font-family: var(--f-display);
+  font-size: 40px; font-weight: 800;
+  color: var(--t-100);
+  line-height: 1; letter-spacing: -0.025em;
+  margin-bottom: 8px;
+}
+.go-sub-instr {
+  font-size: 16px; color: var(--t-80);
+  font-weight: 400; line-height: 1.35;
+  margin-bottom: 24px;
+}
+.go-map-strip {
+  height: 160px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.go-map-bg {
+  position: absolute; inset: 0;
+  background: #d8d2c0;
+  opacity: 0.4;
+}
+.go-map-route {
+  position: absolute;
+  left: 40px; top: 30px;
+  width: 3px; height: 100px;
+  background: white;
+  border-radius: 3px;
+  opacity: 0.7;
+}
+.go-map-you {
+  position: absolute;
+  left: 33px; top: 26px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--c-orange);
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.2);
+}
+.go-map-stop {
+  position: absolute;
+  left: 32px; top: 118px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.go-card {
+  margin: 0 0 12px;
+  background: var(--glass-1);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.go-card-info { display: flex; flex-direction: column; gap: 2px; }
+.go-card-label { font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--t-60); }
+.go-card-text { font-size: 15px; font-weight: 500; color: var(--t-100); }
+.go-card-sub { font-size: 11px; color: var(--t-80); }
+.go-card-time { font-size: 28px; font-weight: 600; color: var(--t-100); }
+
+/* ══════ RECOVERY SCREENS ══════ */
+.rec-screen-body {
+  position: absolute; inset: 0;
+  background: var(--grad-green);
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 40px 18px 20px;
+}
+.rec-confirm-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.rec-confirm-text {
+  font-family: var(--f-display);
+  font-size: 28px; font-weight: 800;
+  color: var(--t-100); line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.rec-confirm-sub { font-size: 14px; color: var(--t-80); line-height: 1.5; margin-bottom: 28px; }
+.rec-option-block {
+  background: var(--glass-2);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  backdrop-filter: blur(8px);
+  margin-bottom: 10px;
+}
+.rec-opt-label { font-family: var(--f-label); font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--t-60); margin-bottom: 4px; }
+.rec-opt-val { font-size: 20px; font-weight: 500; color: var(--t-100); }
+.rec-opt-sub { font-size: 12px; color: var(--t-80); margin-top: 2px; }
+
+/* ══════ INTERACTIVE STATE SWITCHER ══════ */
+.state-switcher {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+}
+.state-btn {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--rule);
+  background: white;
+  font-size: 12px; font-weight: 500; color: var(--ink);
+  cursor: pointer; transition: all 0.15s;
+}
+.state-btn:hover { border-color: var(--ink); }
+.state-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+.state-btn .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Live preview */
+.live-preview {
+  display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+}
+.live-phone-wrap { flex: 0 0 auto; }
+.live-specs {
+  flex: 1; min-width: 280px;
+  padding-top: 8px;
+}
+.spec-row {
+  display: flex; gap: 16px; padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+}
+.spec-key { color: var(--ink-m); width: 120px; flex-shrink: 0; }
+.spec-val { color: var(--ink); font-weight: 500; }
+.spec-val code {
+  font-family: monospace; font-size: 11px;
+  background: rgba(0,0,0,0.06);
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* ══════ SECTION DIVIDER ══════ */
+.sec-divider {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 32px 0;
+}
+
+/* ══════ ANNOTATION CALLOUTS ══════ */
+.callout {
+  border-left: 3px solid var(--c-orange);
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.03);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px; color: var(--ink-2);
+  margin: 16px 0;
+  line-height: 1.6;
+}
+.callout strong { color: var(--ink); }
+
+/* ══════ RULE BADGE ══════ */
+.rule-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ink);
+  color: white;
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ══════ ANCHOR TABLE ══════ */
+.anchor-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+.anchor-table th { text-align: left; padding: 8px 12px 8px 0; border-bottom: 2px solid var(--rule); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-m); }
+.anchor-table td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+.anchor-table td:first-child { font-weight: 600; white-space: nowrap; }
+
+/* ══════ DENSITY VIZ ══════ */
+.density-row { display: flex; gap: 16px; align-items: flex-end; margin-bottom: 24px; }
+.density-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.density-bar-wrap { display: flex; flex-direction: column; justify-content: flex-end; height: 80px; }
+.density-bar {
+  background: var(--ink);
+  border-radius: 4px 4px 0 0;
+  width: 40px;
+  opacity: 0.15;
+}
+.density-col.s1 .density-bar { height: 16px; }
+.density-col.s2 .density-bar { height: 28px; }
+.density-col.s3 .density-bar { height: 44px; }
+.density-col.s4 .density-bar { height: 60px; }
+.density-col.s5 .density-bar { height: 76px; }
+.density-label { font-size: 10px; color: var(--ink-m); font-weight: 500; }
+.density-state { font-size: 9px; color: var(--ink-f); }
+
+/* footer */
+.ds-footer {
+  padding: 40px 48px;
+  font-size: 12px;
+  color: var(--ink-m);
+  border-top: 1px solid var(--rule);
+}
+
+/* Scrollspy active */
+.hidden-section { display: none; }
+</style>
+</head>
+<body>
+
+<div class="ds-layout">
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="ds-nav">
+  <div class="ds-nav-brand">
+    <h1>CatchIt</h1>
+    <span>Design System v1</span>
+  </div>
+
+  <div class="ds-nav-section">Foundations</div>
+  <a href="#tokens" onclick="show('tokens')">Farb-Token</a>
+  <a href="#gradients" onclick="show('gradients')">State-Gradienten</a>
+  <a href="#glass" onclick="show('glass')">Glass-Hierarchie</a>
+  <a href="#typography" onclick="show('typography')">Typografie</a>
+  <a href="#spacing" onclick="show('spacing')">Spacing & Density</a>
+
+  <div class="ds-nav-section">Screens</div>
+  <a href="#states-live" onclick="show('states-live')">
+    <span class="state-dot" style="background:var(--c-blue)"></span>Live State-Vorschau
+  </a>
+  <a href="#blue" onclick="show('blue')">
+    <span class="state-dot" style="background:var(--c-blue)"></span>Blue / Idle
+  </a>
+  <a href="#green" onclick="show('green')">
+    <span class="state-dot" style="background:var(--c-green)"></span>Green / Ready
+  </a>
+  <a href="#yellow" onclick="show('yellow')">
+    <span class="state-dot" style="background:var(--c-yellow)"></span>Yellow / Adapting
+  </a>
+  <a href="#orange" onclick="show('orange')">
+    <span class="state-dot" style="background:var(--c-orange)"></span>Orange / Act Now
+  </a>
+  <a href="#red" onclick="show('red')">
+    <span class="state-dot" style="background:var(--c-red)"></span>Red / Failed
+  </a>
+  <a href="#map" onclick="show('map')">Map Reveal</a>
+  <a href="#go" onclick="show('go')">Go Mode</a>
+  <a href="#recovery" onclick="show('recovery')">Recovery</a>
+
+  <div class="ds-nav-section">Komponenten</div>
+  <a href="#anchor-comps" onclick="show('anchor-comps')">Anchor-Familie</a>
+  <a href="#support-comps" onclick="show('support-comps')">Support-Komponenten</a>
+  <a href="#wizard" onclick="show('wizard')">Wizard / Planning</a>
+
+  <div class="ds-nav-section">Regeln</div>
+  <a href="#rules" onclick="show('rules')">Anti-Drift & Checkliste</a>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<main class="ds-main" id="main-content">
+
+<!-- ══════════════════════ TOKENS ══════════════════════ -->
+<section class="ds-section" id="sec-tokens">
+  <div class="section-tag">01 — Foundations</div>
+  <h2 class="section-title">Farb-Token</h2>
+  <p class="section-sub">Fünf semantische State-Farben. Farbe ist nie Dekoration — sie trägt Zustandsbedeutung. Jede Farbe ist ausschließlich einem State zugeordnet und darf nicht in anderen Kontexten verwendet werden.</p>
+
+  <div class="token-type-label">State-Basisfarben</div>
+  <div class="token-grid">
+    <div class="token-swatch">
+      <div class="swatch-color" style="background:#42C2D5"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Blue / Idle</div>
+        <div class="swatch-val">--c-blue: #42C2D5</div>
+      </div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background:#3BB06A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Green / Ready</div>
+        <div class="swatch-val">--c-green: #3BB06A</div>
+      </div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background:#E8C44A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Yellow / Adapting</div>
+        <div class="swatch-val">--c-yellow: #E8C44A</div>
+      </div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background:#E8834A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Orange / Act Now</div>
+        <div class="swatch-val">--c-orange: #E8834A</div>
+      </div>
+    </div>
+    <div class="token-swatch">
+      <div class="swatch-color" style="background:#C94040"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Red / Failed</div>
+        <div class="swatch-val">--c-red: #C94040</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="token-type-label">Wash-Farben (Wireframe / Dokument)</div>
+  <div class="token-grid">
+    <div class="token-swatch"><div class="swatch-color" style="background:#d0eaf2"></div><div class="swatch-info"><div class="swatch-name">Wash Blue</div><div class="swatch-val">#d0eaf2</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#ceebd8"></div><div class="swatch-info"><div class="swatch-name">Wash Green</div><div class="swatch-val">#ceebd8</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#f0e5b4"></div><div class="swatch-info"><div class="swatch-name">Wash Yellow</div><div class="swatch-val">#f0e5b4</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#f0d4bc"></div><div class="swatch-info"><div class="swatch-name">Wash Orange</div><div class="swatch-val">#f0d4bc</div></div></div>
+    <div class="token-swatch"><div class="swatch-color" style="background:#e8c0bb"></div><div class="swatch-info"><div class="swatch-name">Wash Red</div><div class="swatch-val">#e8c0bb</div></div></div>
+  </div>
+
+  <div class="callout">
+    <strong>Regel:</strong> Wash-Farben nur für Dokumentations-Screens (Wireframes, Design-Docs). Produktive App-Screens verwenden ausschließlich die State-Gradienten.
+  </div>
+</section>
+
+<!-- ══════════════════════ GRADIENTS ══════════════════════ -->
+<section class="ds-section" id="sec-gradients">
+  <div class="section-tag">02 — Foundations</div>
+  <h2 class="section-title">State-Gradienten</h2>
+  <p class="section-sub">Jeder State-Screen hat einen vertikal laufenden Gradienten. Der Gradient kommuniziert den Zustand — er ist nicht Dekoration, sondern semantisches Signal. Alle fünf Gradienten folgen derselben Richtung (175°) und Logik: oben heller/wärmer, unten tiefer/sicherer.</p>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px">
+    <div>
+      <div class="grad-swatch" style="background:var(--grad-blue)">
+        <span>Blue / Idle</span>
+        <span class="hex">5acfe0 → 2882b8</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-m);margin-top:6px;padding:0 4px">
+        <code style="font-family:monospace;font-size:10px">--grad-blue</code><br>
+        Anker: Countdown · Dichte: minimal
+      </div>
+    </div>
+    <div>
+      <div class="grad-swatch" style="background:var(--grad-green)">
+        <span>Green / Ready</span>
+        <span class="hex">55c585 → 268048</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-m);margin-top:6px;padding:0 4px">
+        <code style="font-family:monospace;font-size:10px">--grad-green</code><br>
+        Anker: Countdown · Dichte: leicht erhöht
+      </div>
+    </div>
+    <div>
+      <div class="grad-swatch" style="background:var(--grad-yellow)">
+        <span>Yellow / Adapting</span>
+        <span class="hex">f0d060 → c89010</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-m);margin-top:6px;padding:0 4px">
+        <code style="font-family:monospace;font-size:10px">--grad-yellow</code><br>
+        Anker: Countdown + Adapt-Trace · Kein Alarm
+      </div>
+    </div>
+    <div>
+      <div class="grad-swatch" style="background:var(--grad-orange)">
+        <span>Orange / Act Now</span>
+        <span class="hex">f0a060 → cc5818</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-m);margin-top:6px;padding:0 4px">
+        <code style="font-family:monospace;font-size:10px">--grad-orange</code><br>
+        Anker: Instruction · Dichte: eng
+      </div>
+    </div>
+    <div>
+      <div class="grad-swatch" style="background:var(--grad-red)">
+        <span>Red / Failed</span>
+        <span class="hex">d85050 → 9c1818</span>
+      </div>
+      <div style="font-size:11px;color:var(--ink-m);margin-top:6px;padding:0 4px">
+        <code style="font-family:monospace;font-size:10px">--grad-red</code><br>
+        Anker: Failure · Dichte: sehr knapp
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ GLASS ══════════════════════ -->
+<section class="ds-section" id="sec-glass">
+  <div class="section-tag">03 — Foundations</div>
+  <h2 class="section-title">Glass-Hierarchie</h2>
+  <p class="section-sub">Glassmorphism trägt kognitive Bedeutung. Je opaker die Glass-Fläche, desto wichtiger der Inhalt. Drei Stufen — nicht mehr. Statt Farb-Hierarchie nutzt CatchIt Glassdichte-Hierarchie.</p>
+
+  <div class="glass-bg-demo">
+    <div class="label-sm">Vorschau auf State-Surface (Blue)</div>
+    <div class="glass-demo">
+      <div class="glass-swatch" style="background:var(--glass-1);backdrop-filter:blur(12px);border:1px solid var(--glass-border)">
+        <span style="font-size:9px;color:var(--t-60);letter-spacing:0.1em;text-transform:uppercase">Primär</span>
+        <span style="font-size:13px;color:var(--t-100);font-weight:500">Hauptkarte</span>
+        <span style="font-size:10px;color:var(--t-60)">22% weiß</span>
+      </div>
+      <div class="glass-swatch" style="background:var(--glass-2);backdrop-filter:blur(8px);border:1px solid var(--glass-border)">
+        <span style="font-size:9px;color:var(--t-60);letter-spacing:0.1em;text-transform:uppercase">Sekundär</span>
+        <span style="font-size:13px;color:var(--t-100);font-weight:500">Kontext</span>
+        <span style="font-size:10px;color:var(--t-60)">12% weiß</span>
+      </div>
+      <div class="glass-swatch" style="background:var(--glass-3);border:1px solid rgba(255,255,255,0.10)">
+        <span style="font-size:9px;color:var(--t-60);letter-spacing:0.1em;text-transform:uppercase">Tertiär</span>
+        <span style="font-size:13px;color:var(--t-100);font-weight:500">Chip / Label</span>
+        <span style="font-size:10px;color:var(--t-60)">7% weiß</span>
+      </div>
+    </div>
+  </div>
+
+  <table style="font-size:13px;width:100%;border-collapse:collapse;margin-top:8px">
+    <thead>
+      <tr>
+        <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">Stufe</th>
+        <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">Verwendung</th>
+        <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">CSS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);font-weight:600">Primär (Glass-1)</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)">Bottom-Card, Hauptkarte, Wizard-Antworten</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)"><code style="font-family:monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:4px">rgba(255,255,255,0.22)</code> blur(12px)</td></tr>
+      <tr><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);font-weight:600">Sekundär (Glass-2)</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)">Chain-Pill, Options-Slot, Map-Bubble</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)"><code style="font-family:monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:4px">rgba(255,255,255,0.12)</code> blur(8px)</td></tr>
+      <tr><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule);font-weight:600">Tertiär (Glass-3)</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)">Adapt-Trace-Pill, Meta-Label-Background</td><td style="padding:11px 12px 11px 0;border-bottom:1px solid var(--rule)"><code style="font-family:monospace;font-size:11px;background:rgba(0,0,0,0.05);padding:2px 6px;border-radius:4px">rgba(255,255,255,0.07)</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════ TYPOGRAPHY ══════════════════════ -->
+<section class="ds-section" id="sec-typography">
+  <div class="section-tag">04 — Foundations</div>
+  <h2 class="section-title">Typografie</h2>
+  <p class="section-sub">Zwei Schriftfamilien. Noto Sans für Body, Labels und UI-Text. Manrope in hohem Gewicht für Display, Zahlen und prominente Anker. Keine dritte Schriftfamilie.</p>
+
+  <div class="token-type-label">Schriftfamilien</div>
+  <div style="display:flex;gap:24px;margin-bottom:28px;flex-wrap:wrap">
+    <div style="background:white;border:1px solid var(--rule);border-radius:12px;padding:20px 24px;flex:1;min-width:200px">
+      <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-m);margin-bottom:8px">Body / Label</div>
+      <div style="font-family:'Noto Sans';font-size:32px;font-weight:500;color:var(--ink);line-height:1">Noto Sans</div>
+      <div style="font-family:monospace;font-size:10px;color:var(--ink-m);margin-top:6px">--f-body, --f-label<br>400 · 500 · 600 · 700</div>
+    </div>
+    <div style="background:white;border:1px solid var(--rule);border-radius:12px;padding:20px 24px;flex:1;min-width:200px">
+      <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-m);margin-bottom:8px">Display / Anchor</div>
+      <div style="font-family:'Manrope';font-size:32px;font-weight:800;color:var(--ink);line-height:1">Manrope</div>
+      <div style="font-family:monospace;font-size:10px;color:var(--ink-m);margin-top:6px">--f-display<br>700 · 800 · Für Hero, Zahlen, Headlines</div>
+    </div>
+  </div>
+
+  <div class="token-type-label">Typografie-Skala (App-Screens)</div>
+  <table class="type-table">
+    <thead>
+      <tr>
+        <th>Rolle</th>
+        <th>Sample</th>
+        <th>Specs</th>
+        <th>Verwendung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:14px 12px 14px 0">Hero / Countdown</td>
+        <td style="padding:14px 12px 14px 0"><span class="type-sample" style="font-size:64px;font-weight:800;letter-spacing:-0.03em;font-family:'Manrope'">18m</span></td>
+        <td style="padding:14px 12px 14px 0;font-size:11px;color:var(--ink-m);font-family:monospace">64–80px · w800 · ls -0.03em</td>
+        <td style="padding:14px 12px 14px 0;font-size:12px;color:var(--ink-2)">Countdown-Anker, Hauptzahl</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Instruction Lead</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:40px;font-weight:800;letter-spacing:-0.025em;font-family:'Manrope'">Jetzt los.</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">40–46px · w800 · ls -0.025em</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Orange Instruction-Anker</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Sub-Instruction</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:20px;font-weight:500;letter-spacing:-0.01em;font-family:'Noto Sans'">Noch ist alles im Tritt.</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">18–22px · w500</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Erklärungstext unter Anchor</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Linienzahl</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:30px;font-weight:800;letter-spacing:-0.01em;font-family:'Manrope'">21</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">26–36px · Manrope w800</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Options-Grid Nummern</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Meta-Label</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;font-family:'Noto Sans'">Nächste Wahrheit</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">8–10px · w600 · uc · ls 0.2em</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Karten-Labels, State-Header</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Wizard-Frage (Open)</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:28px;font-weight:800;letter-spacing:-0.01em;font-family:'Manrope'">Wie sieht dein Tag aus?</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">28–34px · w800 · ls -0.01em</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Einleitungsfragen (Open)</td>
+      </tr>
+      <tr>
+        <td style="font-size:11px;color:var(--ink-m);white-space:nowrap;padding:12px 12px 12px 0">Wizard-Frage (Pragmatic)</td>
+        <td style="padding:12px 12px 12px 0"><span class="type-sample" style="font-size:24px;font-weight:800;letter-spacing:-0.015em;font-family:'Manrope'">Noch woanders hin?</span></td>
+        <td style="padding:12px 12px 12px 0;font-size:11px;color:var(--ink-m);font-family:monospace">24–30px · w800 · ls -0.015em</td>
+        <td style="padding:12px 12px 12px 0;font-size:12px;color:var(--ink-2)">Kettenfragen (Pragmatic)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════ SPACING ══════════════════════ -->
+<section class="ds-section" id="sec-spacing">
+  <div class="section-tag">05 — Foundations</div>
+  <h2 class="section-title">Spacing & Density</h2>
+  <p class="section-sub">Dichte kommuniziert Dringlichkeit — nicht mehr Interface-Masse bei mehr Urgenz. Der <strong>Bau ändert sich nicht</strong> zwischen States. Nur Padding, Schriftgröße und sichtbare Elemente variieren. </p>
+
+  <div class="token-type-label">Spacing-Skala</div>
+  <div style="margin-bottom:28px">
+    <div class="space-row"><div class="space-label">--sp-xs</div><div class="space-bar" style="width:4px"></div><div class="space-val">4px</div></div>
+    <div class="space-row"><div class="space-label">--sp-s</div><div class="space-bar" style="width:8px"></div><div class="space-val">8px</div></div>
+    <div class="space-row"><div class="space-label">--sp-m</div><div class="space-bar" style="width:16px"></div><div class="space-val">16px</div></div>
+    <div class="space-row"><div class="space-label">--sp-l</div><div class="space-bar" style="width:24px"></div><div class="space-val">24px</div></div>
+    <div class="space-row"><div class="space-label">--sp-xl</div><div class="space-bar" style="width:40px"></div><div class="space-val">40px</div></div>
+    <div class="space-row"><div class="space-label">--sp-2xl</div><div class="space-bar" style="width:64px"></div><div class="space-val">64px</div></div>
+  </div>
+
+  <div class="token-type-label">Dichte-Eskalation nach State</div>
+  <div class="density-row">
+    <div class="density-col s1"><div class="density-bar-wrap"><div class="density-bar" style="background:var(--c-blue)"></div></div><div class="density-label">Blue</div><div class="density-state">Idle</div></div>
+    <div class="density-col s2"><div class="density-bar-wrap"><div class="density-bar" style="background:var(--c-green)"></div></div><div class="density-label">Green</div><div class="density-state">Ready</div></div>
+    <div class="density-col s3"><div class="density-bar-wrap"><div class="density-bar" style="background:var(--c-yellow)"></div></div><div class="density-label">Yellow</div><div class="density-state">Adapting</div></div>
+    <div class="density-col s4"><div class="density-bar-wrap"><div class="density-bar" style="background:var(--c-orange)"></div></div><div class="density-label">Orange</div><div class="density-state">Act Now</div></div>
+    <div class="density-col s5"><div class="density-bar-wrap"><div class="density-bar" style="background:var(--c-red)"></div></div><div class="density-label">Red</div><div class="density-state">Failed</div></div>
+  </div>
+
+  <table style="font-size:12px;width:100%;border-collapse:collapse;margin-top:4px">
+    <thead><tr>
+      <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">State</th>
+      <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">pad-top</th>
+      <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">Hero-Größe</th>
+      <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">Optionen</th>
+      <th style="text-align:left;padding:8px 12px 8px 0;border-bottom:2px solid var(--rule);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m)">Kette</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);font-weight:600">Blue</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">80px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">72–80px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">3 sichtbar</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">vollständig</td></tr>
+      <tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);font-weight:600">Green</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">72px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">76px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">3 sichtbar</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">kurz</td></tr>
+      <tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);font-weight:600">Yellow</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">64px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">68px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">3 + Trace</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">kurz</td></tr>
+      <tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);font-weight:600">Orange</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">48px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">Instruction</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">1–2 reduz.</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">auto</td></tr>
+      <tr><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);font-weight:600">Red</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">56px</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">Failure</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">keine</td><td style="padding:9px 12px 9px 0;border-bottom:1px solid var(--rule)">weg</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════════════════ LIVE STATE PREVIEW ══════════════════════ -->
+<section class="ds-section" id="sec-states-live">
+  <div class="section-tag">06 — Screens / Interaktiv</div>
+  <h2 class="section-title">State-Vorschau</h2>
+  <p class="section-sub">Alle fünf States auf einen Blick. Gleicher Bau — unterschiedliche Dichte und Anchor-Typ.</p>
+
+  <div class="screen-gallery">
+
+    <!-- BLUE -->
+    <div class="screen-card">
+      <div class="screen-card-label">Blue / Idle<small>Countdown Anchor · max Luft</small></div>
+      <div class="phone">
+        <div class="screen-body" style="background:var(--grad-blue)">
+          <div class="v-rail"></div>
+          <div class="v-rail-dot"></div>
+          <div class="screen-header">
+            <span class="screen-header-name">DIENSTAG · LUKE</span>
+            <span class="screen-header-state">BLUE</span>
+          </div>
+          <div class="screen-content">
+            <div class="screen-meta-label">HEUTE TRÄGT</div>
+            <div class="screen-time-big">10:02</div>
+            <div class="screen-sub">Noch ist alles im Tritt.</div>
+            <div class="chain-pill">Kita → Ergo → Kita</div>
+          </div>
+          <div class="state-label-rot">STABLE</div>
+          <div class="bottom-card">
+            <div class="bottom-card-tag">Nächste Wahrheit</div>
+            <div class="bottom-card-headline">Losgehen in ruhigen 18 Minuten</div>
+            <div class="bottom-card-badge">18'</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GREEN -->
+    <div class="screen-card">
+      <div class="screen-card-label">Green / Ready<small>Countdown Anchor · leicht enger</small></div>
+      <div class="phone">
+        <div class="screen-body" style="background:var(--grad-green)">
+          <div class="v-rail"></div>
+          <div class="v-rail-dot"></div>
+          <div class="screen-header">
+            <span class="screen-header-name">DIENSTAG · LUKE</span>
+            <span class="screen-header-state">GREEN</span>
+          </div>
+          <div class="screen-content" style="padding-top:12px">
+            <div class="screen-meta-label">BALD RELEVANT</div>
+            <div class="screen-time-big" style="font-size:68px">10:08</div>
+            <div class="screen-sub">Bald los. Noch gut machbar.</div>
+            <div class="chain-pill">Kita → Ergo → Kita</div>
+          </div>
+          <div class="state-label-rot">READY</div>
+          <div class="bottom-card">
+            <div class="bottom-card-tag">Los in</div>
+            <div class="bottom-card-headline">Linie 21 · Haltestelle Nord</div>
+            <div class="bottom-card-sub">Linie 491 als Reserve · +4 Min</div>
+            <div class="bottom-card-badge">10'</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YELLOW -->
+    <div class="screen-card">
+      <div class="screen-card-label">Yellow / Adapting<small>Countdown + Trace · kein Alarm</small></div>
+      <div class="phone">
+        <div class="screen-body" style="background:var(--grad-yellow)">
+          <div class="v-rail"></div>
+          <div class="v-rail-dot"></div>
+          <div class="screen-header">
+            <span class="screen-header-name">DIENSTAG · LUKE</span>
+            <span class="screen-header-state">YELLOW</span>
+          </div>
+          <div class="screen-content" style="padding-top:10px">
+            <div class="screen-meta-label">PASST SICH AN</div>
+            <div class="screen-time-big" style="font-size:60px">10:09</div>
+            <div class="screen-sub" style="font-size:16px">Linie 21 verspätet. Schau kurz rein.</div>
+            <div class="chain-pill">Kita → Ergo → Kita</div>
+            <div class="adapt-trace">
+              <div class="adapt-dot"></div>
+              Linie 21 +6 Min · Prüfe 491
+            </div>
+          </div>
+          <div class="state-label-rot">ADAPTING</div>
+          <div class="bottom-card">
+            <div class="bottom-card-tag">Anpassung läuft</div>
+            <div class="bottom-card-headline">Linie 491 als Ersatz verfügbar</div>
+            <div class="bottom-card-sub">Nur 2 Min später als geplant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORANGE -->
+    <div class="screen-card">
+      <div class="screen-card-label">Orange / Act Now<small>Instruction Anchor · eng</small></div>
+      <div class="phone">
+        <div class="screen-body" style="background:var(--grad-orange)">
+          <div class="v-rail"></div>
+          <div class="v-rail-dot" style="background:rgba(255,255,255,0.8)"></div>
+          <div class="screen-header">
+            <span class="screen-header-name">DIENSTAG · LUKE</span>
+            <span class="screen-header-state">ORANGE</span>
+          </div>
+          <div class="screen-content" style="padding-top:8px">
+            <div class="screen-meta-label">JETZT ENTSCHEIDEND</div>
+            <div class="instr-block">
+              <div class="instr-time-trace">noch <b>6 min</b> bis abfahrt</div>
+              <div class="instr-headline">Jetzt los.</div>
+              <div class="instr-sub">Zur Haltestelle Marktplatz.</div>
+            </div>
+            <div class="chain-pill" style="margin-top:16px">Kita → Ergo → Kita</div>
+          </div>
+          <div class="state-label-rot">ACT NOW</div>
+          <div class="bottom-card">
+            <div class="bottom-card-tag">Jetzt los</div>
+            <div class="bottom-card-headline">Linie 24 um 10:18</div>
+            <div class="bottom-card-sub">Sonst fällt Ergo unter 3 Min Puffer</div>
+            <div class="bottom-card-badge">3'</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RED -->
+    <div class="screen-card">
+      <div class="screen-card-label">Red / Failed<small>Failure Anchor · sehr knapp</small></div>
+      <div class="phone">
+        <div class="screen-body" style="background:var(--grad-red)">
+          <div class="v-rail" style="opacity:0.1"></div>
+          <div class="v-rail-dot" style="background:rgba(255,255,255,0.4)"></div>
+          <div class="screen-header">
+            <span class="screen-header-name">DIENSTAG · LUKE</span>
+            <span class="screen-header-state">RED</span>
+          </div>
+          <div class="screen-content" style="padding-top:16px">
+            <div class="fail-block">
+              <div class="fail-headline">Klappt so nicht mehr.</div>
+              <div class="fail-sub">Die Verbindung ist nicht mehr tragfähig. Der Puffer ist aufgebraucht.</div>
+              <div class="fail-action">↻ Alternativen ansehen</div>
+            </div>
+          </div>
+          <div class="state-label-rot">FAILED</div>
+          <div class="bottom-card" style="background:rgba(0,0,0,0.2);border-color:rgba(255,255,255,0.10)">
+            <div class="bottom-card-tag">Nächste Option</div>
+            <div class="bottom-card-headline">Linie 491 in 22 Min</div>
+            <div class="bottom-card-sub">Ergo dann um 10:54 — 3 Min Puffer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /screen-gallery -->
+</section>
+
+<!-- ══════════════════════ MAP REVEAL ══════════════════════ -->
+<section class="ds-section" id="sec-map">
+  <div class="section-tag">07 — Screens</div>
+  <h2 class="section-title">Map Reveal</h2>
+  <p class="section-sub">Die Karte kommt zu CatchIt — nicht umgekehrt. Map-Reveal öffnet sich von unten (Lower Reveal). Der Anchor-Bubble bleibt als Float-Element oben sichtbar. Karte ist Support, nie Hero.</p>
+
+  <div class="screen-gallery">
+    <div class="screen-card">
+      <div class="screen-card-label">A · Early Reveal<small>Karte zu 50% · Bubble bleibt</small></div>
+      <div class="phone">
+        <div class="map-reveal-body">
+          <div class="map-top" style="flex:0 0 230px">
+            <div class="screen-header" style="padding:0 0 10px">
+              <span class="screen-header-name" style="color:var(--t-60);font-size:8px">DIENSTAG · LUKE</span>
+              <span class="screen-header-state" style="color:var(--t-60);font-size:8px">MAP REVEAL</span>
+            </div>
+            <div class="map-float-bubble">
+              <div class="map-bubble-time">12'</div>
+              <div class="map-bubble-info">
+                <div class="map-bubble-label">Losgehen in</div>
+                <div class="map-bubble-sub">Linie 21 · Haltestelle Nord</div>
+              </div>
+            </div>
+          </div>
+          <div class="map-area">
+            <div class="map-handle"></div>
+            <!-- simple sketch map -->
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.3" viewBox="0 0 280 350">
+              <line x1="60" y1="0" x2="60" y2="350" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="140" y1="0" x2="140" y2="350" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="0" y1="100" x2="280" y2="100" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="0" y1="200" x2="280" y2="200" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <rect x="40" y="60" width="80" height="60" fill="none" stroke="#999" stroke-width="0.8"/>
+              <rect x="150" y="150" width="100" height="50" fill="none" stroke="#999" stroke-width="0.8"/>
+            </svg>
+            <!-- route -->
+            <div style="position:absolute;left:68px;top:40px;width:2px;height:120px;background:var(--c-blue);border-radius:2px;opacity:0.8"></div>
+            <!-- you -->
+            <div style="position:absolute;left:62px;top:35px;width:14px;height:14px;border-radius:50%;background:white;border:3px solid var(--c-blue);box-shadow:0 2px 8px rgba(0,0,0,0.2)"></div>
+            <!-- stop -->
+            <div style="position:absolute;left:60px;top:150px;width:18px;height:18px;border-radius:50%;background:var(--c-blue);border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.2)"></div>
+            <div class="map-walk-label" style="left:88px;top:90px">5 Min Fußweg</div>
+            <div class="map-walk-label" style="left:84px;top:158px">Halt: Nord</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-card-label">B · Full Reveal<small>Karte dominant · Bubble kompakt</small></div>
+      <div class="phone">
+        <div class="map-reveal-body">
+          <div class="map-top" style="flex:0 0 130px">
+            <div class="screen-header" style="padding:0 0 8px">
+              <span class="screen-header-name" style="color:var(--t-60);font-size:8px">DIENSTAG · LUKE</span>
+              <span class="screen-header-state" style="color:var(--t-60);font-size:8px">MAP FOCUS</span>
+            </div>
+            <div class="map-float-bubble" style="padding:8px 12px">
+              <div class="map-bubble-time" style="font-size:28px">8'</div>
+              <div class="map-bubble-info">
+                <div class="map-bubble-label">Los in</div>
+                <div class="map-bubble-sub" style="font-size:12px">Linie 21 · 10:18</div>
+              </div>
+            </div>
+          </div>
+          <div class="map-area" style="flex:1">
+            <div class="map-handle"></div>
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.3" viewBox="0 0 280 450">
+              <line x1="60" y1="0" x2="60" y2="450" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="140" y1="0" x2="140" y2="450" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="0" y1="100" x2="280" y2="100" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="0" y1="240" x2="280" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="0" y1="360" x2="280" y2="360" stroke="#888" stroke-width="1" stroke-dasharray="4,8"/>
+              <rect x="40" y="60" width="80" height="60" fill="none" stroke="#999" stroke-width="0.8"/>
+              <rect x="150" y="180" width="100" height="50" fill="none" stroke="#999" stroke-width="0.8"/>
+              <rect x="30" y="300" width="70" height="50" fill="none" stroke="#999" stroke-width="0.8"/>
+            </svg>
+            <div style="position:absolute;left:68px;top:20px;width:2px;height:190px;background:var(--c-blue);border-radius:2px;opacity:0.8"></div>
+            <div style="position:absolute;left:62px;top:14px;width:14px;height:14px;border-radius:50%;background:white;border:3px solid var(--c-blue);box-shadow:0 2px 8px rgba(0,0,0,0.2)"></div>
+            <div style="position:absolute;left:60px;top:202px;width:18px;height:18px;border-radius:50%;background:var(--c-blue);border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.2)"></div>
+            <div class="map-walk-label" style="left:88px;top:100px;font-size:10px">4 Min</div>
+            <div class="map-walk-label" style="left:88px;top:205px;font-size:10px">Nord</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Regel:</strong> Map Reveal = swipe-up vom Main Screen. Anchor-Bubble bleibt als Float-Element sichtbar. Kein vollständiges Navigation-UI, keine Routing-Buttons — nur räumliche Orientierung zum nächsten Schritt.
+  </div>
+</section>
+
+<!-- ══════════════════════ GO MODE ══════════════════════ -->
+<section class="ds-section" id="sec-go">
+  <div class="section-tag">08 — Screens</div>
+  <h2 class="section-title">Go Mode</h2>
+  <p class="section-sub">Aktiver Ausführungs-State. Instruction Anchor führt, Karte als Unterstützung (ausnahmsweise karte-prominent). Countdown tritt zurück, Schritt-Instruktion führt.</p>
+
+  <div class="screen-gallery">
+    <div class="screen-card">
+      <div class="screen-card-label">A · Pure Instruction<small>Ohne Karte · Text führt</small></div>
+      <div class="phone">
+        <div class="go-screen-body">
+          <div class="go-top">
+            <span class="go-top-label">GO MODE</span>
+            <div class="go-countdown">noch <b>6 min</b></div>
+          </div>
+          <div class="go-content">
+            <div class="go-main-instr">Zur Haltestelle.</div>
+            <div class="go-sub-instr">Haltestelle Nord · Linie 21 um 10:18</div>
+            <div class="go-card">
+              <div class="go-card-info">
+                <div class="go-card-label">KETTE DANACH</div>
+                <div class="go-card-text">Ergo um 10:45</div>
+                <div class="go-card-sub">Puffer: 8 Min</div>
+              </div>
+              <div class="go-card-time">8'</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-card-label">B · Instruction + Map<small>Karte als Walk-Support</small></div>
+      <div class="phone">
+        <div class="go-screen-body">
+          <div class="go-top">
+            <span class="go-top-label">GO MODE</span>
+            <div class="go-countdown">noch <b>6 min</b></div>
+          </div>
+          <div class="go-content">
+            <div class="go-main-instr" style="font-size:32px;margin-bottom:6px">Zur Haltestelle.</div>
+            <div class="go-sub-instr" style="margin-bottom:14px;font-size:14px">Linie 21 · Haltestelle Nord</div>
+            <div class="go-map-strip">
+              <div class="go-map-bg"></div>
+              <div class="go-map-route"></div>
+              <div class="go-map-you"></div>
+              <div class="go-map-stop"></div>
+              <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:600;color:white;background:rgba(0,0,0,0.2);padding:4px 10px;border-radius:8px">5 Min</div>
+            </div>
+            <div class="go-card">
+              <div class="go-card-info">
+                <div class="go-card-label">ANKUNFT</div>
+                <div class="go-card-text">10:43 · Ergo</div>
+              </div>
+              <div class="go-card-time">3'</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ RECOVERY ══════════════════════ -->
+<section class="ds-section" id="sec-recovery">
+  <div class="section-tag">09 — Screens</div>
+  <h2 class="section-title">Recovery</h2>
+  <p class="section-sub">Recovery ist eine erste-Klasse-Produktfunktion — kein Fehlerzustand. Zwei Hauptmuster: Simple Switch (Confirmation Anchor) und Recheck nötig (Question Anchor). Kein Alert-UI, kein Warning-Center.</p>
+
+  <div class="screen-gallery">
+    <div class="screen-card">
+      <div class="screen-card-label">Recovery / Simple Switch<small>Confirmation Anchor · abschließend</small></div>
+      <div class="phone">
+        <div class="rec-screen-body">
+          <div class="rec-confirm-icon">✓</div>
+          <div class="rec-confirm-text">Auf Linie 491 gewechselt.</div>
+          <div class="rec-confirm-sub">Kette bleibt stabil. Ergo ist weiterhin gut erreichbar — Puffer: 6 Min.</div>
+          <div class="rec-option-block">
+            <div class="rec-opt-label">Neue Verbindung</div>
+            <div class="rec-opt-val">Linie 491 · 10:14</div>
+            <div class="rec-opt-sub">Haltestelle Nord · Ankunft 10:42</div>
+          </div>
+          <div class="chain-pill" style="margin-top:12px">Kita → Ergo → Kita</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-card">
+      <div class="screen-card-label">Recovery / Recheck<small>Question Anchor · eine Frage</small></div>
+      <div class="phone">
+        <div class="rec-screen-body" style="background:var(--grad-yellow);justify-content:flex-start;padding-top:60px">
+          <div style="font-size:8px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-60);margin-bottom:16px">KURZ NACHSCHAUEN</div>
+          <div style="font-size:26px;font-weight:400;color:var(--t-100);line-height:1.15;letter-spacing:-0.015em;margin-bottom:6px">Passt das noch für die Kette?</div>
+          <div style="font-size:13px;color:var(--t-80);line-height:1.5;margin-bottom:28px">Linie 21 kommt 6 Min später. Ergo hat noch 4 Min Puffer.</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="wiz-ans" style="border-color:rgba(255,255,255,0.3);background:var(--glass-2)">
+              <span class="wiz-ans-text" style="color:white">Ja, passt noch</span>
+              <span class="wiz-ans-icon" style="color:white">→</span>
+            </div>
+            <div class="wiz-ans" style="border-color:rgba(255,255,255,0.3);background:var(--glass-2)">
+              <span class="wiz-ans-text" style="color:white">Nein, zeig Alternativen</span>
+              <span class="wiz-ans-icon" style="color:white">→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ ANCHOR COMPONENTS ══════════════════════ -->
+<section class="ds-section" id="sec-anchor-comps">
+  <div class="section-tag">10 — Komponenten</div>
+  <h2 class="section-title">Anchor-Familie</h2>
+  <p class="section-sub">Fünf Anchor-Typen. Jeder Screen hat genau einen. High-Stability-Komponenten — dürfen strukturell nicht neu erfunden werden.</p>
+
+  <div class="anchor-table" style="margin-bottom:32px">
+    <table class="anchor-table">
+      <thead><tr>
+        <th>Anchor</th>
+        <th>Hauptwahrheit</th>
+        <th>Primärausdruck</th>
+        <th>State</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>Countdown</td><td>Zeitliche Machbarkeit</td><td>Große Zahl führt · Zeit dominant</td><td>Blue, Green, Yellow</td></tr>
+        <tr><td>Instruction</td><td>Nächste Aktion</td><td>Verb führt · Schritt klar</td><td>Orange, Go</td></tr>
+        <tr><td>Confirmation</td><td>Stabile Fortsetzung</td><td>Abschluss-Icon + Satz</td><td>Recovery Switch</td></tr>
+        <tr><td>Question</td><td>System braucht eine Info</td><td>Eine Frage · niedrige Hürde</td><td>Wizard, Recheck</td></tr>
+        <tr><td>Failure</td><td>Weg nicht mehr machbar</td><td>Kurz, hart, ehrlich</td><td>Red</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Countdown showcase -->
+  <div class="token-type-label">Countdown Anchor — Varianten</div>
+  <div class="comp-row">
+    <div class="comp-item">
+      <div class="comp-item-label">Blue · groß</div>
+      <div style="background:var(--grad-blue);border-radius:16px;padding:24px 28px;width:180px">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-60);margin-bottom:6px">SPÄTESTENS LOS IN</div>
+        <div style="font-size:72px;font-weight:200;color:var(--t-100);line-height:0.88;letter-spacing:-0.03em">18m</div>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-item-label">Green · enger</div>
+      <div style="background:var(--grad-green);border-radius:16px;padding:20px 24px;width:160px">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-60);margin-bottom:4px">LOS IN</div>
+        <div style="font-size:64px;font-weight:200;color:var(--t-100);line-height:0.88;letter-spacing:-0.03em">8m</div>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-item-label">Yellow + Trace</div>
+      <div style="background:var(--grad-yellow);border-radius:16px;padding:18px 22px;width:180px">
+        <div style="font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--t-60);margin-bottom:4px">PASST SICH AN</div>
+        <div style="font-size:56px;font-weight:200;color:var(--t-100);line-height:0.88;letter-spacing:-0.03em">9m</div>
+        <div class="adapt-trace" style="margin-top:10px">
+          <div class="adapt-dot"></div>
+          <span style="font-size:11px;color:var(--t-80)">L21 +6 · prüfe 491</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Options Grid -->
+  <div class="token-type-label">Options-Grid — 3 Slots</div>
+  <div class="comp-row">
+    <div class="comp-item">
+      <div class="comp-item-label">Doc-Surface (Wireframe)</div>
+      <div class="options-grid" style="width:240px;background:rgba(0,0,0,0.04)">
+        <div class="option-slot">
+          <div class="option-line-label">Linie</div>
+          <div class="option-line-num">491</div>
+          <div class="option-delta amber">+4</div>
+        </div>
+        <div class="option-slot active">
+          <div class="option-line-label">Aktiv</div>
+          <div class="option-line-num" style="font-size:36px">21</div>
+          <div class="option-delta">+0</div>
+        </div>
+        <div class="option-slot">
+          <div class="option-line-label">Linie</div>
+          <div class="option-line-num">295</div>
+          <div class="option-delta red-d">+17</div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-item-label">Live auf State-Surface (Blue)</div>
+      <div style="background:var(--grad-blue);border-radius:16px;padding:16px 20px;width:240px">
+        <div class="options-grid-live">
+          <div class="opt-live">
+            <div class="opt-live-label">Linie</div>
+            <div class="opt-live-num">491</div>
+            <div class="opt-live-delta amber">+4</div>
+          </div>
+          <div class="opt-live best">
+            <div class="opt-live-label">Aktiv</div>
+            <div class="opt-live-num">21</div>
+            <div class="opt-live-delta">+0</div>
+          </div>
+          <div class="opt-live">
+            <div class="opt-live-label">Linie</div>
+            <div class="opt-live-num">295</div>
+            <div class="opt-live-delta red-d">+17</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chain Pill -->
+  <div class="token-type-label">Chain-Pill</div>
+  <div class="comp-row">
+    <div class="comp-item">
+      <div class="comp-item-label">Auf State-Surface</div>
+      <div style="background:var(--grad-blue);border-radius:16px;padding:16px 20px">
+        <div class="chain-pill">Kita → Ergo → Kita</div>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-item-label">Auf Orange-Surface</div>
+      <div style="background:var(--grad-orange);border-radius:16px;padding:16px 20px">
+        <div class="chain-pill">Kita → Ergo → Kita</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Card -->
+  <div class="token-type-label">Bottom-Card (Primary Glass)</div>
+  <div style="background:var(--grad-blue);border-radius:16px;padding:16px;max-width:320px;position:relative">
+    <div class="bottom-card" style="margin:0;position:relative">
+      <div class="bottom-card-tag">Nächste Wahrheit</div>
+      <div class="bottom-card-headline">Losgehen in ruhigen 18 Minuten</div>
+      <div class="bottom-card-sub">Linie 21 · Haltestelle Nord</div>
+      <div class="bottom-card-badge">18'</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SUPPORT COMPONENTS ══════════════════════ -->
+<section class="ds-section" id="sec-support-comps">
+  <div class="section-tag">11 — Komponenten</div>
+  <h2 class="section-title">Support-Komponenten</h2>
+  <p class="section-sub">Support-Komponenten rahmen den Anchor und zeigen Kontext. Sie dürfen in Erscheinungsbild variieren, müssen aber die Anchor-Dominanz bewahren.</p>
+
+  <div class="token-type-label">Adapt-Trace Pill (Yellow only)</div>
+  <div class="comp-row">
+    <div class="comp-item">
+      <div class="adapt-trace" style="background:rgba(0,0,0,0.07);border-color:rgba(0,0,0,0.12)">
+        <div class="adapt-dot" style="background:var(--c-yellow)"></div>
+        <span style="font-size:11px;color:var(--ink-2)">Linie 21 +6 Min · Prüfe 491</span>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div style="background:var(--grad-yellow);border-radius:12px;padding:12px 16px">
+        <div class="adapt-trace">
+          <div class="adapt-dot"></div>
+          <span style="font-size:11px;color:var(--t-80)">Linie 21 +6 Min · Prüfe 491</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="token-type-label">Chips (Wizard-Antworten, Chips-Format)</div>
+  <div class="comp-row">
+    <div class="comp-item">
+      <div class="comp-item-label">Normal</div>
+      <div class="chips-row">
+        <div class="chip">Zu Fuß ok</div>
+        <div class="chip on">Mit Kind</div>
+        <div class="chip">Zeitdruck</div>
+      </div>
+    </div>
+    <div class="comp-item">
+      <div class="comp-item-label">Binary Answer Row</div>
+      <div class="binary-row">
+        <div class="binary-opt on">
+          <span>Ja, noch woanders hin</span>
+          <span class="binary-opt-icon">→</span>
+        </div>
+        <div class="binary-opt">
+          <span>Nein, direkt nach Hause</span>
+          <span class="binary-opt-icon">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="token-type-label">Vertical Rail</div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <div style="position:relative;width:24px;height:120px">
+      <div style="position:absolute;left:10px;top:8px;width:1px;height:100px;background:var(--c-blue);opacity:0.3"></div>
+      <div style="position:absolute;left:4px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--c-blue);opacity:0.5"></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink-m);line-height:1.6">
+      Linker Rand-Rail.<br>
+      Breite: 1px · Farbe: State-Farbe @ 20–30% Opazität.<br>
+      Punkt oben: 13px Kreis @ 50% Opazität.<br>
+      Immer von Kopf bis Bottom-Card.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ WIZARD ══════════════════════ -->
+<section class="ds-section" id="sec-wizard">
+  <div class="section-tag">12 — Wizard / Planning</div>
+  <h2 class="section-title">Wizard & Planning</h2>
+  <p class="section-sub">Wizard ist kein Formular. Er ist eine Reihe von Fragen, die alle nach der gleichen CatchIt-Grammatik gebaut sind: eine Frage, niedrige Hürde, klarer Schritt. Papier-Surface (--paper), keine Gradienten — Wizard ist Einrichtung, nicht Betrieb.</p>
+
+  <div class="callout">
+    <strong>Zwei Fragetypen:</strong> Open (w300, 30–34px) für einleitende Kontextfragen. Pragmatic (w500, 26–30px) für operative Kettenfragen. Der Ton unterscheidet sich, der Bau ist identisch.
+  </div>
+
+  <div class="screen-gallery">
+
+    <!-- Open question -->
+    <div class="screen-card">
+      <div class="screen-card-label">Open Question<small>Einleitung · w300 groß</small></div>
+      <div class="phone">
+        <div class="wiz-screen-body">
+          <div class="wiz-step-indicator">
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot"></div>
+            <div class="wiz-step-dot"></div>
+            <div class="wiz-step-dot"></div>
+          </div>
+          <div class="wiz-q-open">Wie sieht dein Tag heute aus?<span class="wiz-q-sub" style="display:block;font-size:13px;color:var(--ink-m);font-weight:400;margin-top:8px">Damit ich weiß, was die Verbindung tragen muss.</span></div>
+          <div class="wiz-chips-block" style="margin-top:24px">
+            <div class="wiz-chip on">Mit Kind</div>
+            <div class="wiz-chip">Zeitdruck</div>
+            <div class="wiz-chip">Entspannt</div>
+            <div class="wiz-chip">Gepäck</div>
+          </div>
+          <button class="wiz-continue">Weiter</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pragmatic question -->
+    <div class="screen-card">
+      <div class="screen-card-label">Pragmatic Question<small>Kette · w500 mittel</small></div>
+      <div class="phone">
+        <div class="wiz-screen-body">
+          <div class="wiz-answered">
+            Heute: <b>Mit Kind · Entspannt</b>
+          </div>
+          <div class="wiz-step-indicator">
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot"></div>
+            <div class="wiz-step-dot"></div>
+          </div>
+          <div class="wiz-q-prag">Nach dem Termin noch woanders hin?</div>
+          <div class="wiz-q-sub" style="font-size:13px;color:var(--ink-m);margin-top:6px;margin-bottom:24px">Damit ich die Kette richtig plane.</div>
+          <div class="wiz-ans-block">
+            <div class="wiz-ans on">
+              <span class="wiz-ans-text">Ja, zur Kita danach</span>
+              <span class="wiz-ans-icon">✓</span>
+            </div>
+            <div class="wiz-ans">
+              <span class="wiz-ans-text">Nein, direkt nach Hause</span>
+              <span class="wiz-ans-icon">→</span>
+            </div>
+          </div>
+          <button class="wiz-continue" style="margin-top:24px">Weiter</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timing step -->
+    <div class="screen-card">
+      <div class="screen-card-label">Timing-Frage<small>Pragmatic mit Zeitkontext</small></div>
+      <div class="phone">
+        <div class="wiz-screen-body">
+          <div class="wiz-answered">
+            Heute: <b>Mit Kind · Kita danach</b>
+          </div>
+          <div class="wiz-step-indicator">
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot on"></div>
+            <div class="wiz-step-dot"></div>
+          </div>
+          <div class="wiz-q-prag">Wann muss die Kita-Abholung sein?</div>
+          <div class="wiz-q-sub" style="font-size:13px;color:var(--ink-m);margin-top:6px;margin-bottom:24px">Späteste Abholzeit damit ich Puffer einplane.</div>
+          <div class="wiz-ans-block">
+            <div class="wiz-ans">
+              <span class="wiz-ans-text">Bis 16:00</span>
+              <span class="wiz-ans-icon">→</span>
+            </div>
+            <div class="wiz-ans">
+              <span class="wiz-ans-text">Bis 16:30</span>
+              <span class="wiz-ans-icon">→</span>
+            </div>
+            <div class="wiz-ans on">
+              <span class="wiz-ans-text">Bis 17:00</span>
+              <span class="wiz-ans-icon">✓</span>
+            </div>
+          </div>
+          <button class="wiz-continue" style="margin-top:16px">Kette speichern</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation step -->
+    <div class="screen-card">
+      <div class="screen-card-label">Wizard-Abschluss<small>Confirmation Anchor</small></div>
+      <div class="phone">
+        <div class="wiz-screen-body" style="justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:16px">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:22px;color:white">✓</div>
+            <div style="font-size:28px;font-weight:400;color:var(--ink);line-height:1.15;letter-spacing:-0.015em">Kette gespeichert.</div>
+            <div style="font-size:14px;color:var(--ink-m);line-height:1.6">Heute: Mit Kind → Ergo → Kita (bis 17:00). Ich behalte das im Blick.</div>
+            <div style="background:rgba(0,0,0,0.04);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;width:100%">
+              <div style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-m);margin-bottom:6px">Deine Kette</div>
+              <div style="font-size:16px;font-weight:500;color:var(--ink)">Kita → Ergo → Kita</div>
+              <div style="font-size:12px;color:var(--ink-m);margin-top:4px">Abholung spätestens 17:00</div>
+            </div>
+            <button class="wiz-continue" style="margin-top:8px">Los geht's</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════ RULES ══════════════════════ -->
+<section class="ds-section" id="sec-rules">
+  <div class="section-tag">13 — Regeln</div>
+  <h2 class="section-title">Anti-Drift & Checkliste</h2>
+  <p class="section-sub">Sieben häufige Regressionsmuster. Jede Designentscheidung muss dagegen geprüft werden.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:36px">
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Transit-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">CatchIt verhält sich wie ein normales Transit-Ergebnis-Tool. Routenlisten, Vergleichstabellen, Provider-Daten als Hauptinhalt.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Map-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Karte wird zum Hauptheld. Map-First Navigation statt Lower Reveal. Anchor tritt gegenüber Karte zurück.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Dashboard-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Mehrere gleichwertige Module nebeneinander. Information Density als Tugend. Keine klare Führungsebene.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Setup-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Planung fühlt sich wie Software-Konfiguration an. Formular-Wizard statt Frage-Grammatik. Transit-Parameter statt Lebensrealität.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Alert-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Recovery fühlt sich wie Warn- und Fehlerzentrale an. Gelb = Warnung statt Anpassung. Rote Ikonographie bei Yellow.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Optimierungs-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">"Beste Route" statt "machbare Option". Speed als primärer Wert. Ranking-UI statt Preference-Shaping.</div>
+    </div>
+    <div style="border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;background:white">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-red);margin-bottom:8px">Persönlichkeits-Regression</div>
+      <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Cathy oder visuelle Freundlichkeit ersetzt semantische Klarheit. Mascot statt Zustandslogik. State-Lesbarkeit ohne Cathy nicht mehr möglich.</div>
+    </div>
+  </div>
+
+  <div class="token-type-label">Checkliste nach jedem Screen</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">①</span>
+      <span>Ist der <strong>Primary Anchor</strong> eindeutig erkennbar — ohne Kontextkenntnis?</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">②</span>
+      <span>Entspricht die <strong>Dichte dem State</strong>? (weniger Masse bei mehr Urgenz)</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">③</span>
+      <span>Klingt die Copy <strong>nicht nach App / Technik / Optimierung</strong>?</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">④</span>
+      <span>Ist der Screen <strong>ohne Cathy vollständig verständlich</strong>?</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">⑤</span>
+      <span>Ist die Karte <strong>nur dann sichtbar</strong>, wenn räumliche Orientierung wirklich nötig ist?</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">⑥</span>
+      <span>Hat der Screen <strong>keine generische Transit / Dashboard / Alert-DNA</strong>?</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--rule);border-radius:10px;font-size:13px">
+      <span style="font-size:16px;margin-top:-1px">⑦</span>
+      <span>Könnte ein ND-Kind den nächsten Schritt <strong>in unter 3 Sekunden</strong> erkennen?</span>
+    </div>
+  </div>
+
+  <hr class="sec-divider"/>
+
+  <div class="token-type-label">Anchor-State-Tabelle (vollständig)</div>
+  <table class="anchor-table">
+    <thead><tr>
+      <th>State / Screen</th>
+      <th>Erwarteter Anchor</th>
+      <th>Wichtig</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Main / Blue / Idle</td><td>Countdown</td><td>Keine Aktion, kein Alarm</td></tr>
+      <tr><td>Main / Green / Ready</td><td>Countdown</td><td>Relevanz steigt, keine Panik</td></tr>
+      <tr><td>Main / Yellow / Adapting</td><td>Countdown + Adapt-Trace</td><td>Gelb ≠ Warnung</td></tr>
+      <tr><td>Main / Orange / Act Now</td><td>Instruction</td><td>Orange ≠ Red-lite</td></tr>
+      <tr><td>Main / Red / Failed</td><td>Failure</td><td>Kurz, hart, ehrlich</td></tr>
+      <tr><td>Map Reveal / Map Focus</td><td>Countdown (Float)</td><td>Karte kommt zu CatchIt</td></tr>
+      <tr><td>Go Mode</td><td>Instruction</td><td>Karte als ausnahmsweise Support</td></tr>
+      <tr><td>Recovery / Simple Switch</td><td>Confirmation</td><td>Abschließend, kein Alert</td></tr>
+      <tr><td>Recovery / Recheck</td><td>Question</td><td>Eine Frage, kein Survey</td></tr>
+      <tr><td>Wizard (alle Steps)</td><td>Question</td><td>Open oder Pragmatic-Ton</td></tr>
+      <tr><td>Wizard-Abschluss</td><td>Confirmation</td><td>Schließt die Einrichtungsphase</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="ds-footer">
+  CatchIt Design System v1 · Destilliert aus CatchIt Design Package + Wireframe-Extraktion v3 · Authoring: Christian / ink & iron glow
+</div>
+
+</main>
+</div>
+
+<script>
+// Simple scroll-to section
+function show(id) {
+  const map = {
+    'tokens': 'sec-tokens',
+    'gradients': 'sec-gradients',
+    'glass': 'sec-glass',
+    'typography': 'sec-typography',
+    'spacing': 'sec-spacing',
+    'states-live': 'sec-states-live',
+    'blue': 'sec-states-live',
+    'green': 'sec-states-live',
+    'yellow': 'sec-states-live',
+    'orange': 'sec-states-live',
+    'red': 'sec-states-live',
+    'map': 'sec-map',
+    'go': 'sec-go',
+    'recovery': 'sec-recovery',
+    'anchor-comps': 'sec-anchor-comps',
+    'support-comps': 'sec-support-comps',
+    'wizard': 'sec-wizard',
+    'rules': 'sec-rules'
+  };
+  const secId = map[id] || ('sec-' + id);
+  const el = document.getElementById(secId);
+  if (el) {
+    document.getElementById('main-content').scrollTo({top: el.offsetTop, behavior:'smooth'});
+  }
+  document.querySelectorAll('.ds-nav a').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.ds-nav a[onclick*="' + id + '"]').forEach(a => a.classList.add('active'));
+}
+
+// Chip toggle demo
+document.querySelectorAll('.chip').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('on'));
+});
+document.querySelectorAll('.wiz-chip').forEach(c => {
+  c.addEventListener('click', () => c.classList.toggle('on'));
+});
+document.querySelectorAll('.binary-opt').forEach(b => {
+  b.addEventListener('click', () => {
+    b.closest('.binary-row')?.querySelectorAll('.binary-opt').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+document.querySelectorAll('.wiz-ans').forEach(b => {
+  b.addEventListener('click', () => {
+    b.closest('.wiz-ans-block')?.querySelectorAll('.wiz-ans').forEach(x => x.classList.remove('on'));
+    b.classList.toggle('on');
+  });
+});
+
+// Set first nav item active
+document.querySelector('.ds-nav a')?.classList.add('active');
+</script>
+</body>
+</html>
