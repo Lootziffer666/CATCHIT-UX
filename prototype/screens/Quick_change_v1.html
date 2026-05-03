@@ -67,70 +67,53 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-8 py-10 z-10">
       <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <!-- Kicker / Headline / Subtitle -->
-    <section class="px-7 z-10 mb-8">
+    <!-- Kicker / Headline -->
+    <section class="px-7 z-10 mb-6">
       <p class="text-[12px] uppercase tracking-[0.16em] text-white/56 font-bold mb-4 leading-none">Quick Change</p>
       <h1 class="font-display text-[40px] leading-[0.96] tracking-[0.01em] max-w-[286px]">Kleine Änderung?</h1>
-      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[296px]">CatchIt kann den Ablauf schnell neu sortieren, ohne die ganze Planung neu aufzubauen.</p>
+      <p class="mt-3 text-[17px] leading-[1.12] text-white/84 font-semibold max-w-[290px]">Schnell umsortieren, nicht neu planen.</p>
     </section>
 
     <!-- Choice stack -->
-    <section class="flex flex-col gap-3.5 px-[18px] z-10 flex-1">
+    <section class="flex flex-col gap-2.5 px-[18px] z-10 flex-1">
 
-      <!-- Choice 1 – Recommended -->
-      <button class="glass-choice glass-choice-recommended rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
-        <div class="flex flex-col gap-1.5 min-w-0">
+      <!-- Choice 1 – Recommended (primary, full) -->
+      <button class="glass-choice glass-choice-recommended rounded-3xl px-4 pt-3.5 pb-3 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col gap-1 min-w-0">
           <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Empfohlen</span>
-          <span class="text-[28px] font-bold leading-none text-white">Snack später</span>
-          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Schule und Rückweg bleiben stabil. Der Zwischenstopp rutscht nach hinten.</span>
+          <span class="text-[26px] font-bold leading-none text-white">Snack später</span>
+          <span class="text-[15px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Schule und Rückweg bleiben stabil.</span>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <span class="text-[22px] font-bold leading-none text-white">+0</span>
-          <span class="text-[14px] font-bold leading-none text-white/84">tragfähig</span>
-        </div>
-      </button>
-
-      <!-- Choice 2 – Alternative -->
-      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
-        <div class="flex flex-col gap-1.5 min-w-0">
-          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Alternative</span>
-          <span class="text-[28px] font-bold leading-none text-white">Späteren Bus nehmen</span>
-          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">Mehr Luft, aber der Rest verschiebt sich leicht nach hinten.</span>
-        </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <span class="text-[22px] font-bold leading-none text-white">+17</span>
-          <span class="text-[14px] font-bold leading-none text-white/84">heute passend</span>
+        <div class="flex flex-col items-end gap-1 whitespace-nowrap">
+          <span class="text-[20px] font-bold leading-none text-white">+0</span>
+          <span class="text-[13px] font-bold leading-none text-white/84">tragfähig</span>
         </div>
       </button>
 
-      <!-- Choice 3 – One-off -->
-      <button class="glass-choice rounded-3xl min-h-[112px] px-4 pt-4 pb-3.5 flex justify-between items-start gap-3.5 text-left cursor-pointer" data-flow="Chain_summary_v1.html">
-        <div class="flex flex-col gap-1.5 min-w-0">
-          <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Nur für heute</span>
-          <span class="text-[28px] font-bold leading-none text-white">Zwischenstopp streichen</span>
-          <span class="text-[16px] leading-[1.08] text-white/84 font-bold max-w-[220px]">CatchIt behandelt den Hauptweg heute als einzige Priorität.</span>
+      <!-- Choice 2 – Alternative (compact) -->
+      <button class="rounded-2xl px-4 py-2.5 flex justify-between items-center gap-3 text-left cursor-pointer hover:bg-white/[0.06] transition-colors" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col min-w-0">
+          <span class="text-[17px] font-bold leading-tight text-white/84">Späteren Bus nehmen</span>
+          <span class="text-[12px] leading-tight text-white/56">Alternative · mehr Luft</span>
         </div>
-        <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-          <span class="text-[22px] font-bold leading-none text-white">1x</span>
-          <span class="text-[14px] font-bold leading-none text-white/84">direkt</span>
+        <span class="text-[15px] font-bold text-white/84 whitespace-nowrap">+17</span>
+      </button>
+
+      <!-- Choice 3 – One-off (compact) -->
+      <button class="rounded-2xl px-4 py-2.5 flex justify-between items-center gap-3 text-left cursor-pointer hover:bg-white/[0.06] transition-colors" data-flow="Chain_summary_v1.html">
+        <div class="flex flex-col min-w-0">
+          <span class="text-[17px] font-bold leading-tight text-white/84">Zwischenstopp streichen</span>
+          <span class="text-[12px] leading-tight text-white/56">Nur für heute</span>
         </div>
+        <span class="text-[15px] font-bold text-white/84 whitespace-nowrap">1x</span>
       </button>
     </section>
 
     <!-- Footer note -->
-    <section class="glass-footer rounded-2xl mx-[18px] mb-[18px] mt-3.5 px-3.5 pt-3 pb-2.5 flex justify-between items-end gap-3 z-10">
-      <div class="flex flex-col gap-1">
-        <span class="text-[10px] uppercase tracking-[0.18em] text-white/56 font-bold leading-none">Wirkung</span>
-        <span class="text-[22px] font-bold leading-none text-white">Tippen sortiert sofort um</span>
-        <span class="text-[15px] leading-[1.1] text-white/84">Kein extra Bestätigen. CatchIt springt direkt in die neue tragfähige Variante.</span>
-      </div>
-      <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
-        <span class="material-symbols-outlined text-[20px]">touch_app</span>
-        <span>1 Tap</span>
-      </div>
+    <section class="mx-[18px] mb-[18px] mt-3 px-1 pt-2 flex justify-between items-center gap-3 z-10">
+      <span class="text-[13px] leading-[1.1] text-white/72 font-bold">Tippen sortiert sofort um — kein extra Bestätigen.</span>
     </section>
   </main>
 <script src="screen-nav.js"></script>

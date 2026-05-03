@@ -73,14 +73,12 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-8 py-10 z-10">
       <span class="material-symbols-outlined text-white text-2xl cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-xl cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <!-- Kicker / Headline / Subtitle -->
+    <!-- Kicker / Headline -->
     <section class="px-7 z-10">
       <p class="text-[12px] font-bold uppercase tracking-[0.16em] text-white/56 mb-4 leading-none">Suche</p>
       <h1 class="font-display text-[38px] leading-[0.96] tracking-[0.01em] max-w-[286px]">Was suchst du?</h1>
-      <p class="mt-3.5 text-[20px] leading-[1.12] text-white/84 font-semibold max-w-[300px]">Freitext reicht. CatchIt sucht schon w&auml;hrend der Eingabe nach Haltestellen und sp&auml;ter auch nach POIs.</p>
     </section>
 
     <!-- Search area -->
@@ -90,10 +88,7 @@
       <div class="grid grid-cols-[1fr_auto] gap-2.5">
         <div class="glass-search rounded-[22px] px-4 py-3.5 flex items-center gap-2.5">
           <span class="material-symbols-outlined text-[24px] text-white/84">search</span>
-          <div class="flex flex-col gap-1 min-w-0">
-            <span class="text-[24px] leading-none font-bold text-white">friedr</span>
-            <span class="text-[16px] leading-[1.1] text-white/84 font-semibold">Suche l&auml;uft w&auml;hrend der Eingabe</span>
-          </div>
+          <span class="text-[24px] leading-none font-bold text-white">friedr</span>
         </div>
         <button class="glass-search rounded-[22px] px-3.5 min-w-[74px] flex items-center justify-center gap-1.5 cursor-pointer text-white font-bold text-[15px] leading-none">
           <span class="material-symbols-outlined text-[20px]">my_location</span>
@@ -101,76 +96,39 @@
         </button>
       </div>
 
-      <!-- Scope card -->
-      <div class="glass-search rounded-[18px] px-3.5 py-3 flex items-end justify-between gap-3">
-        <div class="flex flex-col gap-1">
-          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Suchraum</span>
-          <span class="text-[22px] font-bold leading-none text-white">Haltestellen zuerst</span>
-          <span class="text-[15px] leading-[1.1] text-white/84">Die Struktur bleibt offen f&uuml;r sp&auml;tere POI-Suche im selben Feld.</span>
-        </div>
-        <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
-          <span class="material-symbols-outlined text-[20px]">train</span>
-          <span>POI sp&auml;ter</span>
-        </div>
-      </div>
-
       <!-- Result list -->
-      <div class="grid gap-3">
+      <div class="grid gap-2 mt-1">
 
         <!-- Result 1: Best match (primary) -->
         <div class="glass-result glass-result-primary rounded-[20px] px-4 py-3.5 flex items-start justify-between gap-3 cursor-pointer" data-flow="Chain_summary_v1.html">
           <div class="flex flex-col gap-[5px] min-w-0">
-            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Bester Treffer</span>
             <span class="text-[26px] font-bold leading-none text-white">Friedrich-Ebert-Str.</span>
-            <span class="text-[16px] font-bold leading-[1.1] text-white/84">Haltestelle &middot; Linien 21 und 431 &middot; nah am Startpunkt</span>
+            <span class="text-[15px] font-bold leading-[1.1] text-white/84">Haltestelle &middot; Linien 21, 431</span>
           </div>
-          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-            <span class="text-[22px] font-bold leading-none text-white">220 m</span>
-            <span class="text-[14px] font-bold leading-none text-white/84">3 Min</span>
-          </div>
-        </div>
-
-        <!-- Result 2: Second match -->
-        <div class="glass-result rounded-[20px] px-4 py-3.5 flex items-start justify-between gap-3">
-          <div class="flex flex-col gap-[5px] min-w-0">
-            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Weiterer Treffer</span>
-            <span class="text-[26px] font-bold leading-none text-white">Friedrichplatz</span>
-            <span class="text-[16px] font-bold leading-[1.1] text-white/84">Haltestelle &middot; &auml;hnliche Schreibweise &middot; etwas weiter weg</span>
-          </div>
-          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-            <span class="text-[22px] font-bold leading-none text-white">540 m</span>
-            <span class="text-[14px] font-bold leading-none text-white/84">7 Min</span>
+          <div class="flex flex-col items-end gap-1 whitespace-nowrap">
+            <span class="text-[20px] font-bold leading-none text-white">220 m</span>
+            <span class="text-[13px] font-bold leading-none text-white/84">3 Min</span>
           </div>
         </div>
 
-        <!-- Result 3: POI later -->
-        <div class="glass-result rounded-[20px] px-4 py-3.5 flex items-start justify-between gap-3">
-          <div class="flex flex-col gap-[5px] min-w-0">
-            <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Sp&auml;ter auch POI</span>
-            <span class="text-[26px] font-bold leading-none text-white">Markt</span>
-            <span class="text-[16px] font-bold leading-[1.1] text-white/84">Ort/POI &middot; kann sp&auml;ter &uuml;ber dieselbe Suche erreichbar sein</span>
+        <!-- Result 2: Second match (compact) -->
+        <div class="rounded-[16px] px-4 py-2.5 flex items-center justify-between gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="text-[19px] font-bold leading-tight text-white/84">Friedrichplatz</span>
+            <span class="text-[13px] leading-tight text-white/56">Haltestelle</span>
           </div>
-          <div class="flex flex-col items-end gap-1.5 whitespace-nowrap">
-            <span class="text-[22px] font-bold leading-none text-white">620 m</span>
-            <span class="text-[14px] font-bold leading-none text-white/84">8 Min</span>
-          </div>
+          <span class="text-[15px] font-bold text-white/84 whitespace-nowrap">540 m</span>
         </div>
 
-      </div>
-    </section>
+        <!-- Result 3 (compact) -->
+        <div class="rounded-[16px] px-4 py-2.5 flex items-center justify-between gap-3">
+          <div class="flex flex-col min-w-0">
+            <span class="text-[19px] font-bold leading-tight text-white/84">Markt</span>
+            <span class="text-[13px] leading-tight text-white/56">Ort</span>
+          </div>
+          <span class="text-[15px] font-bold text-white/84 whitespace-nowrap">620 m</span>
+        </div>
 
-    <!-- Footer -->
-    <section class="px-[18px] pt-3 pb-[18px] z-10">
-      <div class="glass-footer rounded-[18px] px-3.5 py-3 flex items-end justify-between gap-3">
-        <div class="flex flex-col gap-1">
-          <span class="text-[10px] font-bold uppercase tracking-[0.18em] text-white/56 leading-none">Interaktion</span>
-          <span class="text-[22px] font-bold leading-none text-white">Tippen &uuml;bernimmt sofort</span>
-          <span class="text-[15px] leading-[1.1] text-white/84">Freitext, Live-Vorschl&auml;ge und Standortbutton greifen in denselben Suchfluss.</span>
-        </div>
-        <div class="flex items-center gap-1.5 text-[18px] font-bold text-white whitespace-nowrap">
-          <span class="material-symbols-outlined text-[20px]">touch_app</span>
-          <span>1 Tap</span>
-        </div>
       </div>
     </section>
   </main>

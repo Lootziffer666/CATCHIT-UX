@@ -124,24 +124,19 @@
     <!-- Header -->
     <header class="w-full flex items-center justify-between px-6 pt-7 pb-4 z-10">
       <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
-      <span class="material-symbols-outlined text-white text-[28px] cursor-pointer hover:opacity-80 transition-opacity">more_vert</span>
     </header>
 
-    <!-- Top row: line switchers + time bubble -->
-    <section class="flex items-start justify-between px-[18px] pt-4 pb-2 z-10">
-      <div class="flex items-center gap-2 pt-1.5">
-        <button class="glass-switcher rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body" data-line="491">
-          <span class="block text-lg leading-none font-bold">491</span>
-          <span class="block mt-1 text-xs leading-none text-white/[0.76]">+2</span>
+    <!-- Top row: active line + time bubble; alternatives as tiny side info -->
+    <section class="flex items-center justify-between px-[22px] pt-3 pb-3 z-10">
+      <div class="flex flex-col gap-1.5">
+        <button class="glass-switcher active rounded-full px-3.5 py-2 inline-flex items-baseline gap-2 text-white cursor-pointer font-body self-start" data-line="21">
+          <span class="text-[22px] leading-none font-bold">21</span>
+          <span class="text-[13px] leading-none text-white/[0.76] font-bold">+0</span>
         </button>
-        <button class="glass-switcher active rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body" data-line="21">
-          <span class="block text-lg leading-none font-bold">21</span>
-          <span class="block mt-1 text-xs leading-none text-white/[0.76]">+0</span>
-        </button>
-        <button class="glass-switcher rounded-full px-3 py-2 min-w-[54px] text-white font-bold text-xs leading-none cursor-pointer font-body delay-warm" data-line="295">
-          <span class="block text-lg leading-none font-bold">295</span>
-          <span class="block mt-1 text-xs leading-none text-[#F3C86A]">+17</span>
-        </button>
+        <div class="inline-flex items-center gap-3 pl-1 text-[12px] leading-none text-white/[0.66] font-bold">
+          <button class="cursor-pointer hover:text-white transition-colors" data-line="491">491 +2</button>
+          <button class="cursor-pointer hover:text-[#F3C86A] transition-colors" data-line="295"><span class="text-[#F3C86A]">295 +17</span></button>
+        </div>
       </div>
 
       <div class="glass-bubble w-[90px] h-[90px] rounded-full flex flex-col items-center justify-center flex-shrink-0">
@@ -149,11 +144,6 @@
         <span class="mt-1 text-xs leading-none uppercase tracking-[0.18em] text-white/[0.82] font-bold">min</span>
       </div>
     </section>
-
-    <!-- Context line -->
-    <div class="px-[22px] pb-3 z-10">
-      <span class="text-xs leading-none uppercase tracking-[0.16em] text-white/[0.82] font-bold">Approaching Central St.</span>
-    </div>
 
     <!-- Map card (flex-grow to fill available space) -->
     <section class="glass-map rounded-[28px] mx-[18px] flex-grow overflow-hidden relative z-10 mb-[108px]">
@@ -201,21 +191,21 @@
     </section>
 
     <!-- Info strip -->
-    <section class="glass-info rounded-[18px] mx-[18px] px-3.5 py-3 pb-[11px] flex items-end justify-between gap-3.5 absolute left-0 right-0 bottom-[18px] z-20" data-flow="GoMode_walk_to_stop_v1.html">
-      <div class="flex flex-col gap-1">
-        <span class="text-[10px] leading-none uppercase tracking-[0.18em] text-white/[0.56] font-bold">Haltestelle</span>
-        <span class="text-[26px] leading-none font-bold text-white" id="stopValue">Central St.</span>
-        <span class="text-base leading-tight text-white/[0.82]" id="stopSub">Linie 21 aktiv · direkt erreichbar</span>
+    <section class="glass-info rounded-[18px] mx-[18px] px-3.5 py-3 flex items-center justify-between gap-3 absolute left-0 right-0 bottom-[18px] z-20 cursor-pointer" data-flow="GoMode_walk_to_stop_v1.html">
+      <div class="flex flex-col gap-0.5">
+        <span class="text-[24px] leading-none font-bold text-white" id="stopValue">Central St.</span>
+        <span class="text-[14px] leading-tight text-white/[0.72]" id="stopSub">Linie 21 · direkt</span>
       </div>
-      <div class="flex items-center gap-1.5 text-xl leading-none font-bold text-white whitespace-nowrap">
-        <span class="material-symbols-outlined text-xl">directions_walk</span>
+      <div class="flex items-center gap-1.5 text-[18px] leading-none font-bold text-white whitespace-nowrap">
+        <span class="material-symbols-outlined text-[18px]">directions_walk</span>
         <span id="chipTime">6 Min</span>
       </div>
     </section>
   </main>
 
   <script>
-    const buttons = document.querySelectorAll('.glass-switcher');
+    const buttons = document.querySelectorAll('[data-line]');
+    const activeBtn = document.querySelector('.glass-switcher.active');
     const routePath = document.getElementById('routePath');
     const startDot = document.getElementById('startDot');
     const endDot = document.getElementById('endDot');
@@ -226,29 +216,15 @@
     const chipTime = document.getElementById('chipTime');
 
     const lineData = {
-      "491": {
-        path: "M 296 470 C 278 454 252 438 228 414 C 204 390 182 360 176 324 C 169 286 178 248 196 212 C 216 174 242 142 274 112",
-        sx: 296, sy: 470, ex: 274, ey: 112,
-        walk: "380 Meters", time: "5 Min",
-        stop: "Amselweg", sub: "Linie 491 · schnell erreichbar"
-      },
-      "21": {
-        path: "M 296 470 C 274 458 245 442 220 430 C 194 418 166 403 148 380 C 126 352 118 316 120 282 C 123 248 142 214 168 182 C 196 148 228 122 256 96",
-        sx: 296, sy: 470, ex: 256, ey: 96,
-        walk: "450 Meters", time: "6 Min",
-        stop: "Central St.", sub: "Linie 21 aktiv · direkt erreichbar"
-      },
-      "295": {
-        path: "M 296 470 C 278 460 252 446 228 438 C 198 428 172 414 154 392 C 130 362 120 326 122 286 C 124 244 142 198 178 150 C 214 112 254 94 304 88",
-        sx: 296, sy: 470, ex: 304, ey: 88,
-        walk: "520 Meters", time: "7 Min",
-        stop: "Market", sub: "Linie 295 · durch +17 passend"
-      }
+      "491": { path: "M 296 470 C 278 454 252 438 228 414 C 204 390 182 360 176 324 C 169 286 178 248 196 212 C 216 174 242 142 274 112", sx: 296, sy: 470, ex: 274, ey: 112, walk: "380 Meters", time: "5 Min", stop: "Amselweg", sub: "Linie 491 · +2", delay: "+2" },
+      "21":  { path: "M 296 470 C 274 458 245 442 220 430 C 194 418 166 403 148 380 C 126 352 118 316 120 282 C 123 248 142 214 168 182 C 196 148 228 122 256 96",  sx: 296, sy: 470, ex: 256, ey: 96,  walk: "450 Meters", time: "6 Min", stop: "Central St.", sub: "Linie 21 · direkt", delay: "+0" },
+      "295": { path: "M 296 470 C 278 460 252 446 228 438 C 198 428 172 414 154 392 C 130 362 120 326 122 286 C 124 244 142 198 178 150 C 214 112 254 94 304 88",  sx: 296, sy: 470, ex: 304, ey: 88,  walk: "520 Meters", time: "7 Min", stop: "Market", sub: "Linie 295 · +17", delay: "+17" }
     };
 
     function setLine(line){
-      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.line === line));
       const d = lineData[line];
+      activeBtn.dataset.line = line;
+      activeBtn.innerHTML = '<span class="text-[22px] leading-none font-bold">' + line + '</span><span class="text-[13px] leading-none text-white/[0.76] font-bold">' + d.delay + '</span>';
       routePath.setAttribute('d', d.path);
       startDot.setAttribute('cx', d.sx);
       startDot.setAttribute('cy', d.sy);
@@ -261,7 +237,7 @@
       stopSub.textContent = d.sub;
     }
 
-    buttons.forEach(btn => btn.addEventListener('click', () => setLine(btn.dataset.line)));
+    buttons.forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); setLine(btn.dataset.line); }));
     setLine('21');
   </script>
   <script src="screen-nav.js"></script>
